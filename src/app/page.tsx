@@ -10,9 +10,16 @@ import Footer from "./components/Footer";
 import { useVideoDeviceList } from "./Hooks/useVideoDeviceList";
 
 export default function Home() {
+  //hooks=======================================>
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const { devices } = useVideoDeviceList();
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
+  //ここにvideo,image,canvasの文字列でモードを分ける
+  const [mode, setMode] = useState("");
+  const [image, setImage] = useState("");
+
+  //<==================================hooks
   const getDevice =
     devices &&
     selectedDevice &&
@@ -35,26 +42,39 @@ export default function Home() {
         .catch((err) => {
           console.error("Error", err);
         });
-  }, [getDevice, selectedDevice]);
+  }, [getDevice, selectedDevice, mode]);
 
+  //カメラデータの取得
   useEffect(() => {
     if (devices && devices.length > 0) {
       // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
       setSelectedDevice(devices[0].deviceId);
+      setMode("video");
     }
   }, [devices]);
-
   return (
     <main>
       <Header devices={devices} setSelectedDevice={setSelectedDevice} />
       <Container>
         <Wrapper>
-          <MainImageDisplay videoRef={videoRef} />
+          <MainImageDisplay
+            videoRef={videoRef}
+            canvasRef={canvasRef}
+            mode={mode}
+            setMode={setMode}
+            image={image}
+            setImage={setImage}
+          />
           <AICountContent />
           <FixedCountContent />
         </Wrapper>
       </Container>
-      <Footer />
+      <Footer
+        videoRef={videoRef}
+        mode={mode}
+        setMode={setMode}
+        setImage={setImage}
+      />
     </main>
   );
 }

@@ -1,7 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
-import { FaRotate } from "react-icons/fa6";
-import { useVideoDeviceList } from "../Hooks/useVideoDeviceList";
+import React from "react";
 
 type Props = {
   devices: MediaDeviceInfo[];
