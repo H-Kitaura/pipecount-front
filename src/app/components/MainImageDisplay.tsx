@@ -22,7 +22,7 @@ const MainImageDisplay = ({
 }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center my-8">
-      <div className="h-[400px] w-[400px] border shadow-md flex items-center justify-center">
+      <div className="h-[400px]a w-[400px]a border shadow-md flex items-center justify-center">
         {mode === "video" && <VideoView videoRef={videoRef} />}
         {mode === "image" && (
           <ImageView image={image} setImage={setImage} setMode={setMode} />
