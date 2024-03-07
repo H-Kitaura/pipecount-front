@@ -29,7 +29,7 @@ const CanvasView = ({ canvasRef, image }: Props) => {
     draw();
   }, [canvasRef, image]);
 
-  return <canvas ref={canvasRef} width={400} height={300}></canvas>;
+  return <canvas ref={canvasRef} width={373} height={279}></canvas>;
 };
 
 export default CanvasView;
