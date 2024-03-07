@@ -7,17 +7,22 @@ type Props = {
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
+  size: any;
 };
 
-const PhotoViewButton = ({ videoRef, setImage, mode, setMode }: Props) => {
+const PhotoViewButton = ({
+  videoRef,
+  setImage,
+  mode,
+  setMode,
+  size,
+}: Props) => {
   const handlePhotoShot = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
     if (!video || !canvas) return;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    console.log(video.videoWidth, video.videoHeight);
-
+    canvas.width = size.width;
+    canvas.height = size.height;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);

@@ -35,6 +35,7 @@ const VideoView = ({ videoRef, setImage, mode, setMode, size }: Props) => {
         setImage={setImage}
         mode={mode}
         setMode={setMode}
+        size={size}
       />
     </div>
   );

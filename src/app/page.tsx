@@ -29,17 +29,7 @@ export default function Home() {
     devices.find((v) => v.label === selectedDevice);
 
   useEffect(() => {
-    const videoElement = videoRef.current;
-    if (!videoElement) return;
-
-    const handleLoadedMetadata = () => {
-      const videoWidth = videoElement.videoWidth;
-      const videoHeight = videoElement.videoHeight;
-      setSize({ width: videoWidth, height: videoHeight });
-    };
-
-    videoElement.addEventListener("loadedmetadata", handleLoadedMetadata);
-
+    // カメラ情報が取得できない場合はフロントカメラを利用する
     const constraints = getDevice
       ? { video: { deviceId: getDevice.deviceId } }
       : { video: { facingMode: "user" } };
@@ -55,11 +45,7 @@ export default function Home() {
         .catch((err) => {
           console.error("Error", err);
         });
-
-    return () => {
-      videoElement.removeEventListener("loadedmetadata", handleLoadedMetadata);
-    };
-  }, [getDevice, selectedDevice, mode]);
+  }, [getDevice, selectedDevice, mode, size]);
 
   //カメラデータの取得
   useEffect(() => {
