@@ -37,10 +37,12 @@ export default function Home() {
         });
   }, [getDevice, selectedDevice]);
 
-  // useEffect(() => {
-  //   // 利用デバイスの初期設定
-  //   devices && devices?.[0] && setSelectedDevice(devices[0]);
-  // }, [devices]);
+  useEffect(() => {
+    if (devices && devices.length > 0) {
+      // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
+      setSelectedDevice(devices[0].deviceId);
+    }
+  }, [devices]);
 
   return (
     <main>
