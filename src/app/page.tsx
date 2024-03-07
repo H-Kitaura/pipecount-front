@@ -40,6 +40,7 @@ export default function Home() {
         .then((stream) => {
           if (videoRef?.current) {
             videoRef.current.srcObject = stream;
+            updateVideoSize();
           }
         })
         .catch((err) => {
