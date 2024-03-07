@@ -19,7 +19,8 @@ const ImageView = ({ image, setImage, setMode }: Props) => {
 
   return (
     <div className="">
-      <img src={image} alt="image" className="w-[400px] h-[300px]" />
+      {/* <img src={image} alt="image" className="w-[400px] h-[300px]" /> */}
+      <img src={image} alt="image" />
       <div className="flex items-center justify-center space-x-4 mt-2">
         <button onClick={handleImage} className={`${style.buttonLayout} px-2 `}>
           送信

@@ -17,7 +17,8 @@ const CanvasView = ({ canvasRef, image }: Props) => {
     const canvasImage = new Image();
     canvasImage.onload = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(canvasImage, 0, 0, 400, 300);
+      // ctx.drawImage(canvasImage, 0, 0, 400, 300);
+      ctx.drawImage(canvasImage, 0, 0, canvas.width, canvas.height);
     };
     canvasImage.src = image;
   };

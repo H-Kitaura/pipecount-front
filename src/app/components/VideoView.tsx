@@ -6,7 +6,8 @@ type Props = {
 
 const VideoView = ({ videoRef }: Props) => {
   return (
-    <video ref={videoRef} width={400} height={300} autoPlay muted playsInline />
+    // <video ref={videoRef} width={400} height={300} autoPlay muted playsInline />
+    <video ref={videoRef} autoPlay muted playsInline />
   );
 };
 
