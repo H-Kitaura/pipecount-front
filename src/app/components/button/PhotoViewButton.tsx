@@ -9,7 +9,7 @@ type Props = {
   setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const PhotoButton = ({ videoRef, setImage, mode, setMode }: Props) => {
+const PhotoViewButton = ({ videoRef, setImage, mode, setMode }: Props) => {
   const handlePhotoShot = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
@@ -28,11 +28,18 @@ const PhotoButton = ({ videoRef, setImage, mode, setMode }: Props) => {
 
   return (
     <>
-      {mode === "canvas" && (
+      {mode === "video" ? (
+        <button
+          onClick={handlePhotoShot}
+          className="rounded-full h-12 w-12 border-4 border-white shadow-md m-4 relative"
+        >
+          <span className="bg-white h-9 w-9 rounded-full absolute top-[2px] bottom-0 left-[2px] right-0"></span>
+        </button>
+      ) : (
         <RetakephotoButton setMode={setMode} setImage={setImage} />
       )}
     </>
   );
 };
 
-export default PhotoButton;
+export default PhotoViewButton;
