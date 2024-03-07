@@ -18,6 +18,8 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
+  console.log(selectedDevice);
+  console.log(devices);
 
   //<==================================hooks
   const getDevice =
