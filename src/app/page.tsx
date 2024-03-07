@@ -38,14 +38,21 @@ export default function Home() {
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then((stream) => {
-          if (videoRef?.current) {
-            videoRef.current.srcObject = stream;
+          const videoElement = videoRef.current;
+          if (videoElement) {
+            videoElement.srcObject = stream;
+            videoElement.onloadedmetadata = () => {
+              setSize({
+                width: videoElement.videoWidth,
+                height: videoElement.videoHeight,
+              });
+            };
           }
         })
         .catch((err) => {
           console.error("Error", err);
         });
-  }, [getDevice, selectedDevice, mode, size]);
+  }, [getDevice, selectedDevice, mode]);
 
   //カメラデータの取得
   useEffect(() => {
@@ -64,6 +71,8 @@ export default function Home() {
     }
   };
   console.log(size);
+  console.log("洗濯中のデバイス", selectedDevice);
+  console.log("デバイスたち", devices);
 
   return (
     <main>
