@@ -4,9 +4,10 @@ type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   videoRef: React.RefObject<HTMLVideoElement>;
   image: string;
+  size: any;
 };
 
-const CanvasView = ({ canvasRef, image }: Props) => {
+const CanvasView = ({ canvasRef, image, size }: Props) => {
   const draw = () => {
     const canvas = canvasRef.current;
 
@@ -16,9 +17,9 @@ const CanvasView = ({ canvasRef, image }: Props) => {
 
     const canvasImage = new Image();
     canvasImage.onload = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, size.width, size.height);
       // ctx.drawImage(canvasImage, 0, 0, 400, 300);
-      ctx.drawImage(canvasImage, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
     };
     canvasImage.src = image;
   };
@@ -29,7 +30,9 @@ const CanvasView = ({ canvasRef, image }: Props) => {
     draw();
   }, [canvasRef, image]);
 
-  return <canvas ref={canvasRef} width={373} height={279}></canvas>;
+  return (
+    <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
+  );
 };
 
 export default CanvasView;

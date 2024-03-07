@@ -18,9 +18,10 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
-  console.log(selectedDevice);
-  console.log(devices);
-
+  const [size, setSize] = useState({
+    width: 400,
+    height: 300,
+  });
   //<==================================hooks
   const getDevice =
     devices &&
@@ -52,8 +53,19 @@ export default function Home() {
       // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
       setSelectedDevice(devices[0].deviceId);
       setMode("video");
+      updateVideoSize();
     }
   }, [devices]);
+  // ビデオ要素の参照またはカメラストリームからサイズを取得
+  const updateVideoSize = () => {
+    const videoWidth = videoRef.current?.videoWidth;
+    const videoHeight = videoRef.current?.videoHeight;
+    if (videoWidth && videoHeight) {
+      setSize({ width: videoWidth, height: videoHeight });
+    }
+  };
+  console.log(size);
+
   return (
     <main>
       <Header devices={devices} setSelectedDevice={setSelectedDevice} />
@@ -66,6 +78,7 @@ export default function Home() {
             setMode={setMode}
             image={image}
             setImage={setImage}
+            size={size}
           />
           <AICountContent />
           <FixedCountContent />

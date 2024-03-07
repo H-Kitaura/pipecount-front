@@ -10,6 +10,7 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
+  size: any;
 };
 
 const MainImageDisplay = ({
@@ -19,6 +20,7 @@ const MainImageDisplay = ({
   setMode,
   image,
   setImage,
+  size,
 }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center my-8">
@@ -29,13 +31,24 @@ const MainImageDisplay = ({
             setImage={setImage}
             mode={mode}
             setMode={setMode}
+            size={size}
           />
         )}
         {mode === "image" && (
-          <ImageView image={image} setImage={setImage} setMode={setMode} />
+          <ImageView
+            image={image}
+            setImage={setImage}
+            setMode={setMode}
+            size={size}
+          />
         )}
         {mode === "canvas" && (
-          <CanvasView videoRef={videoRef} canvasRef={canvasRef} image={image} />
+          <CanvasView
+            videoRef={videoRef}
+            canvasRef={canvasRef}
+            image={image}
+            size={size}
+          />
         )}
       </div>
     </div>

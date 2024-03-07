@@ -7,9 +7,10 @@ type Props = {
   setImage: React.Dispatch<React.SetStateAction<string>>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
+  size: any;
 };
 
-const VideoView = ({ videoRef, setImage, mode, setMode }: Props) => {
+const VideoView = ({ videoRef, setImage, mode, setMode, size }: Props) => {
   return (
     <div className="flex items-center justify-center flex-col">
       {/* <video
@@ -23,6 +24,8 @@ const VideoView = ({ videoRef, setImage, mode, setMode }: Props) => {
       <video
         ref={videoRef}
         className="flex items-center justify-center"
+        width={size.width}
+        height={size.height}
         autoPlay
         muted
         playsInline
