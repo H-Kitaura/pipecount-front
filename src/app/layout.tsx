@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="jp">
-      <body className={`${inter.className} bg-slate-50 pt-2 pb-4`}>
+      <body className={`${inter.className} bg-slate-50 pt-2 pb-8`}>
         {children}
       </body>
     </html>

@@ -13,7 +13,7 @@ type Props = {
 
 const Footer = ({ videoRef, mode, setMode, setImage }: Props) => {
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex items-center justify-center w-full pt-4">
       <PhotoButton
         videoRef={videoRef}
         mode={mode}

@@ -19,9 +19,11 @@ export default function Home() {
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
   const [size, setSize] = useState({
-    width: 400,
-    height: 300,
+    width: 300,
+    height: 400,
   });
+
+  const [countData, setCountData] = useState(10);
   //<==================================hooks
   const getDevice =
     devices &&
@@ -38,21 +40,14 @@ export default function Home() {
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then((stream) => {
-          const videoElement = videoRef.current;
-          if (videoElement) {
-            videoElement.srcObject = stream;
-            videoElement.onloadedmetadata = () => {
-              setSize({
-                width: videoElement.videoWidth,
-                height: videoElement.videoHeight,
-              });
-            };
+          if (videoRef?.current) {
+            videoRef.current.srcObject = stream;
           }
         })
         .catch((err) => {
           console.error("Error", err);
         });
-  }, [getDevice, selectedDevice, mode]);
+  }, [getDevice, selectedDevice, mode, size]);
 
   //カメラデータの取得
   useEffect(() => {
@@ -88,8 +83,11 @@ export default function Home() {
             setImage={setImage}
             size={size}
           />
-          <AICountContent />
-          <FixedCountContent />
+          <AICountContent countData={countData} />
+          <FixedCountContent
+            countData={countData}
+            setCountData={setCountData}
+          />
         </Wrapper>
       </Container>
       <Footer
