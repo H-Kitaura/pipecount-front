@@ -51,6 +51,7 @@ export default function Home() {
         }
       } catch (err) {
         console.error("Error", err);
+        alert("認証できませんでした。");
         // エラー処理、ユーザーにフィードバックを提供する
       }
     };
