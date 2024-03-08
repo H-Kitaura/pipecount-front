@@ -5,10 +5,10 @@ type Props = {
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  size: any;
+  // size: any;
 };
 
-const ImageView = ({ image, setImage, setMode, size }: Props) => {
+const ImageView = ({ image, setImage, setMode }: Props) => {
   const handleImage = () => {
     //ここでapi送信
     setMode("canvas");

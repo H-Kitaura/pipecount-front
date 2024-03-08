@@ -5,7 +5,7 @@ type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   videoRef: React.RefObject<HTMLVideoElement>;
   image: string;
-  size: any;
+  // size: any;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   points: any;
@@ -16,7 +16,7 @@ type Props = {
 const CanvasView = ({
   canvasRef,
   image,
-  size,
+  // size,
   cordinatesDisplay,
   setCordinatesDisplay,
   points,
@@ -64,8 +64,8 @@ const CanvasView = ({
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
       canvasImage.onload = () => {
-        ctx.clearRect(0, 0, size.width, size.height);
-        ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        ctx.drawImage(canvasImage, 0, 0, window.innerWidth, window.innerHeight);
         resolve(true);
       };
       canvasImage.onerror = reject;
@@ -143,7 +143,11 @@ const CanvasView = ({
   return (
     // <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
     <div className="h-full w-full flex items-center justify-center flex-col mt-8 mb-8">
-      <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
+      <canvas
+        ref={canvasRef}
+        width={window.innerWidth}
+        height={window.innerHeight}
+      ></canvas>
     </div>
   );
 };

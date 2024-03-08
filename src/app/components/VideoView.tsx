@@ -7,8 +7,8 @@ type Props = {
   setImage: React.Dispatch<React.SetStateAction<string>>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  size: any;
-  setSize: React.Dispatch<React.SetStateAction<any>>;
+  // size: any;
+  // setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const VideoView = ({
@@ -16,9 +16,9 @@ const VideoView = ({
   setImage,
   mode,
   setMode,
-  size,
-  setSize,
-}: Props) => {
+}: // size,
+// setSize,
+Props) => {
   return (
     <div className="h-full w-full flex items-center justify-center flex-col mt-8">
       {/* <video
@@ -42,8 +42,8 @@ const VideoView = ({
         setImage={setImage}
         mode={mode}
         setMode={setMode}
-        size={size}
-        setSize={setSize}
+        // size={size}
+        // setSize={setSize}
       />
     </div>
   );

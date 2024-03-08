@@ -23,10 +23,10 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
-  const [size, setSize] = useState({
-    width: 225,
-    height: 300,
-  });
+  // const [size, setSize] = useState({
+  //   width: 225,
+  //   height: 300,
+  // });
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
@@ -99,7 +99,7 @@ export default function Home() {
     }
   }, [devices]);
 
-  console.log(size);
+  // console.log(size);
 
   return (
     <main>
@@ -126,8 +126,8 @@ export default function Home() {
             setMode={setMode}
             image={image}
             setImage={setImage}
-            size={size}
-            setSize={setSize}
+            // size={size}
+            // setSize={setSize}
             cordinatesDisplay={cordinatesDisplay}
             setCordinatesDisplay={setCordinatesDisplay}
             points={points}
