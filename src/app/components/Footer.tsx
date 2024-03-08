@@ -9,20 +9,36 @@ type Props = {
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
+  points: any;
+  setPoints: React.Dispatch<React.SetStateAction<any>>;
+  setTotalCounts: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
-const Footer = ({ videoRef, mode, setMode, setImage }: Props) => {
+const Footer = ({
+  videoRef,
+  mode,
+  setMode,
+  setImage,
+  points,
+  setPoints,
+  setTotalCounts,
+}: Props) => {
   return (
-    <div className="flex items-center justify-center w-full pt-4">
+    <div className="flex items-center justify-center w-full pt-4 space-x-4">
       <PhotoButton
         videoRef={videoRef}
         mode={mode}
         setMode={setMode}
         setImage={setImage}
       />
-      {/* <PrevButton /> */}
-      {/* <NextButton /> */}
-      <ReportButton />
+      {mode === "canvas" && (
+        <ReportButton
+          setMode={setMode}
+          points={points}
+          setPoints={setPoints}
+          setTotalCounts={setTotalCounts}
+        />
+      )}
     </div>
   );
 };

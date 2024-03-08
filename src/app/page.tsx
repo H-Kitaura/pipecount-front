@@ -30,6 +30,7 @@ export default function Home() {
   });
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
+  const [totalCounts, setTotalCounts] = useState<number[]>([]);
 
   //<==================================hooks
   const getDevice =
@@ -79,9 +80,6 @@ export default function Home() {
       setMode("video");
     }
   }, [devices, size]);
-  console.log(size);
-  console.log("洗濯中のデバイス", selectedDevice);
-  console.log("デバイスたち", devices);
 
   return (
     <main>
@@ -116,6 +114,20 @@ export default function Home() {
               points={points}
               setPoints={setPoints}
             /> */}
+            <div className="">
+              <p className="text-center">現在までのカウント</p>
+              <div className="flex items-center justify-center space-x-2">
+                {totalCounts.map((count, index) => (
+                  <p className="" key={index}>
+                    {index + 1}:{count}
+                  </p>
+                ))}
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <p className="">トータル数</p>
+                {totalCounts.reduce((a, b) => a + b, 0)}
+              </div>
+            </div>
           </>
         </Wrapper>
       </Container>
@@ -124,6 +136,9 @@ export default function Home() {
         mode={mode}
         setMode={setMode}
         setImage={setImage}
+        points={points}
+        setPoints={setPoints}
+        setTotalCounts={setTotalCounts}
       />
     </main>
   );
