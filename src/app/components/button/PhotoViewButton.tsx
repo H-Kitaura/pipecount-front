@@ -75,7 +75,7 @@ Props) => {
       {mode === "video" ? (
         <button
           onClick={handlePhotoShot}
-          className="rounded-full h-12 w-12 border-4 border-white shadow-md m-4 relative"
+          className="rounded-full h-12 w-12 border-4 border-white shadow-md m-4 absolute bottom-0"
         >
           <span className="bg-white h-9 w-9 rounded-full absolute top-[2px] bottom-0 left-[2px] right-0"></span>
         </button>
