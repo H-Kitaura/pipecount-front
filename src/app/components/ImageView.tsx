@@ -21,7 +21,7 @@ const ImageView = ({ image, setImage, setMode, size }: Props) => {
   return (
     <div className="h-full w-full flex items-center justify-center flex-col mt-8">
       {/* <img src={image} alt="image" className="w-[400px] h-[300px]" /> */}
-      <img src={image} width={size.width} height={size.height} alt="image" />
+      <img src={image} alt="image" />
       <div className="flex items-center justify-center space-x-4 my-4">
         <button
           onClick={handleImage}

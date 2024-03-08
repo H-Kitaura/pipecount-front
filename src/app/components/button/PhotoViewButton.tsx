@@ -8,6 +8,7 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   size: any;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const PhotoViewButton = ({
@@ -16,21 +17,59 @@ const PhotoViewButton = ({
   mode,
   setMode,
   size,
+  setSize,
 }: Props) => {
+  // const handlePhotoShot = () => {
+  //   const video = videoRef.current;
+  //   const canvas = document.createElement("canvas");
+  //   if (!video || !canvas) return;
+  //   canvas.width = size.width;
+  //   canvas.height = size.height;
+  //   const ctx = canvas.getContext("2d");
+  //   if (!ctx) return;
+  //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  //   const imageData = canvas.toDataURL("image/png");
+  //   setImage(imageData);
+  //   setSize({
+  //     width: canvas.width,
+  //     height: canvas.height,
+  //   });
+  //   setMode("image");
+  // };
   const handlePhotoShot = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
     if (!video || !canvas) return;
-    canvas.width = size.width;
-    canvas.height = size.height;
+
+    // ビデオの幅と高さを取得
+    const videoWidth = video.videoWidth;
+    const videoHeight = video.videoHeight;
+
+    // スマホの画面サイズを取得
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    // canvasのサイズをスマホの画面サイズに合わせる
+    const targetWidth = screenWidth;
+    const targetHeight = screenHeight;
+
+    canvas.width = targetWidth;
+    canvas.height = targetHeight;
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // ビデオの幅と高さを指定して描画
+    ctx.drawImage(video, 0, 0, screenWidth, screenHeight);
+
     const imageData = canvas.toDataURL("image/png");
     setImage(imageData);
+    setSize({
+      width: screenWidth,
+      height: screenHeight,
+    });
     setMode("image");
   };
-
   return (
     <>
       {mode === "video" ? (

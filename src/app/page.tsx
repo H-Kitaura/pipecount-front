@@ -43,38 +43,38 @@ export default function Home() {
       try {
         // カメラ情報が取得できない場合はフロントカメラを利用する
         const constraints = getDevice
-          ? //   ? {
-            //     audio: false,
-            //     video: {
-            //       deviceId: getDevice.deviceId,
-            //       width: { ideal: 1280 },
-            //       height: { ideal: 720 },
-            //     },
-            //   }
-            // : {
-            //     audio: false,
-            //     video: {
-            //       facingMode: "user",
-            //       width: { ideal: 1280 },
-            //       height: { ideal: 720 },
-            //     },
-            //   };
-            {
+          ? {
               audio: false,
               video: {
                 deviceId: getDevice.deviceId,
-                width: { ideal: 225 },
-                height: { ideal: 300 },
+                width: { ideal: window.innerWidth },
+                height: { ideal: window.innerHeight },
               },
             }
           : {
               audio: false,
               video: {
                 facingMode: "user",
-                width: { ideal: 225 },
-                height: { ideal: 300 },
+                width: { ideal: window.innerWidth },
+                height: { ideal: window.innerHeight },
               },
             };
+        //   ? {
+        //     audio: false,
+        //     video: {
+        //       deviceId: getDevice.deviceId,
+        //       width: { ideal: 1280 },
+        //       height: { ideal: 720 },
+        //     },
+        //   }
+        // : {
+        //     audio: false,
+        //     video: {
+        //       facingMode: "user",
+        //       width: { ideal: 1280 },
+        //       height: { ideal: 720 },
+        //     },
+        //   };
 
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef?.current) {
@@ -88,7 +88,7 @@ export default function Home() {
     };
 
     getPermission();
-  }, [getDevice, selectedDevice, mode, size]);
+  }, [getDevice, selectedDevice, mode]);
 
   //カメラデータの取得
   useEffect(() => {
@@ -97,7 +97,9 @@ export default function Home() {
       setSelectedDevice(devices[0].deviceId);
       setMode("video");
     }
-  }, [devices, size]);
+  }, [devices]);
+
+  console.log(size);
 
   return (
     <main>
@@ -125,6 +127,7 @@ export default function Home() {
             image={image}
             setImage={setImage}
             size={size}
+            setSize={setSize}
             cordinatesDisplay={cordinatesDisplay}
             setCordinatesDisplay={setCordinatesDisplay}
             points={points}

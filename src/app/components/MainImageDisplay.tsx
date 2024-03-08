@@ -11,6 +11,7 @@ type Props = {
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   size: any;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   points: any;
@@ -26,6 +27,7 @@ const MainImageDisplay = ({
   image,
   setImage,
   size,
+  setSize,
   cordinatesDisplay,
   setCordinatesDisplay,
   points,
@@ -33,8 +35,8 @@ const MainImageDisplay = ({
   pointSize,
 }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center my-4">
-      <div className="w-full border shadow-md flex items-center justify-center bg-gray-400">
+    <div className="flex h-full w-full flex-col items-center justify-center my-4">
+      <div className="w-full h-full border shadow-md flex items-center justify-center bg-gray-400">
         {mode === "video" && (
           <VideoView
             videoRef={videoRef}
@@ -42,6 +44,7 @@ const MainImageDisplay = ({
             mode={mode}
             setMode={setMode}
             size={size}
+            setSize={setSize}
           />
         )}
         {mode === "image" && (

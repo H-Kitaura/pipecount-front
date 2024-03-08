@@ -8,9 +8,17 @@ type Props = {
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   size: any;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const VideoView = ({ videoRef, setImage, mode, setMode, size }: Props) => {
+const VideoView = ({
+  videoRef,
+  setImage,
+  mode,
+  setMode,
+  size,
+  setSize,
+}: Props) => {
   return (
     <div className="h-full w-full flex items-center justify-center flex-col mt-8">
       {/* <video
@@ -23,8 +31,8 @@ const VideoView = ({ videoRef, setImage, mode, setMode, size }: Props) => {
       /> */}
       <video
         ref={videoRef}
-        width={size.width}
-        height={size.height}
+        width={window.innerWidth}
+        height={window.innerHeight}
         autoPlay
         muted
         playsInline
@@ -35,6 +43,7 @@ const VideoView = ({ videoRef, setImage, mode, setMode, size }: Props) => {
         mode={mode}
         setMode={setMode}
         size={size}
+        setSize={setSize}
       />
     </div>
   );
