@@ -1,14 +1,14 @@
 import React from "react";
 
 type Props = {
-  countData: number;
+  points: any;
 };
 
-const AICountContent = ({ countData }: Props) => {
+const AICountContent = ({ points }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center my-4">
       <p className="mb-2">カウントした数</p>
-      <p className="border py-2 px-9 shadow-md">{countData}</p>
+      <p className="border py-2 px-9 shadow-md">{points.length}</p>
     </div>
   );
 };

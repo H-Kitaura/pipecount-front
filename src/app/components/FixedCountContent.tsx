@@ -1,12 +1,19 @@
 import React from "react";
 
 type Props = {
-  countData: number;
-  setCountData: React.Dispatch<React.SetStateAction<number>>;
+  // countData: number;
+  // setCountData: React.Dispatch<React.SetStateAction<number>>;
+  points: any;
+  setPoints: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const FixedCountContent = ({ countData, setCountData }: Props) => {
-  const [fixCount, setFixCount] = React.useState(countData);
+const FixedCountContent = ({
+  // countData,
+  // setCountData,
+  points,
+  setPoints,
+}: Props) => {
+  const [fixCount, setFixCount] = React.useState<number>(points.length);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newCount = parseInt(e.target.value);
     setFixCount(newCount);
@@ -21,7 +28,7 @@ const FixedCountContent = ({ countData, setCountData }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center my-4">
       <label htmlFor="count" className="mb-2">
-        訂正数
+        訂正後の数
       </label>
       <div className="flex items-center">
         <button

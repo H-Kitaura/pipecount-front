@@ -11,6 +11,10 @@ type Props = {
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   size: any;
+  cordinatesDisplay: boolean;
+  setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  points: any;
+  setPoints: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const MainImageDisplay = ({
@@ -21,6 +25,10 @@ const MainImageDisplay = ({
   image,
   setImage,
   size,
+  cordinatesDisplay,
+  setCordinatesDisplay,
+  points,
+  setPoints,
 }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center my-8">
@@ -48,6 +56,10 @@ const MainImageDisplay = ({
             canvasRef={canvasRef}
             image={image}
             size={size}
+            cordinatesDisplay={cordinatesDisplay}
+            setCordinatesDisplay={setCordinatesDisplay}
+            points={points}
+            setPoints={setPoints}
           />
         )}
       </div>

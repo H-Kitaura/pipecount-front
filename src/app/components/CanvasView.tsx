@@ -6,11 +6,22 @@ type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
   image: string;
   size: any;
+  cordinatesDisplay: boolean;
+  setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  points: any;
+  setPoints: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const CanvasView = ({ canvasRef, image, size }: Props) => {
+const CanvasView = ({
+  canvasRef,
+  image,
+  size,
+  cordinatesDisplay,
+  setCordinatesDisplay,
+  points,
+  setPoints,
+}: Props) => {
   const [isDrawing, setIsDrawing] = React.useState(true);
-  const [points, setPoints] = React.useState(dammyPoints);
   const draw = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -19,7 +30,9 @@ const CanvasView = ({ canvasRef, image, size }: Props) => {
 
     await imageDraw(ctx)
       .then(() => {
-        drawPoint(ctx);
+        if (cordinatesDisplay) {
+          drawPoint(ctx);
+        }
       })
       .catch((err) => {
         console.error("Image load error", err);
@@ -31,17 +44,18 @@ const CanvasView = ({ canvasRef, image, size }: Props) => {
     console.log(canvas);
 
     draw();
-  }, [canvasRef, image]);
+  }, [canvasRef, image, cordinatesDisplay, points]);
 
   const drawPoint = (ctx: CanvasRenderingContext2D) => {
-    points.forEach((pointPair) => {
+    points.forEach((pointPair: any) => {
       const { start, end } = pointPair;
-      const width = end.x - start.x;
-      const height = end.y - start.y;
+      const centerX = (start.x + end.x) / 2; // 中心のX座標
+      const centerY = (start.y + end.y) / 2; // 中心のY座標
+      const pointSize = 3;
 
       ctx.beginPath();
-      ctx.rect(start.x, start.y, width, height);
-      ctx.strokeStyle = "red";
+      ctx.arc(centerX, centerY, pointSize, 0, Math.PI * 2);
+      ctx.strokeStyle = "green";
       ctx.stroke();
       ctx.closePath();
     });
@@ -60,13 +74,7 @@ const CanvasView = ({ canvasRef, image, size }: Props) => {
   };
 
   useEffect(() => {
-    //追加ボタンを押していなかったらreturn
-    if (
-      // mode !== "add" ||
-
-      canvasRef.current === null
-    )
-      return;
+    if (canvasRef.current === null) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (ctx === null) return;
@@ -83,37 +91,51 @@ const CanvasView = ({ canvasRef, image, size }: Props) => {
       const startY = centerY - sideLength / 2;
       const endX = centerX + sideLength / 2;
       const endY = centerY + sideLength / 2;
-      // 矩形を描画
-      await draw();
-      await drawRect(ctx, centerX, centerY, sideLength, sideLength);
-      if (points === null) return;
-      const newPoint = {
-        start: { x: startX, y: startY },
-        end: { x: endX, y: endY },
-      };
-      setPoints([...points, newPoint]);
+
+      const selectedPoint = points.find(
+        (point: any) =>
+          centerX >= point.start.x &&
+          centerX <= point.end.x &&
+          centerY >= point.start.y &&
+          centerY <= point.end.y
+      );
+      //クリックした座標が去れば削除
+      if (selectedPoint) {
+        const updatedPoints = points.filter(
+          (point: any) =>
+            !(
+              centerX >= point.start.x &&
+              centerX <= point.end.x &&
+              centerY >= point.start.y &&
+              centerY <= point.end.y
+            )
+        );
+        setPoints(updatedPoints);
+      } else {
+        //なければ追加
+        await drawAddArc(ctx, centerX, centerY);
+        if (points === null) return;
+        const newPoint = {
+          start: { x: startX, y: startY },
+          end: { x: endX, y: endY },
+        };
+        setPoints([...points, newPoint]);
+      }
     };
-
     canvas.addEventListener("mousedown", handleMouseDown);
-
     // イベントリスナーのクリーンアップ
     return () => {
       canvas.removeEventListener("mousedown", handleMouseDown);
     };
-  }, [isDrawing]);
+  }, [isDrawing, points]);
 
   console.log(points);
 
-  function drawRect(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    width: number,
-    height: number
-  ) {
+  function drawAddArc(ctx: CanvasRenderingContext2D, x: number, y: number) {
+    const pointSize = 3;
     ctx.beginPath();
-    ctx.rect(x - width / 2, y - height / 2, width, height);
-    ctx.strokeStyle = "red";
+    ctx.arc(x, y, pointSize, 0, Math.PI * 2);
+    ctx.strokeStyle = "green";
     ctx.lineWidth = 2;
     ctx.stroke();
   }

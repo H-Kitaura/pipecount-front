@@ -20,8 +20,8 @@ const Footer = ({ videoRef, mode, setMode, setImage }: Props) => {
         setMode={setMode}
         setImage={setImage}
       />
-      <PrevButton />
-      <NextButton />
+      {/* <PrevButton /> */}
+      {/* <NextButton /> */}
       <ReportButton />
     </div>
   );

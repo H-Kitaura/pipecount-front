@@ -8,6 +8,8 @@ import Wrapper from "./components/Wrapper";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useVideoDeviceList } from "./Hooks/useVideoDeviceList";
+import CordinatesButton from "./components/button/CordinatesButton";
+import { dammyPoints } from "./dammyData";
 
 export default function Home() {
   //hooks=======================================>
@@ -18,12 +20,18 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
+  // const [size, setSize] = useState({
+  //   width: 300,
+  //   height: 400,
+  // });
   const [size, setSize] = useState({
     width: 300,
-    height: 400,
+    height: 225,
   });
+  const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
+  const [points, setPoints] = useState(dammyPoints);
 
-  const [countData, setCountData] = useState(10);
+  // const [countData, setCountData] = useState(10);
   //<==================================hooks
   const getDevice =
     devices &&
@@ -33,8 +41,8 @@ export default function Home() {
   useEffect(() => {
     // カメラ情報が取得できない場合はフロントカメラを利用する
     const constraints = getDevice
-      ? { video: { deviceId: getDevice.deviceId } }
-      : { video: { facingMode: "user" } };
+      ? { audio: false, video: { deviceId: getDevice.deviceId } }
+      : { audio: false, video: { facingMode: "user" } };
 
     selectedDevice &&
       navigator.mediaDevices
@@ -57,14 +65,6 @@ export default function Home() {
       setMode("video");
     }
   }, [devices, size]);
-  // ビデオ要素の参照またはカメラストリームからサイズを取得
-  const updateVideoSize = () => {
-    const videoWidth = videoRef.current?.videoWidth;
-    const videoHeight = videoRef.current?.videoHeight;
-    if (videoWidth && videoHeight) {
-      setSize({ width: videoWidth, height: videoHeight });
-    }
-  };
   console.log(size);
   console.log("洗濯中のデバイス", selectedDevice);
   console.log("デバイスたち", devices);
@@ -74,6 +74,13 @@ export default function Home() {
       <Header devices={devices} setSelectedDevice={setSelectedDevice} />
       <Container>
         <Wrapper>
+          {mode === "canvas" && (
+            <CordinatesButton
+              cordinatesDisplay={cordinatesDisplay}
+              setCordinatesDisplay={setCordinatesDisplay}
+            />
+          )}
+
           <MainImageDisplay
             videoRef={videoRef}
             canvasRef={canvasRef}
@@ -82,12 +89,20 @@ export default function Home() {
             image={image}
             setImage={setImage}
             size={size}
+            cordinatesDisplay={cordinatesDisplay}
+            setCordinatesDisplay={setCordinatesDisplay}
+            points={points}
+            setPoints={setPoints}
           />
-          <AICountContent countData={countData} />
-          <FixedCountContent
-            countData={countData}
-            setCountData={setCountData}
-          />
+          <>
+            <AICountContent points={points} />
+            {/* <FixedCountContent
+              // countData={countData}
+              // setCountData={setCountData}
+              points={points}
+              setPoints={setPoints}
+            /> */}
+          </>
         </Wrapper>
       </Container>
       <Footer
