@@ -42,9 +42,22 @@ export default function Home() {
       try {
         // カメラ情報が取得できない場合はフロントカメラを利用する
         const constraints = getDevice
-          ? { audio: false, video: { deviceId: getDevice.deviceId } }
-          : { audio: false, video: { facingMode: "user" } };
-
+          ? {
+              audio: false,
+              video: {
+                deviceId: getDevice.deviceId,
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+              },
+            }
+          : {
+              audio: false,
+              video: {
+                facingMode: "user",
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+              },
+            };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef?.current) {
           videoRef.current.srcObject = stream;
