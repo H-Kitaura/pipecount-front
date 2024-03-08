@@ -59,6 +59,7 @@ export default function Home() {
                 height: { ideal: 720 },
               },
             };
+
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef?.current) {
           videoRef.current.srcObject = stream;
@@ -114,11 +115,13 @@ export default function Home() {
             setPoints={setPoints}
             pointSize={pointSize}
           />
-          <>
+          <div className="grid grid-cols-2 px-8">
             <AICountContent points={points} />
-            <CountResult totalCounts={totalCounts} />
-            <TotalCountResult totalCounts={totalCounts} />
-          </>
+            {totalCounts.length > 0 && (
+              <TotalCountResult totalCounts={totalCounts} />
+            )}
+          </div>
+          {totalCounts.length > 0 && <CountResult totalCounts={totalCounts} />}
         </Wrapper>
       </Container>
       <Footer

@@ -5,9 +5,11 @@ type Props = {
 
 const TotalCountResult = ({ totalCounts }: Props) => {
   return (
-    <div className="flex items-center justify-center space-x-2">
-      <p className="">トータル数</p>
-      {totalCounts.reduce((a, b) => a + b, 0)}
+    <div className="my-4">
+      <p className="mb-2 text-lg font-semibold">合計</p>
+      <p className="text-4xl font-bold leading-none">
+        {totalCounts.reduce((a, b) => a + b, 0)}
+      </p>
     </div>
   );
 };
