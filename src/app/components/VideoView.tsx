@@ -23,9 +23,8 @@ const VideoView = ({ videoRef, setImage, mode, setMode, size }: Props) => {
       /> */}
       <video
         ref={videoRef}
-        className="flex items-center justify-center"
-        // width={size.width}
-        // height={size.height}
+        width={size.width}
+        height={size.height}
         autoPlay
         muted
         playsInline

@@ -64,8 +64,8 @@ const CanvasView = ({
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
       canvasImage.onload = () => {
-        ctx.clearRect(0, 0, 500, 500);
-        ctx.drawImage(canvasImage, 0, 0, 500, 500);
+        ctx.clearRect(0, 0, size.width, size.height);
+        ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
         resolve(true);
       };
       canvasImage.onerror = reject;
@@ -142,8 +142,8 @@ const CanvasView = ({
 
   return (
     // <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
-    <div className="h-full w-full flex items-center justify-center flex-col mt-8">
-      <canvas ref={canvasRef} width={500} height={500}></canvas>
+    <div className="h-full w-full flex items-center justify-center flex-col mt-8 mb-8">
+      <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
     </div>
   );
 };

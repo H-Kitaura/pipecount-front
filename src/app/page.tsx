@@ -10,6 +10,9 @@ import Footer from "./components/Footer";
 import { useVideoDeviceList } from "./Hooks/useVideoDeviceList";
 import CordinatesButton from "./components/button/CordinatesButton";
 import { dammyPoints } from "./dammyData";
+import PointSizeSlider from "./components/PointSizeSlider";
+import CountResult from "./components/CountResult";
+import TotalCountResult from "./components/TotalCountResult";
 
 export default function Home() {
   //hooks=======================================>
@@ -69,6 +72,7 @@ export default function Home() {
 
     getPermission();
   }, [getDevice, selectedDevice, mode, size]);
+
   //カメラデータの取得
   useEffect(() => {
     if (devices && devices.length > 0) {
@@ -77,12 +81,6 @@ export default function Home() {
       setMode("video");
     }
   }, [devices, size]);
-
-  const handleZoomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // 入力された値を数値に変換します
-    const newZoomLevel = Number(event.target.value);
-    setPointSize(newZoomLevel);
-  };
 
   return (
     <main>
@@ -95,19 +93,12 @@ export default function Home() {
               setCordinatesDisplay={setCordinatesDisplay}
             />
           )}
-
-          <div className="py-1 w-full flex items-center px-4">
-            <p className="mx-2">ポイント: {pointSize.toFixed(1)}</p>
-            <input
-              type="range"
-              className="w-2/3 mx-auto"
-              min="0.5" // 最小ズームレベル
-              max="3" // 最大ズームレベル
-              step="0.1" // スライダーの移動量
-              value={pointSize} // 現在のズームレベル
-              onChange={handleZoomChange} // 値が変わったときの処理
+          {mode === "canvas" && (
+            <PointSizeSlider
+              pointSize={pointSize}
+              setPointSize={setPointSize}
             />
-          </div>
+          )}
 
           <MainImageDisplay
             videoRef={videoRef}
@@ -125,26 +116,8 @@ export default function Home() {
           />
           <>
             <AICountContent points={points} />
-            {/* <FixedCountContent
-              // countData={countData}
-              // setCountData={setCountData}
-              points={points}
-              setPoints={setPoints}
-            /> */}
-            <div className="">
-              <p className="text-center">現在までのカウント</p>
-              <div className="flex items-center justify-center space-x-2">
-                {totalCounts.map((count, index) => (
-                  <p className="" key={index}>
-                    {index + 1}:{count}
-                  </p>
-                ))}
-              </div>
-              <div className="flex items-center justify-center space-x-2">
-                <p className="">トータル数</p>
-                {totalCounts.reduce((a, b) => a + b, 0)}
-              </div>
-            </div>
+            <CountResult totalCounts={totalCounts} />
+            <TotalCountResult totalCounts={totalCounts} />
           </>
         </Wrapper>
       </Container>
