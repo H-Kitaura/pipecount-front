@@ -7,9 +7,16 @@ type Props = {
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
+  setPoints: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const PhotoButton = ({ videoRef, setImage, mode, setMode }: Props) => {
+const PhotoButton = ({
+  videoRef,
+  setImage,
+  mode,
+  setMode,
+  setPoints,
+}: Props) => {
   const handlePhotoShot = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
@@ -29,7 +36,11 @@ const PhotoButton = ({ videoRef, setImage, mode, setMode }: Props) => {
   return (
     <>
       {mode === "canvas" && (
-        <RetakephotoButton setMode={setMode} setImage={setImage} />
+        <RetakephotoButton
+          setMode={setMode}
+          setImage={setImage}
+          setPoints={setPoints}
+        />
       )}
     </>
   );

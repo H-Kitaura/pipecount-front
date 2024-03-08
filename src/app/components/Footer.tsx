@@ -30,6 +30,7 @@ const Footer = ({
         mode={mode}
         setMode={setMode}
         setImage={setImage}
+        setPoints={setPoints}
       />
       {mode === "canvas" && (
         <ReportButton

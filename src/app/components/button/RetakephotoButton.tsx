@@ -3,12 +3,16 @@ import React from "react";
 type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
+  setPoints?: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const RetakephotoButton = ({ setMode, setImage }: Props) => {
+const RetakephotoButton = ({ setMode, setImage, setPoints }: Props) => {
   const handleReset = () => {
     setMode("video");
     setImage("");
+    if (setPoints) {
+      setPoints([]);
+    }
   };
 
   return (
