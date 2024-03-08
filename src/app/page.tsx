@@ -31,7 +31,6 @@ export default function Home() {
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
 
-  // const [countData, setCountData] = useState(10);
   //<==================================hooks
   const getDevice =
     devices &&
@@ -39,24 +38,25 @@ export default function Home() {
     devices.find((v) => v.label === selectedDevice);
 
   useEffect(() => {
-    // カメラ情報が取得できない場合はフロントカメラを利用する
-    const constraints = getDevice
-      ? { audio: false, video: { deviceId: getDevice.deviceId } }
-      : { audio: false, video: { facingMode: "user" } };
+    const getPermission = async () => {
+      try {
+        // カメラ情報が取得できない場合はフロントカメラを利用する
+        const constraints = getDevice
+          ? { audio: false, video: { deviceId: getDevice.deviceId } }
+          : { audio: false, video: { facingMode: "user" } };
 
-    selectedDevice &&
-      navigator.mediaDevices
-        .getUserMedia(constraints)
-        .then((stream) => {
-          if (videoRef?.current) {
-            videoRef.current.srcObject = stream;
-          }
-        })
-        .catch((err) => {
-          console.error("Error", err);
-        });
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        if (videoRef?.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (err) {
+        console.error("Error", err);
+        // エラー処理、ユーザーにフィードバックを提供する
+      }
+    };
+
+    getPermission();
   }, [getDevice, selectedDevice, mode, size]);
-
   //カメラデータの取得
   useEffect(() => {
     if (devices && devices.length > 0) {
