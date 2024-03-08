@@ -20,10 +20,6 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
-  // const [size, setSize] = useState({
-  //   width: 300,
-  //   height: 400,
-  // });
   const [size, setSize] = useState({
     width: 300,
     height: 225,
@@ -31,6 +27,7 @@ export default function Home() {
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
+  const [pointSize, setPointSize] = useState(3);
 
   //<==================================hooks
   const getDevice =
@@ -81,6 +78,12 @@ export default function Home() {
     }
   }, [devices, size]);
 
+  const handleZoomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // 入力された値を数値に変換します
+    const newZoomLevel = Number(event.target.value);
+    setPointSize(newZoomLevel);
+  };
+
   return (
     <main>
       <Header devices={devices} setSelectedDevice={setSelectedDevice} />
@@ -92,6 +95,19 @@ export default function Home() {
               setCordinatesDisplay={setCordinatesDisplay}
             />
           )}
+
+          <div className="py-1 w-full flex items-center px-4">
+            <p className="mx-2">ポイント: {pointSize.toFixed(1)}</p>
+            <input
+              type="range"
+              className="w-2/3 mx-auto"
+              min="0.5" // 最小ズームレベル
+              max="3" // 最大ズームレベル
+              step="0.1" // スライダーの移動量
+              value={pointSize} // 現在のズームレベル
+              onChange={handleZoomChange} // 値が変わったときの処理
+            />
+          </div>
 
           <MainImageDisplay
             videoRef={videoRef}
@@ -105,6 +121,7 @@ export default function Home() {
             setCordinatesDisplay={setCordinatesDisplay}
             points={points}
             setPoints={setPoints}
+            pointSize={pointSize}
           />
           <>
             <AICountContent points={points} />

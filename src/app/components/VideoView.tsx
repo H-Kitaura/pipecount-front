@@ -12,7 +12,7 @@ type Props = {
 
 const VideoView = ({ videoRef, setImage, mode, setMode, size }: Props) => {
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="h-full w-full flex items-center justify-center flex-col mt-8">
       {/* <video
         ref={videoRef}
         width={400}
@@ -24,8 +24,8 @@ const VideoView = ({ videoRef, setImage, mode, setMode, size }: Props) => {
       <video
         ref={videoRef}
         className="flex items-center justify-center"
-        width={size.width}
-        height={size.height}
+        // width={size.width}
+        // height={size.height}
         autoPlay
         muted
         playsInline

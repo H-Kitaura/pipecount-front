@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { dammyPoints } from "@/app/dammyData";
 
 type Props = {
@@ -10,6 +10,7 @@ type Props = {
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   points: any;
   setPoints: React.Dispatch<React.SetStateAction<any>>;
+  pointSize: number;
 };
 
 const CanvasView = ({
@@ -20,8 +21,9 @@ const CanvasView = ({
   setCordinatesDisplay,
   points,
   setPoints,
+  pointSize,
 }: Props) => {
-  const [isDrawing, setIsDrawing] = React.useState(true);
+  const [isDrawing, setIsDrawing] = useState(true);
   const draw = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -44,15 +46,13 @@ const CanvasView = ({
     console.log(canvas);
 
     draw();
-  }, [canvasRef, image, cordinatesDisplay, points]);
+  }, [canvasRef, image, cordinatesDisplay, points, pointSize]);
 
   const drawPoint = (ctx: CanvasRenderingContext2D) => {
     points.forEach((pointPair: any) => {
       const { start, end } = pointPair;
       const centerX = (start.x + end.x) / 2; // 中心のX座標
       const centerY = (start.y + end.y) / 2; // 中心のY座標
-      const pointSize = 3;
-
       ctx.beginPath();
       ctx.arc(centerX, centerY, pointSize, 0, Math.PI * 2);
       ctx.strokeStyle = "green";
@@ -64,8 +64,8 @@ const CanvasView = ({
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
       canvasImage.onload = () => {
-        ctx.clearRect(0, 0, size.width, size.height);
-        ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
+        ctx.clearRect(0, 0, 500, 500);
+        ctx.drawImage(canvasImage, 0, 0, 500, 500);
         resolve(true);
       };
       canvasImage.onerror = reject;
@@ -132,7 +132,7 @@ const CanvasView = ({
   console.log(points);
 
   function drawAddArc(ctx: CanvasRenderingContext2D, x: number, y: number) {
-    const pointSize = 3;
+    // const pointSize = 3;
     ctx.beginPath();
     ctx.arc(x, y, pointSize, 0, Math.PI * 2);
     ctx.strokeStyle = "green";
@@ -141,7 +141,10 @@ const CanvasView = ({
   }
 
   return (
-    <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
+    // <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
+    <div className="h-full w-full flex items-center justify-center flex-col mt-8">
+      <canvas ref={canvasRef} width={500} height={500}></canvas>
+    </div>
   );
 };
 
