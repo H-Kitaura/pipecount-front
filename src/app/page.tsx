@@ -24,8 +24,8 @@ export default function Home() {
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
   const [size, setSize] = useState({
-    width: 300,
-    height: 225,
+    width: 225,
+    height: 300,
   });
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
@@ -43,20 +43,36 @@ export default function Home() {
       try {
         // カメラ情報が取得できない場合はフロントカメラを利用する
         const constraints = getDevice
-          ? {
+          ? //   ? {
+            //     audio: false,
+            //     video: {
+            //       deviceId: getDevice.deviceId,
+            //       width: { ideal: 1280 },
+            //       height: { ideal: 720 },
+            //     },
+            //   }
+            // : {
+            //     audio: false,
+            //     video: {
+            //       facingMode: "user",
+            //       width: { ideal: 1280 },
+            //       height: { ideal: 720 },
+            //     },
+            //   };
+            {
               audio: false,
               video: {
                 deviceId: getDevice.deviceId,
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
+                width: { ideal: 225 },
+                height: { ideal: 300 },
               },
             }
           : {
               audio: false,
               video: {
                 facingMode: "user",
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
+                width: { ideal: 225 },
+                height: { ideal: 300 },
               },
             };
 
