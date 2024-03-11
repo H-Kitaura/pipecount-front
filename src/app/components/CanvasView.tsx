@@ -33,7 +33,7 @@ const CanvasView = ({
     await imageDraw(canvas, ctx)
       .then(() => {
         if (cordinatesDisplay) {
-          drawPoint(ctx);
+          drawPoint(ctx, canvas);
         }
       })
       .catch((err) => {
@@ -43,16 +43,29 @@ const CanvasView = ({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    console.log(canvas);
 
     draw();
   }, [canvasRef, image, cordinatesDisplay, points, pointSize]);
 
-  const drawPoint = (ctx: CanvasRenderingContext2D) => {
+  const drawPoint = (
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement
+  ) => {
     points.forEach((pointPair: any) => {
       const { start, end } = pointPair;
-      const centerX = (start.x + end.x) / 2; // 中心のX座標
-      const centerY = (start.y + end.y) / 2; // 中心のY座標
+
+      // スケールファクターの計算
+      const scaleX = canvas.clientWidth / size.width;
+      const scaleY = canvas.clientHeight / size.height;
+
+      // 保存された座標をスケーリング
+      const centerX = (start.x + end.x) / 2;
+      const centerY = (start.y + end.y) / 2;
+
+      console.log(centerX, centerY);
+      console.log(scaleX, scaleY);
+
+      // スケーリングされた座標で円を描画
       ctx.beginPath();
       ctx.arc(centerX, centerY, pointSize, 0, Math.PI * 2);
       ctx.strokeStyle = "green";
@@ -85,15 +98,19 @@ const CanvasView = ({
     const handleMouseDown = async (e: MouseEvent) => {
       setIsDrawing(true);
       const rect = canvas.getBoundingClientRect();
-      const centerX = e.clientX - rect.left;
-      const centerY = e.clientY - rect.top;
+      const scaleX = canvas.clientWidth / size.width;
+      const scaleY = canvas.clientHeight / size.height;
+
+      const centerX = (e.clientX - rect.left) / scaleX;
+      const centerY = (e.clientY - rect.top) / scaleY;
       const sideLength = 20; // 四角形の一辺の長さ
+      const adjustedSideLength = sideLength * Math.min(scaleX, scaleY);
 
       // 中心地からのオフセットを考慮して始点と終点を計算
-      const startX = centerX - sideLength / 2;
-      const startY = centerY - sideLength / 2;
-      const endX = centerX + sideLength / 2;
-      const endY = centerY + sideLength / 2;
+      const startX = centerX - adjustedSideLength / 2;
+      const startY = centerY - adjustedSideLength / 2;
+      const endX = centerX + adjustedSideLength / 2;
+      const endY = centerY + adjustedSideLength / 2;
 
       const selectedPoint = points.find(
         (point: any) =>
@@ -122,6 +139,7 @@ const CanvasView = ({
           start: { x: startX, y: startY },
           end: { x: endX, y: endY },
         };
+
         setPoints([...points, newPoint]);
       }
     };
