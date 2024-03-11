@@ -76,7 +76,7 @@ export default function Home() {
     };
 
     getPermission();
-  }, [getDevice, selectedDevice, mode, videoRef]);
+  }, [getDevice, mode]);
 
   //カメラデータの取得
   useEffect(() => {
