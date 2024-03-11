@@ -21,7 +21,7 @@ export default function Home() {
   const { devices } = useVideoDeviceList();
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
   //ここにvideo,image,canvasの文字列でモードを分ける
-  const [mode, setMode] = useState("video");
+  const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
   const [size, setSize] = useState({
     width: 0,
@@ -43,48 +43,45 @@ export default function Home() {
     selectedDevice &&
     devices.find((v) => v.label === selectedDevice);
 
-  useEffect(() => {
-    console.log("読んでる？");
-    if (videoRef.current === null) return;
-
-    const getPermission = async () => {
-      setLoading(true);
-      try {
-        // カメラ情報が取得できない場合はフロントカメラを利用する
-        const constraints = getDevice
-          ? {
-              audio: false,
-              video: {
-                deviceId: getDevice.deviceId,
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
-              },
-            }
-          : {
-              audio: false,
-              video: {
-                facingMode: "user",
-                width: { ideal: 1280 },
-                height: { ideal: 720 },
-              },
-            };
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-
-        if (videoRef?.current) {
-          videoRef.current.srcObject = stream;
-        }
-        setLoading(false);
-      } catch (err) {
-        console.error("Error", err);
-        alert("カメラ認証ができませんでした。");
-        console.log("エラー呼ばれてる？");
-        setLoading(false);
-        // エラー処理、ユーザーにフィードバックを提供する
+  const getPermission = async () => {
+    setLoading(true);
+    try {
+      // カメラ情報が取得できない場合はフロントカメラを利用する
+      const constraints = getDevice
+        ? {
+            audio: false,
+            video: {
+              deviceId: getDevice.deviceId,
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+            },
+          }
+        : {
+            audio: false,
+            video: {
+              facingMode: "user",
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+            },
+          };
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        console.log("ref読んだ");
       }
-      // finally {
-      //   setLoading(false);
-      // }
-    };
+      console.log("ref読んでない");
+
+      setLoading(false);
+    } catch (err) {
+      console.error("Error", err);
+      alert("カメラ認証ができませんでした。");
+      setLoading(false);
+      // エラー処理、ユーザーにフィードバックを提供する
+    }
+  };
+
+  useEffect(() => {
+    if (!videoRef.current) return;
 
     getPermission();
   }, [getDevice, selectedDevice, mode, videoRef]);
@@ -111,8 +108,6 @@ export default function Home() {
     return () => window.removeEventListener("resize", handleResize);
   }, [windowSize, videoRef, selectedDevice, devices]);
 
-  console.log(loading);
-
   return (
     <main>
       <Header devices={devices} setSelectedDevice={setSelectedDevice} />
@@ -130,26 +125,26 @@ export default function Home() {
               setPointSize={setPointSize}
             />
           )}
-          {loading ? (
+          {/* {loading ? (
             <>読み込み中...</>
-          ) : (
-            <MainImageDisplay
-              videoRef={videoRef}
-              canvasRef={canvasRef}
-              mode={mode}
-              setMode={setMode}
-              image={image}
-              setImage={setImage}
-              size={size}
-              setSize={setSize}
-              cordinatesDisplay={cordinatesDisplay}
-              setCordinatesDisplay={setCordinatesDisplay}
-              points={points}
-              setPoints={setPoints}
-              pointSize={pointSize}
-              windowSize={windowSize}
-            />
-          )}
+          ) : ( */}
+          <MainImageDisplay
+            videoRef={videoRef}
+            canvasRef={canvasRef}
+            mode={mode}
+            setMode={setMode}
+            image={image}
+            setImage={setImage}
+            size={size}
+            setSize={setSize}
+            cordinatesDisplay={cordinatesDisplay}
+            setCordinatesDisplay={setCordinatesDisplay}
+            points={points}
+            setPoints={setPoints}
+            pointSize={pointSize}
+            windowSize={windowSize}
+          />
+          {/* )} */}
 
           <div className="grid grid-cols-2 px-8">
             <AICountContent points={points} />
