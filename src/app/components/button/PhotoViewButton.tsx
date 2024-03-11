@@ -47,6 +47,19 @@ Props) => {
     // キャンバスのサイズをビデオのアスペクト比に合わせて設定
     console.log(videoAspectRatio);
 
+    const screenWidth = video.videoWidth;
+    const screenHeight = video.videoHeight;
+
+    if (screenHeight > screenWidth) {
+      // 縦向きの場合
+      canvas.height = screenHeight;
+      canvas.width = screenHeight * videoAspectRatio;
+    } else {
+      // 横向きの場合
+      canvas.width = screenWidth;
+      canvas.height = screenWidth / videoAspectRatio;
+    }
+
     canvas.width = video.videoWidth;
     canvas.height = video.videoWidth / videoAspectRatio;
     console.log(canvas.width, canvas.height);
