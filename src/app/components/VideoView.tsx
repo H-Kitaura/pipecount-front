@@ -24,7 +24,7 @@ const VideoView = ({
   console.log(videoRef.current);
 
   return (
-    <div className="h-auto w-full flex items-center justify-center flex-col mt-8 relative">
+    <div className="h-full w-full flex items-center justify-center flex-col mt-8 relative">
       <video
         ref={videoRef}
         width={windowSize.width}
