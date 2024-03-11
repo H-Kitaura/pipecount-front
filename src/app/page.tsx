@@ -103,10 +103,11 @@ export default function Home() {
         height: window.innerHeight,
       });
     }
+    handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [windowSize, videoRef, selectedDevice, devices]);
+  }, []);
 
   return (
     <main>

@@ -25,14 +25,6 @@ const VideoView = ({
 
   return (
     <div className="h-auto w-full flex items-center justify-center flex-col mt-8 relative">
-      {/* <video
-        ref={videoRef}
-        width={400}
-        height={300}
-        autoPlay
-        muted
-        playsInline
-      /> */}
       <video
         ref={videoRef}
         width={windowSize.width}
