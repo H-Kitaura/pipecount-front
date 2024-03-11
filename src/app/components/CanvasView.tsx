@@ -15,7 +15,6 @@ type Props = {
 
 const CanvasView = ({
   canvasRef,
-  videoRef,
   image,
   size,
   cordinatesDisplay,
@@ -25,15 +24,13 @@ const CanvasView = ({
   pointSize,
 }: Props) => {
   const [isDrawing, setIsDrawing] = useState(true);
-  console.log(size);
-
   const draw = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    await imageDraw(ctx)
+    await imageDraw(canvas, ctx)
       .then(() => {
         if (cordinatesDisplay) {
           drawPoint(ctx);
@@ -46,7 +43,7 @@ const CanvasView = ({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    // console.log(canvas);
+    console.log(canvas);
 
     draw();
   }, [canvasRef, image, cordinatesDisplay, points, pointSize]);
@@ -63,16 +60,15 @@ const CanvasView = ({
       ctx.closePath();
     });
   };
-  const imageDraw = (ctx: CanvasRenderingContext2D) => {
+  const imageDraw = (
+    canvas: HTMLCanvasElement,
+    ctx: CanvasRenderingContext2D
+  ) => {
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
-      const video = videoRef.current;
-      if (video === null) return;
-      const videoAspectRatio = video.videoWidth / video.videoHeight;
-
       canvasImage.onload = () => {
-        ctx.clearRect(0, 0, size.width, size.height);
-        ctx.drawImage(video, 0, 0, size.width, size.height);
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        ctx.drawImage(canvasImage, 0, 0, canvas.width, canvas.height);
         resolve(true);
       };
       canvasImage.onerror = reject;
@@ -150,7 +146,12 @@ const CanvasView = ({
   return (
     // <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
     <div className="h-full w-full flex items-center justify-center flex-col mt-8 mb-8">
-      <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
+      <canvas
+        className="w-full h-auto"
+        ref={canvasRef}
+        width={size.width}
+        height={size.height}
+      ></canvas>
     </div>
   );
 };

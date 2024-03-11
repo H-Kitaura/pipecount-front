@@ -31,11 +31,12 @@ const VideoView = ({
       /> */}
       <video
         ref={videoRef}
-        width={videoRef.current?.videoWidth}
-        height={videoRef.current?.videoHeight}
+        width={window.innerWidth}
+        height={window.innerHeight}
         autoPlay
         muted
         playsInline
+        className="w-full h-full"
       />
       <PhotoViewButton
         videoRef={videoRef}
