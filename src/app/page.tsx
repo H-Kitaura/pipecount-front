@@ -76,7 +76,7 @@ export default function Home() {
     };
 
     getPermission();
-  }, [getDevice, selectedDevice, mode, videoRef, canvasRef, devices]);
+  }, [getDevice, selectedDevice, mode]);
 
   //カメラデータの取得
   useEffect(() => {
@@ -100,7 +100,7 @@ export default function Home() {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [windowSize]);
+  }, [windowSize, videoRef, selectedDevice, devices]);
 
   return (
     <main>
