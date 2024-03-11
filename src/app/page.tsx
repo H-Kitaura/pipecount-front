@@ -21,7 +21,7 @@ export default function Home() {
   const { devices } = useVideoDeviceList();
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
   //ここにvideo,image,canvasの文字列でモードを分ける
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState("video");
   const [image, setImage] = useState("");
   const [size, setSize] = useState({
     width: 0,
@@ -44,6 +44,9 @@ export default function Home() {
     devices.find((v) => v.label === selectedDevice);
 
   useEffect(() => {
+    console.log("読んでる？");
+    if (videoRef.current === null) return;
+
     const getPermission = async () => {
       setLoading(true);
       try {
@@ -66,24 +69,25 @@ export default function Home() {
               },
             };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
         if (videoRef?.current) {
           videoRef.current.srcObject = stream;
-          console.log("呼ばれてる？");
-
-          setLoading(false);
         }
-        console.log(constraints);
+        setLoading(false);
       } catch (err) {
         console.error("Error", err);
         alert("カメラ認証ができませんでした。");
-        console.log("呼ばれてる？");
+        console.log("エラー呼ばれてる？");
         setLoading(false);
         // エラー処理、ユーザーにフィードバックを提供する
       }
+      // finally {
+      //   setLoading(false);
+      // }
     };
 
     getPermission();
-  }, [getDevice, selectedDevice, mode]);
+  }, [getDevice, selectedDevice, mode, videoRef]);
 
   console.log("video", videoRef.current);
 
