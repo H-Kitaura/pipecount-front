@@ -76,7 +76,7 @@ export default function Home() {
     };
 
     getPermission();
-  }, [getDevice]);
+  }, [getDevice, selectedDevice, mode]);
 
   //カメラデータの取得
   useEffect(() => {
@@ -85,11 +85,7 @@ export default function Home() {
       setSelectedDevice(devices[0].deviceId);
       setMode("video");
     }
-  }, [devices, videoRef]);
-  // console.log(window.innerWidth, window.innerHeight);
-
-  // console.log(size);
-
+  }, [devices]);
   useEffect(() => {
     function handleResize() {
       setWindowSize({
