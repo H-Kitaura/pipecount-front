@@ -17,21 +17,21 @@ const PhotoButton = ({
   setMode,
   setPoints,
 }: Props) => {
-  const handlePhotoShot = () => {
-    const video = videoRef.current;
-    const canvas = document.createElement("canvas");
-    if (!video || !canvas) return;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    console.log(video.videoWidth, video.videoHeight);
+  // const handlePhotoShot = () => {
+  //   const video = videoRef.current;
+  //   const canvas = document.createElement("canvas");
+  //   if (!video || !canvas) return;
+  //   canvas.width = video.videoWidth;
+  //   canvas.height = video.videoHeight;
+  //   console.log(video.videoWidth, video.videoHeight);
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const imageData = canvas.toDataURL("image/png");
-    setImage(imageData);
-    setMode("image");
-  };
+  //   const ctx = canvas.getContext("2d");
+  //   if (!ctx) return;
+  //   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  //   const imageData = canvas.toDataURL("image/png");
+  //   setImage(imageData);
+  //   setMode("image");
+  // };
 
   return (
     <>

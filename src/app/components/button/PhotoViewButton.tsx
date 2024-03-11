@@ -41,26 +41,17 @@ Props) => {
     const canvas = document.createElement("canvas");
     if (!video || !canvas) return;
 
-    // ビデオの幅と高さを取得
-    const videoWidth = video.videoWidth;
-    const videoHeight = video.videoHeight;
-
     // スマホの画面サイズを取得
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-
-    // canvasのサイズをスマホの画面サイズに合わせる
-    const targetWidth = screenWidth;
-    const targetHeight = screenHeight;
-
-    canvas.width = targetWidth;
-    canvas.height = targetHeight;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     // ビデオの幅と高さを指定して描画
-    ctx.drawImage(video, 0, 0, screenWidth, screenHeight);
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     const imageData = canvas.toDataURL("image/png");
     setImage(imageData);

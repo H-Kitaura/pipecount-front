@@ -47,18 +47,20 @@ export default function Home() {
               audio: false,
               video: {
                 deviceId: getDevice.deviceId,
-                width: { ideal: window.innerWidth },
-                height: { ideal: window.innerHeight },
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
               },
             }
           : {
               audio: false,
               video: {
                 facingMode: "user",
-                width: { ideal: window.innerWidth },
-                height: { ideal: window.innerHeight },
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
               },
             };
+        console.log(window.innerWidth, window.innerHeight);
+
         //   ? {
         //     audio: false,
         //     video: {
@@ -98,6 +100,7 @@ export default function Home() {
       setMode("video");
     }
   }, [devices]);
+  console.log(window.innerWidth, window.innerHeight);
 
   // console.log(size);
 
