@@ -22,7 +22,7 @@ const VideoView = ({
   windowSize,
 }: Props) => {
   return (
-    <div className="h-full w-full flex items-center justify-center flex-col mt-8 relative">
+    <div className="h-auto max-w-full flex items-center justify-center flex-col mt-8 relative">
       {/* <video
         ref={videoRef}
         width={400}
@@ -33,12 +33,12 @@ const VideoView = ({
       /> */}
       <video
         ref={videoRef}
-        // width={windowSize.width}
-        // height={windowSize.height}
+        width={windowSize.width}
+        height={windowSize.height}
         autoPlay
         muted
         playsInline
-        className="w-full h-full"
+        className="h-auto max-w-full"
       />
       <PhotoViewButton
         videoRef={videoRef}
