@@ -86,17 +86,31 @@ export default function Home() {
       setMode("video");
     }
   }, [devices]);
-  useEffect(() => {
-    function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setWindowSize({
+  //       width: window.innerWidth,
+  //       height: window.innerHeight,
+  //     });
+  //   }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [windowSize, videoRef, selectedDevice, devices]);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, [windowSize, videoRef, selectedDevice, devices]);
+
+  useEffect(() => {
+    const adjustVideoSize = () => {
+      if (videoRef.current) {
+        videoRef.current.style.width = "100%";
+        videoRef.current.style.height = "auto";
+      }
+    };
+
+    window.addEventListener("resize", adjustVideoSize);
+    adjustVideoSize();
+
+    return () => window.removeEventListener("resize", adjustVideoSize);
+  }, [videoRef, mode]); // モードが変わるたびに再調整
 
   return (
     <main>
