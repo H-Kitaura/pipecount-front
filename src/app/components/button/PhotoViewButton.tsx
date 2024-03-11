@@ -8,7 +8,7 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   // size: any;
-  // setSize: React.Dispatch<React.SetStateAction<any>>;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const PhotoViewButton = ({
@@ -16,8 +16,8 @@ const PhotoViewButton = ({
   setImage,
   mode,
   setMode,
+  setSize,
 }: // size,
-// setSize,
 Props) => {
   // const handlePhotoShot = () => {
   //   const video = videoRef.current;
@@ -45,9 +45,16 @@ Props) => {
     const videoAspectRatio = video.videoWidth / video.videoHeight;
 
     // キャンバスのサイズをビデオのアスペクト比に合わせて設定
+    console.log(videoAspectRatio);
+
     canvas.width = video.videoWidth;
     canvas.height = video.videoWidth / videoAspectRatio;
+    console.log(canvas.width, canvas.height);
 
+    setSize({
+      width: canvas.width,
+      height: canvas.height,
+    });
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -58,6 +65,7 @@ Props) => {
     setImage(imageData);
     setMode("image");
   };
+
   return (
     <>
       {mode === "video" ? (

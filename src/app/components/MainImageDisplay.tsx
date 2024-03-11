@@ -10,8 +10,8 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
-  // size: any;
-  // setSize: React.Dispatch<React.SetStateAction<any>>;
+  size: any;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   points: any;
@@ -26,8 +26,8 @@ const MainImageDisplay = ({
   setMode,
   image,
   setImage,
-  // size,
-  // setSize,
+  size,
+  setSize,
   cordinatesDisplay,
   setCordinatesDisplay,
   points,
@@ -43,8 +43,8 @@ const MainImageDisplay = ({
             setImage={setImage}
             mode={mode}
             setMode={setMode}
-            // size={size}
-            // setSize={setSize}
+            size={size}
+            setSize={setSize}
           />
         )}
         {mode === "image" && (
@@ -52,7 +52,7 @@ const MainImageDisplay = ({
             image={image}
             setImage={setImage}
             setMode={setMode}
-            // size={size}
+            size={size}
           />
         )}
         {mode === "canvas" && (
@@ -60,7 +60,7 @@ const MainImageDisplay = ({
             videoRef={videoRef}
             canvasRef={canvasRef}
             image={image}
-            // size={size}
+            size={size}
             cordinatesDisplay={cordinatesDisplay}
             setCordinatesDisplay={setCordinatesDisplay}
             points={points}

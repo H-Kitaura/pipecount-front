@@ -5,10 +5,10 @@ type Props = {
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  // size: any;
+  size: any;
 };
 
-const ImageView = ({ image, setImage, setMode }: Props) => {
+const ImageView = ({ image, setImage, setMode, size }: Props) => {
   const handleImage = () => {
     //ここでapi送信
     setMode("canvas");
@@ -21,12 +21,7 @@ const ImageView = ({ image, setImage, setMode }: Props) => {
   return (
     <div className="h-full w-full flex items-center justify-center flex-col mt-8">
       {/* <img src={image} alt="image" className="w-[400px] h-[300px]" /> */}
-      <img
-        src={image}
-        width={window.innerWidth}
-        height={window.innerHeight}
-        alt="image"
-      />
+      <img src={image} width={size.width} height={size.height} alt="image" />
       <div className="flex items-center justify-center space-x-4 my-4">
         <button
           onClick={handleImage}
