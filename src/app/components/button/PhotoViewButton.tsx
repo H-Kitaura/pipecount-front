@@ -45,29 +45,21 @@ Props) => {
     const videoAspectRatio = video.videoWidth / video.videoHeight;
 
     // キャンバスのサイズをビデオのアスペクト比に合わせて設定
-    console.log(videoAspectRatio);
-
-    const screenWidth = video.videoWidth;
-    const screenHeight = video.videoHeight;
-
-    if (screenHeight > screenWidth) {
+    if (video.videoHeight > video.videoWidth) {
       // 縦向きの場合
-      canvas.height = screenHeight;
-      canvas.width = screenHeight * videoAspectRatio;
+      canvas.width = video.videoHeight * videoAspectRatio;
+      canvas.height = video.videoHeight;
     } else {
       // 横向きの場合
-      canvas.width = screenWidth;
-      canvas.height = screenWidth / videoAspectRatio;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoWidth / videoAspectRatio;
     }
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoWidth / videoAspectRatio;
-    console.log(canvas.width, canvas.height);
 
     setSize({
       width: canvas.width,
       height: canvas.height,
     });
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 

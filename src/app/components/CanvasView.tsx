@@ -15,6 +15,7 @@ type Props = {
 
 const CanvasView = ({
   canvasRef,
+  videoRef,
   image,
   size,
   cordinatesDisplay,
@@ -65,9 +66,13 @@ const CanvasView = ({
   const imageDraw = (ctx: CanvasRenderingContext2D) => {
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
+      const video = videoRef.current;
+      if (video === null) return;
+      const videoAspectRatio = video.videoWidth / video.videoHeight;
+
       canvasImage.onload = () => {
         ctx.clearRect(0, 0, size.width, size.height);
-        ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
+        ctx.drawImage(video, 0, 0, size.width, size.height);
         resolve(true);
       };
       canvasImage.onerror = reject;
