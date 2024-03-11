@@ -31,6 +31,10 @@ export default function Home() {
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(3);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   //<==================================hooks
   const getDevice =
@@ -81,6 +85,7 @@ export default function Home() {
         if (videoRef?.current) {
           videoRef.current.srcObject = stream;
         }
+        console.log(constraints);
       } catch (err) {
         console.error("Error", err);
         alert("カメラ認証ができませんでした。");
@@ -102,6 +107,18 @@ export default function Home() {
   // console.log(window.innerWidth, window.innerHeight);
 
   // console.log(size);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <main>
@@ -135,6 +152,7 @@ export default function Home() {
             points={points}
             setPoints={setPoints}
             pointSize={pointSize}
+            windowSize={windowSize}
           />
           <div className="grid grid-cols-2 px-8">
             <AICountContent points={points} />
