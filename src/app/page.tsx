@@ -63,24 +63,6 @@ export default function Home() {
                 height: { ideal: 720 },
               },
             };
-
-        //   ? {
-        //     audio: false,
-        //     video: {
-        //       deviceId: getDevice.deviceId,
-        //       width: { ideal: 1280 },
-        //       height: { ideal: 720 },
-        //     },
-        //   }
-        // : {
-        //     audio: false,
-        //     video: {
-        //       facingMode: "user",
-        //       width: { ideal: 1280 },
-        //       height: { ideal: 720 },
-        //     },
-        //   };
-
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef?.current) {
           videoRef.current.srcObject = stream;
@@ -94,7 +76,7 @@ export default function Home() {
     };
 
     getPermission();
-  }, [getDevice, selectedDevice, mode]);
+  }, [getDevice, selectedDevice, mode, videoRef, canvasRef]);
 
   //カメラデータの取得
   useEffect(() => {
