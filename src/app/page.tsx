@@ -35,6 +35,7 @@ export default function Home() {
     width: 0,
     height: 0,
   });
+  const [loading, setLoading] = useState(false);
 
   //<==================================hooks
   const getDevice =
@@ -44,6 +45,7 @@ export default function Home() {
 
   useEffect(() => {
     const getPermission = async () => {
+      setLoading(true);
       try {
         // カメラ情報が取得できない場合はフロントカメラを利用する
         const constraints = getDevice
@@ -66,17 +68,24 @@ export default function Home() {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef?.current) {
           videoRef.current.srcObject = stream;
+          console.log("呼ばれてる？");
+
+          setLoading(false);
         }
         console.log(constraints);
       } catch (err) {
         console.error("Error", err);
         alert("カメラ認証ができませんでした。");
+        console.log("呼ばれてる？");
+        setLoading(false);
         // エラー処理、ユーザーにフィードバックを提供する
       }
     };
 
     getPermission();
   }, [getDevice, selectedDevice, mode]);
+
+  console.log("video", videoRef.current);
 
   //カメラデータの取得
   useEffect(() => {
@@ -86,31 +95,19 @@ export default function Home() {
       setMode("video");
     }
   }, [devices]);
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowSize({
-  //       width: window.innerWidth,
-  //       height: window.innerHeight,
-  //     });
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, [windowSize, videoRef, selectedDevice, devices]);
-
   useEffect(() => {
-    const adjustVideoSize = () => {
-      if (videoRef.current) {
-        videoRef.current.style.width = "100%";
-        videoRef.current.style.height = "auto";
-      }
-    };
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
 
-    window.addEventListener("resize", adjustVideoSize);
-    adjustVideoSize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [windowSize, videoRef, selectedDevice, devices]);
 
-    return () => window.removeEventListener("resize", adjustVideoSize);
-  }, [videoRef, mode]); // モードが変わるたびに再調整
+  console.log(loading);
 
   return (
     <main>
@@ -129,23 +126,27 @@ export default function Home() {
               setPointSize={setPointSize}
             />
           )}
+          {loading ? (
+            <>読み込み中...</>
+          ) : (
+            <MainImageDisplay
+              videoRef={videoRef}
+              canvasRef={canvasRef}
+              mode={mode}
+              setMode={setMode}
+              image={image}
+              setImage={setImage}
+              size={size}
+              setSize={setSize}
+              cordinatesDisplay={cordinatesDisplay}
+              setCordinatesDisplay={setCordinatesDisplay}
+              points={points}
+              setPoints={setPoints}
+              pointSize={pointSize}
+              windowSize={windowSize}
+            />
+          )}
 
-          <MainImageDisplay
-            videoRef={videoRef}
-            canvasRef={canvasRef}
-            mode={mode}
-            setMode={setMode}
-            image={image}
-            setImage={setImage}
-            size={size}
-            setSize={setSize}
-            cordinatesDisplay={cordinatesDisplay}
-            setCordinatesDisplay={setCordinatesDisplay}
-            points={points}
-            setPoints={setPoints}
-            pointSize={pointSize}
-            windowSize={windowSize}
-          />
           <div className="grid grid-cols-2 px-8">
             <AICountContent points={points} />
             {totalCounts.length > 0 && (
