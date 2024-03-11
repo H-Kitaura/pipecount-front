@@ -30,7 +30,7 @@ export default function Home() {
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
-  const [pointSize, setPointSize] = useState(3);
+  const [pointSize, setPointSize] = useState(10);
   const [windowSize, setWindowSize] = useState({
     width: 0,
     height: 0,
@@ -85,7 +85,7 @@ export default function Home() {
       setSelectedDevice(devices[0].deviceId);
       setMode("video");
     }
-  }, [devices]);
+  }, [devices, videoRef]);
   // console.log(window.innerWidth, window.innerHeight);
 
   // console.log(size);

@@ -69,6 +69,8 @@ const CanvasView = ({
       ctx.beginPath();
       ctx.arc(centerX, centerY, pointSize, 0, Math.PI * 2);
       ctx.strokeStyle = "green";
+      ctx.lineWidth = 10;
+
       ctx.stroke();
       ctx.closePath();
     });
@@ -157,7 +159,7 @@ const CanvasView = ({
     ctx.beginPath();
     ctx.arc(x, y, pointSize, 0, Math.PI * 2);
     ctx.strokeStyle = "green";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 10;
     ctx.stroke();
   }
 

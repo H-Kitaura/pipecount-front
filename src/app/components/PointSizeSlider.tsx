@@ -19,7 +19,7 @@ const PointSizeSlider = ({ pointSize, setPointSize }: Props) => {
         type="range"
         className="w-2/3 mx-auto"
         min="1" // 最小ズームレベル
-        max="10" // 最大ズームレベル
+        max="20" // 最大ズームレベル
         step="1" // スライダーの移動量
         value={pointSize} // 現在のズームレベル
         onChange={handleZoomChange} // 値が変わったときの処理
