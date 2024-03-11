@@ -41,11 +41,12 @@ Props) => {
     const canvas = document.createElement("canvas");
     if (!video || !canvas) return;
 
-    // スマホの画面サイズを取得
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    // ビデオのアスペクト比を計算
+    const videoAspectRatio = video.videoWidth / video.videoHeight;
+
+    // キャンバスのサイズをビデオのアスペクト比に合わせて設定
     canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    canvas.height = video.videoWidth / videoAspectRatio;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -55,10 +56,6 @@ Props) => {
 
     const imageData = canvas.toDataURL("image/png");
     setImage(imageData);
-    // setSize({
-    //   width: screenWidth,
-    //   height: screenHeight,
-    // });
     setMode("image");
   };
   return (
