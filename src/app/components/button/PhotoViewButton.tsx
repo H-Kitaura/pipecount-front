@@ -37,10 +37,10 @@ Props) => {
       canvas.height = video.videoWidth / videoAspectRatio;
     }
 
-    // setSize({
-    //   width: canvas.width,
-    //   height: canvas.height,
-    // });
+    setSize({
+      width: canvas.width,
+      height: canvas.height,
+    });
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
