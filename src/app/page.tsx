@@ -34,14 +34,17 @@ export default function Home() {
     height: 0,
   });
   //<==================================hooks
+  //スマホではこちら-----v
   const getDevice =
     devices &&
     selectedDevice &&
     devices.find((v) => v.label === selectedDevice);
+  //PCではこちら-----v
   // const getDevice =
   //   devices &&
   //   selectedDevice &&
   //   devices.find((v) => v.deviceId === selectedDevice);
+
   console.log(selectedDevice);
 
   console.log(devices);
@@ -52,23 +55,32 @@ export default function Home() {
     if (videoRef.current === null) return;
     try {
       // カメラ情報が取得できない場合はフロントカメラを利用する
-      const constraints = getDevice
-        ? {
-            audio: false,
-            video: {
-              deviceId: getDevice.deviceId,
-              width: { ideal: 1280 },
-              height: { ideal: 720 },
-            },
-          }
-        : {
-            audio: false,
-            video: {
-              facingMode: "user",
-              width: { ideal: 1280 },
-              height: { ideal: 720 },
-            },
-          };
+      // const constraints = getDevice
+      //   ? {
+      //       audio: false,
+      //       video: {
+      //         deviceId: getDevice.deviceId,
+      //         width: { ideal: 1280 },
+      //         height: { ideal: 720 },
+      //       },
+      //     }
+      //   : {
+      //       audio: false,
+      //       video: {
+      //         facingMode: "user",
+      //         width: { ideal: 1280 },
+      //         height: { ideal: 720 },
+      //       },
+      //     };
+      const constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: window.innerWidth }, // 画面の幅に合わせて設定
+          height: { ideal: window.innerHeight }, // 画面の高さに合わせて設定
+        },
+      };
+
       // const constraints = {
       //   audio: false,
       //   video: getDevice
