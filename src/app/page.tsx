@@ -29,6 +29,7 @@ export default function Home() {
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(10);
+
   //<==================================hooks
   //スマホではこちら-----v
   const getDevice =
@@ -68,7 +69,6 @@ export default function Home() {
   useEffect(() => {
     let previousWidth = window.innerWidth;
     let previousHeight = window.innerHeight;
-
     const getPermission = async () => {
       const isLandscape = window.innerWidth > window.innerHeight;
       const constraints = {
@@ -79,6 +79,7 @@ export default function Home() {
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
+      console.log("constraints", constraints);
 
       if (videoRef.current === null) return;
       try {
@@ -91,6 +92,7 @@ export default function Home() {
     };
 
     const handleResize = () => {
+      // ウィンドウの幅または高さが変わったかどうかをチェック
       if (
         previousWidth === window.innerWidth &&
         previousHeight === window.innerHeight
@@ -98,19 +100,21 @@ export default function Home() {
         return;
       }
 
+      // 現在のウィンドウサイズを更新
       previousWidth = window.innerWidth;
       previousHeight = window.innerHeight;
 
+      // カメラストリームを更新
       getPermission();
+      console.log("リサイズされました");
     };
-
     window.addEventListener("resize", handleResize);
     getPermission();
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [getDevice, selectedDevice, mode, devices, videoRef]);
+  }, [getDevice, selectedDevice, mode, devices]);
 
   //カメラデータの取得
   useEffect(() => {
