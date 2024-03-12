@@ -66,40 +66,12 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // if (!videoRef.current && mode !== "video") return;
-    // getPermission();
-    function getCameraStream() {
-      // 画面の向きに応じた解像度を設定
-      // const isLandscape = window.innerWidth > window.innerHeight;
-      // const constraints = {
-      //   video: {
-      //     width: isLandscape ? 1280 : 720,
-      //     height: isLandscape ? 720 : 1280,
-      //   },
-      // };
-
-      // カメラのストリームを取得
-      navigator.mediaDevices
-        .getUserMedia(constraints)
-        .then((stream) => {
-          if (videoRef.current) {
-            videoRef.current.srcObject = stream;
-          }
-        })
-        .catch((error) => {
-          console.error("カメラのアクセスに失敗しました:", error);
-        });
-    }
-
-    console.log("変わった?");
-
     // 画面の向きが変わったときにストリームを更新
-    window.addEventListener("orientationchange", getCameraStream);
-
+    window.addEventListener("resize", getPermission);
     // 初期読み込み時にカメラストリームを取得
-    getCameraStream();
+    getPermission();
     return () => {
-      window.removeEventListener("orientationchange", getCameraStream);
+      window.removeEventListener("resize", getPermission);
     };
   }, [getDevice, selectedDevice, mode, videoRef, devices]);
 
