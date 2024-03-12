@@ -43,26 +43,33 @@ export default function Home() {
     if (videoRef.current === null) return;
     try {
       // カメラ情報が取得できない場合はフロントカメラを利用する
-      const constraints = getDevice
-        ? {
-            audio: false,
-            video: {
-              deviceId: getDevice.deviceId,
-              // width: { ideal: 1280 },
-              // height: { ideal: 720 },
-            },
-          }
-        : {
-            audio: false,
-            video: {
-              facingMode: "user",
-              // width: { ideal: 1280 },
-              // height: { ideal: 720 },
-            },
-          };
+      // const constraints = getDevice
+      //   ? {
+      //       audio: false,
+      //       video: {
+      //         deviceId: getDevice.deviceId,
+      //         // width: { ideal: 1280 },
+      //         // height: { ideal: 720 },
+      //       },
+      //     }
+      //   : {
+      //       audio: false,
+      //       video: {
+      //         facingMode: "user",
+      //         // width: { ideal: 1280 },
+      //         // height: { ideal: 720 },
+      //       },
+      //     };
+      const constraints = {
+        audio: false,
+        video: getDevice
+          ? { deviceId: getDevice.deviceId }
+          : { facingMode: "user" },
+      };
+
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       videoRef.current.srcObject = stream;
-      videoRef.current.play();
+      // videoRef.current.play();
       console.log(constraints);
     } catch (err) {
       console.error("Error", err);
@@ -73,19 +80,18 @@ export default function Home() {
 
   useEffect(() => {
     if (!videoRef.current && mode !== "video") return;
-    if (!selectedDevice) return;
     getPermission();
   }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
   // console.log("video", videoRef.current);
 
   //カメラデータの取得
-  // useEffect(() => {
-  //   if (devices && devices.length > 0) {
-  //     // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
-  //     setSelectedDevice(devices[0].deviceId);
-  //     setMode("video");
-  //   }
-  // }, [devices]);
+  useEffect(() => {
+    if (devices && devices.length > 0) {
+      // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
+      setSelectedDevice(devices[0].deviceId);
+      setMode("video");
+    }
+  }, [devices]);
   // useEffect(() => {
   //   function handleResize() {
   //     setWindowSize({
@@ -105,12 +111,7 @@ export default function Home() {
 
   return (
     <main>
-      <Header
-        devices={devices}
-        selectedDevice={selectedDevice}
-        setSelectedDevice={setSelectedDevice}
-        setMode={setMode}
-      />
+      <Header devices={devices} setSelectedDevice={setSelectedDevice} />
       <Container>
         <Wrapper>
           {mode === "canvas" && (
