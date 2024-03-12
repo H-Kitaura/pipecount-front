@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import AICountContent from "./components/AICountContent";
 import Container from "./components/Container";
-import FixedCountContent from "./components/FixedCountContent";
 import MainImageDisplay from "./components/MainImageDisplay";
 import Wrapper from "./components/Wrapper";
 import Header from "./components/Header";
@@ -23,10 +22,6 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
-  // const [size, setSize] = useState({
-  //   width: 0,
-  //   height: 0,
-  // });
   const [size, setSize] = useState({ width: 1280, height: 720 });
 
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
@@ -104,46 +99,43 @@ export default function Home() {
   return (
     <main>
       <Header devices={devices} setSelectedDevice={setSelectedDevice} />
-      <Container>
-        <Wrapper>
-          {mode === "canvas" && (
-            <CordinatesButton
-              cordinatesDisplay={cordinatesDisplay}
-              setCordinatesDisplay={setCordinatesDisplay}
-            />
-          )}
-          {mode === "canvas" && (
-            <PointSizeSlider
-              pointSize={pointSize}
-              setPointSize={setPointSize}
-            />
-          )}
-          <MainImageDisplay
-            videoRef={videoRef}
-            canvasRef={canvasRef}
-            mode={mode}
-            setMode={setMode}
-            image={image}
-            setImage={setImage}
-            size={size}
-            setSize={setSize}
-            cordinatesDisplay={cordinatesDisplay}
-            setCordinatesDisplay={setCordinatesDisplay}
-            points={points}
-            setPoints={setPoints}
-            pointSize={pointSize}
-            windowSize={windowSize}
-          />
+      {/* <Container> */}
+      {/* <Wrapper> */}
+      {mode === "canvas" && (
+        <CordinatesButton
+          cordinatesDisplay={cordinatesDisplay}
+          setCordinatesDisplay={setCordinatesDisplay}
+        />
+      )}
+      {mode === "canvas" && (
+        <PointSizeSlider pointSize={pointSize} setPointSize={setPointSize} />
+      )}
+      <MainImageDisplay
+        videoRef={videoRef}
+        canvasRef={canvasRef}
+        mode={mode}
+        setMode={setMode}
+        image={image}
+        setImage={setImage}
+        size={size}
+        setSize={setSize}
+        cordinatesDisplay={cordinatesDisplay}
+        setCordinatesDisplay={setCordinatesDisplay}
+        points={points}
+        setPoints={setPoints}
+        pointSize={pointSize}
+        windowSize={windowSize}
+      />
 
-          <div className="grid grid-cols-2 px-8">
-            <AICountContent points={points} />
-            {totalCounts.length > 0 && (
-              <TotalCountResult totalCounts={totalCounts} />
-            )}
-          </div>
-          {totalCounts.length > 0 && <CountResult totalCounts={totalCounts} />}
-        </Wrapper>
-      </Container>
+      <div className="grid grid-cols-2 px-8">
+        <AICountContent points={points} />
+        {totalCounts.length > 0 && (
+          <TotalCountResult totalCounts={totalCounts} />
+        )}
+      </div>
+      {totalCounts.length > 0 && <CountResult totalCounts={totalCounts} />}
+      {/* </Wrapper> */}
+      {/* </Container> */}
       <Footer
         videoRef={videoRef}
         mode={mode}

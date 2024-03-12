@@ -33,8 +33,6 @@ const VideoView = ({
     >
       <video
         ref={videoRef}
-        // width={windowSize.width}
-        // height={windowSize.height}
         width={size.width}
         height={size.height}
         autoPlay
