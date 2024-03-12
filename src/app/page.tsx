@@ -70,13 +70,13 @@ export default function Home() {
     // getPermission();
     function getCameraStream() {
       // 画面の向きに応じた解像度を設定
-      const isLandscape = window.innerWidth > window.innerHeight;
-      const constraints = {
-        video: {
-          width: isLandscape ? 1280 : 720,
-          height: isLandscape ? 720 : 1280,
-        },
-      };
+      // const isLandscape = window.innerWidth > window.innerHeight;
+      // const constraints = {
+      //   video: {
+      //     width: isLandscape ? 1280 : 720,
+      //     height: isLandscape ? 720 : 1280,
+      //   },
+      // };
 
       // カメラのストリームを取得
       navigator.mediaDevices
