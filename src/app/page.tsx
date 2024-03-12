@@ -79,7 +79,8 @@ export default function Home() {
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
-      console.log("constraints", constraints);
+      alert(constraints.video.width);
+      alert(constraints.video.height);
 
       if (videoRef.current === null) return;
       try {
@@ -97,7 +98,6 @@ export default function Home() {
         previousWidth == window.innerWidth
         // previousHeight === window.innerHeight
       ) {
-        alert("リサイズされなかった");
         return;
       }
 
@@ -107,7 +107,6 @@ export default function Home() {
 
       // カメラストリームを更新
       getPermission();
-      alert("リサイズされました");
     };
     window.addEventListener("resize", handleResize);
     getPermission();
