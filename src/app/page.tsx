@@ -82,9 +82,9 @@ export default function Home() {
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then((stream) => {
-          const videoElement = document.querySelector("video");
-          if (!videoElement) return;
-          videoElement.srcObject = stream;
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
         })
         .catch((error) => {
           console.error("カメラのアクセスに失敗しました:", error);
@@ -98,6 +98,9 @@ export default function Home() {
 
     // 初期読み込み時にカメラストリームを取得
     getCameraStream();
+    return () => {
+      window.removeEventListener("orientationchange", getCameraStream);
+    };
   }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
 
   //カメラデータの取得
