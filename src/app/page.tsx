@@ -66,7 +66,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (!videoRef.current && mode !== "video") return;
+    // if (!videoRef.current && mode !== "video") return;
     // getPermission();
     function getCameraStream() {
       // 画面の向きに応じた解像度を設定
@@ -101,7 +101,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("orientationchange", getCameraStream);
     };
-  }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
+  }, [getDevice, selectedDevice, mode, videoRef, devices]);
 
   //カメラデータの取得
   useEffect(() => {
