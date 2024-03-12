@@ -45,10 +45,8 @@ export default function Home() {
     audio: false,
     video: {
       deviceId: getDevice ? getDevice.deviceId : undefined,
-      // width: { ideal: 1280 },
-      // height: { ideal: 720 },
-      width: { ideal: window.innerWidth },
-      height: { ideal: window.innerHeight },
+      width: { ideal: 1280 }, // 画面の幅に合わせて設定
+      height: { ideal: 720 }, // 画面の高さに合わせて設定
     },
   };
 
@@ -67,31 +65,10 @@ export default function Home() {
     }
   };
 
-  // useEffect(() => {
-  //   if (!videoRef.current && mode !== "video") return;
-  //   getPermission();
-  // }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
   useEffect(() => {
-    // ウィンドウのリサイズイベントをハンドリングする関数
-    const handleResize = () => {
-      // 画面の向きが変わったかどうかを判断
-      const isLandscape = window.innerWidth > window.innerHeight;
-      console.log("動いてる?");
-
-      // 画面の向きが変わった場合、カメラのアクセス権を再取得
-      if (isLandscape !== size.width > size.height) {
-        getPermission();
-      }
-    };
-
-    // ウィンドウのリサイズイベントにリスナーを追加
-    window.addEventListener("resize", handleResize);
-
-    // コンポーネントがアンマウントされるときにイベントリスナーを削除
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [getPermission, size]);
+    if (!videoRef.current && mode !== "video") return;
+    getPermission();
+  }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
 
   //カメラデータの取得
   useEffect(() => {
