@@ -41,62 +41,87 @@ export default function Home() {
   //   selectedDevice &&
   //   devices.find((v) => v.deviceId === selectedDevice);
 
-  const constraints = {
-    audio: false,
-    video: {
-      deviceId: getDevice ? getDevice.deviceId : undefined,
-      width: { ideal: 1280 }, // 画面の幅に合わせて設定
-      height: { ideal: 720 }, // 画面の高さに合わせて設定
-    },
-  };
+  // const constraints = {
+  //   audio: false,
+  //   video: {
+  //     deviceId: getDevice ? getDevice.deviceId : undefined,
+  //     width: { ideal: 1280 }, // 画面の幅に合わせて設定
+  //     height: { ideal: 720 }, // 画面の高さに合わせて設定
+  //   },
+  // };
 
-  const getPermission = async () => {
-    if (videoRef.current === null) return;
-    try {
-      // カメラ情報が取得できない場合はフロントカメラを利用する
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream; // 新しいストリームで更新
-      }
-    } catch (err) {
-      console.error("Error", err);
-      alert("カメラ認証ができませんでした。");
-      // エラー処理、ユーザーにフィードバックを提供する
-    }
-  };
+  // const getPermission = async () => {
+  //   if (videoRef.current === null) return;
+  //   try {
+  //     // カメラ情報が取得できない場合はフロントカメラを利用する
+  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  //     if (videoRef.current) {
+  //       videoRef.current.srcObject = stream; // 新しいストリームで更新
+  //     }
+  //   } catch (err) {
+  //     console.error("Error", err);
+  //     alert("カメラ認証ができませんでした。");
+  //     // エラー処理、ユーザーにフィードバックを提供する
+  //   }
+  // };
 
   useEffect(() => {
-    let currentWidth = window.innerWidth;
-
     const isLandscape = window.innerWidth > window.innerHeight;
+    let constraints: any;
+
     if (isLandscape) {
-      // 横向きの場合の処理
+      // 横向きの場合の解像度設定
+      constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+        },
+      };
+      alert("横向き");
     } else {
-      // 縦向きの場合の処理
+      // 縦向きの場合の解像度設定
+      constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: 720 },
+          height: { ideal: 1280 },
+        },
+      };
+      alert("縦向き");
     }
 
-    const handleResize = () => {
-      // 実際にウィンドウの幅または高さが変わったかどうかをチェック
-      if (currentWidth == window.innerWidth) {
-        // ウインドウ横幅が変わっていないため処理をキャンセル。
-        return;
+    const getPermission = async () => {
+      if (videoRef.current === null) return;
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (err) {
+        console.error("Error", err);
+        alert("カメラ認証ができませんでした。");
       }
-      currentWidth = window.innerWidth;
-      getPermission();
-      alert("ウィンドウ変更");
     };
 
-    // イベントリスナーの設定
-    window.addEventListener("resize", handleResize);
-
-    // 初期読み込み時にもカメラストリームを取得
     getPermission();
 
-    // クリーンアップ関数
-    return () => {
-      window.removeEventListener("resize", handleResize);
+    // 画面の向きが変わったときにビデオストリームを再取得する関数を定義
+    const handleOrientationChange = () => {
+      getPermission();
     };
-  }, [getDevice, selectedDevice, mode, devices]);
+
+    // orientationchangeイベントにリスナーを追加
+    window.addEventListener("resize", handleOrientationChange);
+
+    // コンポーネントがアンマウントされる際にイベントリスナーを解除
+    return () => {
+      window.removeEventListener("resize", handleOrientationChange);
+    };
+  }, [getDevice, selectedDevice, mode, videoRef, devices]);
 
   //カメラデータの取得
   useEffect(() => {
