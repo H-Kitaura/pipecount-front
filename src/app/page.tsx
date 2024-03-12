@@ -35,8 +35,6 @@ export default function Home() {
     width: 0,
     height: 0,
   });
-  const [loading, setLoading] = useState(false);
-
   //<==================================hooks
   const getDevice =
     devices &&
@@ -44,7 +42,6 @@ export default function Home() {
     devices.find((v) => v.label === selectedDevice);
 
   const getPermission = async () => {
-    setLoading(true);
     try {
       // カメラ情報が取得できない場合はフロントカメラを利用する
       const constraints = getDevice
@@ -68,23 +65,18 @@ export default function Home() {
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
       }
-
-      setLoading(false);
     } catch (err) {
       console.error("Error", err);
       alert("カメラ認証ができませんでした。");
-      setLoading(false);
       // エラー処理、ユーザーにフィードバックを提供する
     }
   };
 
   useEffect(() => {
     if (!videoRef.current) return;
-
     getPermission();
+    console.log("video", videoRef.current);
   }, [getDevice, selectedDevice, mode, videoRef]);
-
-  console.log("video", videoRef.current);
 
   //カメラデータの取得
   useEffect(() => {
@@ -124,9 +116,6 @@ export default function Home() {
               setPointSize={setPointSize}
             />
           )}
-          {/* {loading ? (
-            <>読み込み中...</>
-          ) : ( */}
           <MainImageDisplay
             videoRef={videoRef}
             canvasRef={canvasRef}
@@ -143,7 +132,6 @@ export default function Home() {
             pointSize={pointSize}
             windowSize={windowSize}
           />
-          {/* )} */}
 
           <div className="grid grid-cols-2 px-8">
             <AICountContent points={points} />

@@ -33,7 +33,7 @@ const CanvasView = ({
     await imageDraw(canvas, ctx)
       .then(() => {
         if (cordinatesDisplay) {
-          drawPoint(ctx, canvas);
+          drawPoint(ctx);
         }
       })
       .catch((err) => {
@@ -47,24 +47,12 @@ const CanvasView = ({
     draw();
   }, [canvasRef, image, cordinatesDisplay, points, pointSize]);
 
-  const drawPoint = (
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement
-  ) => {
+  const drawPoint = (ctx: CanvasRenderingContext2D) => {
     points.forEach((pointPair: any) => {
       const { start, end } = pointPair;
-
-      // スケールファクターの計算
-      const scaleX = canvas.clientWidth / size.width;
-      const scaleY = canvas.clientHeight / size.height;
-
       // 保存された座標をスケーリング
       const centerX = (start.x + end.x) / 2;
       const centerY = (start.y + end.y) / 2;
-
-      console.log(centerX, centerY);
-      console.log(scaleX, scaleY);
-
       // スケーリングされた座標で円を描画
       ctx.beginPath();
       ctx.arc(centerX, centerY, pointSize, 0, Math.PI * 2);
@@ -148,9 +136,6 @@ const CanvasView = ({
       canvas.removeEventListener("mousedown", handleMouseDown);
     };
   }, [isDrawing, points]);
-
-  console.log(points);
-
   function drawAddArc(ctx: CanvasRenderingContext2D, x: number, y: number) {
     // const pointSize = 3;
     ctx.beginPath();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PhotoButton from "./button/PhotoButton";
 import PhotoViewButton from "./button/PhotoViewButton";
 
@@ -21,14 +21,39 @@ const VideoView = ({
   size,
   windowSize,
 }: Props) => {
-  console.log(videoRef.current);
+  if (!videoRef) return;
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    const handleLoadedMetadata = () => {
+      const videoWidth = videoElement.videoWidth;
+      const videoHeight = videoElement.videoHeight;
+      setSize({ width: videoWidth, height: videoHeight });
+    };
+
+    if (videoElement) {
+      videoElement.addEventListener("loadedmetadata", handleLoadedMetadata);
+    }
+
+    return () => {
+      if (videoElement) {
+        videoElement.removeEventListener(
+          "loadedmetadata",
+          handleLoadedMetadata
+        );
+      }
+    };
+  }, [videoRef, setSize]);
 
   return (
-    <div className="h-full w-full flex items-center justify-center flex-col mt-8 relative">
+    <div className="h-full w-full flex items-center justify-center flex-col relative">
       <video
         ref={videoRef}
-        width={windowSize.width}
-        height={windowSize.height}
+        // width={windowSize.width}
+        // height={windowSize.height}
+        width={size.width}
+        height={size.height}
         autoPlay
         muted
         playsInline
