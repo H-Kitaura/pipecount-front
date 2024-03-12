@@ -84,8 +84,8 @@ export default function Home() {
     const handleResize = () => {
       if (videoRef.current) {
         setSize({
-          width: window.innerWidth * 2,
-          height: window.innerHeight * 2,
+          width: window.innerWidth,
+          height: window.innerHeight,
         });
       }
     };
