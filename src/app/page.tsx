@@ -81,7 +81,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [getDevice, selectedDevice, mode, devices]);
+  }, []);
 
   //カメラデータの取得
   useEffect(() => {
