@@ -43,29 +43,29 @@ export default function Home() {
     if (videoRef.current === null) return;
     try {
       // カメラ情報が取得できない場合はフロントカメラを利用する
-      // const constraints = getDevice
-      //   ? {
-      //       audio: false,
-      //       video: {
-      //         deviceId: getDevice.deviceId,
-      //         // width: { ideal: 1280 },
-      //         // height: { ideal: 720 },
-      //       },
-      //     }
-      //   : {
-      //       audio: false,
-      //       video: {
-      //         facingMode: "user",
-      //         // width: { ideal: 1280 },
-      //         // height: { ideal: 720 },
-      //       },
-      //     };
-      const constraints = {
-        audio: false,
-        video: getDevice
-          ? { deviceId: getDevice.deviceId }
-          : { facingMode: "user" },
-      };
+      const constraints = getDevice
+        ? {
+            audio: false,
+            video: {
+              deviceId: getDevice.deviceId,
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+            },
+          }
+        : {
+            audio: false,
+            video: {
+              facingMode: "user",
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+            },
+          };
+      // const constraints = {
+      //   audio: false,
+      //   video: getDevice
+      //     ? { deviceId: getDevice.deviceId }
+      //     : { facingMode: "user" },
+      // };
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       videoRef.current.srcObject = stream;
