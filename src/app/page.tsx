@@ -73,7 +73,7 @@ export default function Home() {
     if (!videoRef.current) return;
     getPermission();
   }, [getDevice, selectedDevice, mode, videoRef]);
-  console.log("video", videoRef.current);
+  // console.log("video", videoRef.current);
 
   //カメラデータの取得
   useEffect(() => {
@@ -95,6 +95,10 @@ export default function Home() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  console.log("video", videoRef.current);
+  console.log("image", image);
+  console.log("canvas", canvasRef.current);
 
   return (
     <main>
