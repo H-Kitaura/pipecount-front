@@ -70,9 +70,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (!videoRef.current) return;
+    if (!videoRef.current && mode !== "video") return;
     getPermission();
-  }, [getDevice, selectedDevice, mode, videoRef]);
+  }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
   // console.log("video", videoRef.current);
 
   //カメラデータの取得
