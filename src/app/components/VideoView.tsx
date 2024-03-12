@@ -9,7 +9,6 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   size: any;
   setSize: React.Dispatch<React.SetStateAction<any>>;
-  windowSize: any;
 };
 
 const VideoView = ({
@@ -19,7 +18,6 @@ const VideoView = ({
   setMode,
   setSize,
   size,
-  windowSize,
 }: Props) => {
   if (!videoRef) return;
 

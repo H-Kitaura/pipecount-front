@@ -17,7 +17,6 @@ type Props = {
   points: any;
   setPoints: React.Dispatch<React.SetStateAction<any>>;
   pointSize: number;
-  windowSize: any;
 };
 
 const MainImageDisplay = ({
@@ -34,7 +33,6 @@ const MainImageDisplay = ({
   points,
   setPoints,
   pointSize,
-  windowSize,
 }: Props) => {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center my-4 px-4">
@@ -47,7 +45,6 @@ const MainImageDisplay = ({
         setMode={setMode}
         size={size}
         setSize={setSize}
-        windowSize={windowSize}
       />
       {/* )} */}
       {mode === "image" && (

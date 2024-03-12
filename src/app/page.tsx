@@ -29,10 +29,6 @@ export default function Home() {
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(10);
-  const [windowSize, setWindowSize] = useState({
-    width: 0,
-    height: 0,
-  });
   //<==================================hooks
   //スマホではこちら-----v
   const getDevice =
@@ -49,35 +45,15 @@ export default function Home() {
     if (videoRef.current === null) return;
     try {
       // カメラ情報が取得できない場合はフロントカメラを利用する
-      // const constraints = getDevice
-      //   ? {
-      //       audio: false,
-      //       video: {
-      //         deviceId: getDevice.deviceId,
-      //         width: { ideal: 1280 },
-      //         height: { ideal: 720 },
-      //       },
-      //     }
-      //   : {
-      //       audio: false,
-      //       video: {
-      //         facingMode: "user",
-      //         width: { ideal: 1280 },
-      //         height: { ideal: 720 },
-      //       },
-      //     };
       const constraints = {
         audio: false,
         video: {
           deviceId: getDevice ? getDevice.deviceId : undefined,
-          // width: { ideal: window.innerWidth }, // 画面の幅に合わせて設定
-          // height: { ideal: window.innerHeight }, // 画面の高さに合わせて設定
           width: { ideal: 1280 }, // 画面の幅に合わせて設定
           height: { ideal: 720 }, // 画面の高さに合わせて設定
         },
       };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      // videoRef.current.srcObject = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream; // 新しいストリームで更新
       }
@@ -102,19 +78,6 @@ export default function Home() {
       setMode("video");
     }
   }, [devices]);
-  useEffect(() => {
-    function handleResize() {
-      // setWindowSize({
-      //   width: window.innerWidth,
-      //   height: window.innerHeight,
-      // });
-    }
-    handleResize();
-    getPermission();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   console.log("video", videoRef.current);
   // console.log("image", image);
@@ -151,7 +114,6 @@ export default function Home() {
             points={points}
             setPoints={setPoints}
             pointSize={pointSize}
-            windowSize={windowSize}
           />
 
           <div className="grid grid-cols-2 px-8">
