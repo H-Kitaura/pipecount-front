@@ -42,6 +42,7 @@ export default function Home() {
     devices &&
     selectedDevice &&
     devices.find((v) => v.deviceId === selectedDevice);
+  console.log(selectedDevice);
 
   console.log(devices);
 
@@ -76,9 +77,10 @@ export default function Home() {
       // };
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      videoRef.current.srcObject = stream;
-      // videoRef.current.play();
-      console.log(constraints);
+      // videoRef.current.srcObject = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream; // 新しいストリームで更新
+      }
     } catch (err) {
       console.error("Error", err);
       alert("カメラ認証ができませんでした。");
