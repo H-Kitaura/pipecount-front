@@ -24,11 +24,6 @@ export default function Home() {
   const [image, setImage] = useState("");
   // const [size, setSize] = useState({ width: 1280, height: 720 });
   const [size, setSize] = useState({ width: 0, height: 0 });
-  //解像度
-  const [resolution, setResolution] = useState({
-    width: 0,
-    height: 0,
-  });
 
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
@@ -50,8 +45,8 @@ export default function Home() {
     audio: false,
     video: {
       deviceId: getDevice ? getDevice.deviceId : undefined,
-      width: { ideal: resolution.width }, // 画面の幅に合わせて設定
-      height: { ideal: resolution.height }, // 画面の高さに合わせて設定
+      // width: { ideal: size.width }, // 画面の幅に合わせて設定
+      // height: { ideal: size.height }, // 画面の高さに合わせて設定
     },
   };
 
@@ -73,7 +68,7 @@ export default function Home() {
   useEffect(() => {
     if (!videoRef.current && mode !== "video") return;
     getPermission();
-  }, [getDevice, selectedDevice, mode, devices, resolution]);
+  }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
 
   //カメラデータの取得
   useEffect(() => {
@@ -85,21 +80,23 @@ export default function Home() {
   }, [devices]);
 
   //videoの解像度とサイズを取得
-  useEffect(() => {
-    const handleResize = () => {
-      if (videoRef.current) {
-        setResolution({
-          width: window.innerWidth * 2,
-          height: window.innerHeight * 2,
-        });
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     if (videoRef.current) {
+  //       setSize({
+  //         width: window.innerWidth,
+  //         height: window.innerHeight,
+  //       });
+  //     }
+  //   };
+  //   handleResize();
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
+  // console.log("解像度", size);
 
   return (
     <main>
