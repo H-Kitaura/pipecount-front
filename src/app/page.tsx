@@ -37,7 +37,7 @@ export default function Home() {
   const getDevice =
     devices &&
     selectedDevice &&
-    devices.find((v) => v.label === selectedDevice);
+    devices.find((v) => v.label || v.deviceId === selectedDevice);
   // const getDevice =
   //   devices &&
   //   selectedDevice &&
