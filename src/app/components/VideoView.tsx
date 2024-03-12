@@ -27,8 +27,10 @@ const VideoView = ({
     <div className="h-full w-full flex items-center justify-center flex-col relative">
       <video
         ref={videoRef}
-        width={windowSize.width}
-        height={windowSize.height}
+        // width={windowSize.width}
+        // height={windowSize.height}
+        width={size.width}
+        height={size.height}
         autoPlay
         muted
         playsInline
