@@ -39,17 +39,17 @@ const MainImageDisplay = ({
   return (
     <div className="flex h-full w-full flex-col items-center justify-center my-4 px-4">
       {/* <div className="w-full h-full border shadow-md flex items-center justify-center"> */}
-      {mode === "video" && (
-        <VideoView
-          videoRef={videoRef}
-          setImage={setImage}
-          mode={mode}
-          setMode={setMode}
-          size={size}
-          setSize={setSize}
-          windowSize={windowSize}
-        />
-      )}
+      {/* {mode === "video" && ( */}
+      <VideoView
+        videoRef={videoRef}
+        setImage={setImage}
+        mode={mode}
+        setMode={setMode}
+        size={size}
+        setSize={setSize}
+        windowSize={windowSize}
+      />
+      {/* )} */}
       {mode === "image" && (
         <ImageView
           image={image}

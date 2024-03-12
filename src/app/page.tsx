@@ -77,8 +77,8 @@ export default function Home() {
   useEffect(() => {
     if (!videoRef.current) return;
     getPermission();
-    console.log("video", videoRef.current);
   }, [getDevice, selectedDevice, mode, videoRef]);
+  console.log("video", videoRef.current);
 
   //カメラデータの取得
   useEffect(() => {

@@ -24,7 +24,13 @@ const VideoView = ({
   if (!videoRef) return;
 
   return (
-    <div className="h-full w-full flex items-center justify-center flex-col relative">
+    <div
+      className={`${
+        mode === "video"
+          ? "h-full w-full flex items-center justify-center flex-col relative"
+          : "hidden"
+      }`}
+    >
       <video
         ref={videoRef}
         // width={windowSize.width}
