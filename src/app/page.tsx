@@ -34,14 +34,14 @@ export default function Home() {
     height: 0,
   });
   //<==================================hooks
-  // const getDevice =
-  //   devices &&
-  //   selectedDevice &&
-  //   devices.find((v) => v.label === selectedDevice);
   const getDevice =
     devices &&
     selectedDevice &&
-    devices.find((v) => v.deviceId === selectedDevice);
+    devices.find((v) => v.label === selectedDevice);
+  // const getDevice =
+  //   devices &&
+  //   selectedDevice &&
+  //   devices.find((v) => v.deviceId === selectedDevice);
   console.log(selectedDevice);
 
   console.log(devices);
