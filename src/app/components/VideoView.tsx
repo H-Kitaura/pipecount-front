@@ -21,7 +21,6 @@ const VideoView = ({
   size,
   windowSize,
 }: Props) => {
-  if (!videoRef) return;
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
