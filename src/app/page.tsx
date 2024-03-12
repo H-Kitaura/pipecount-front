@@ -108,6 +108,7 @@ export default function Home() {
       });
     }
     handleResize();
+    getPermission();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
