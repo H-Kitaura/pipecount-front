@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { MdOutlineCameraAlt } from "react-icons/md";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -58,7 +59,10 @@ Props) => {
         onClick={handlePhotoShot}
         className="rounded-full h-14 w-14 border-4 border-white shadow-md m-4 absolute bottom-0"
       >
-        <span className="bg-white h-12 w-12 rounded-full absolute top-0 bottom-0 left-0 right-0 border-2"></span>
+        {/* <span className="bg-white h-12 w-12 rounded-full absolute top-0 bottom-0 left-0 right-0 border-2"> */}
+        <span className="">
+          <MdOutlineCameraAlt className="h-8 w-8 absolute top-[8px] bottom-0 left-[8px] right-0 text-white" />
+        </span>
       </button>
     </>
   );

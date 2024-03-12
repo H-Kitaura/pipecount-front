@@ -33,7 +33,7 @@ const VideoView = ({
     >
       <video
         ref={videoRef}
-        width={size.width}
+        // width={size.width}
         height={size.height}
         autoPlay
         muted
