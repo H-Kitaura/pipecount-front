@@ -23,10 +23,12 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
-  const [size, setSize] = useState({
-    width: 0,
-    height: 0,
-  });
+  // const [size, setSize] = useState({
+  //   width: 0,
+  //   height: 0,
+  // });
+  const [size, setSize] = useState({ width: 1280, height: 720 });
+
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
