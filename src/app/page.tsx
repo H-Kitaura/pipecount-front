@@ -66,14 +66,22 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // 画面の向きが変わったときにストリームを更新
-    window.addEventListener("resize", getPermission);
-    // 初期読み込み時にカメラストリームを取得
-    getPermission();
-    return () => {
-      window.removeEventListener("resize", getPermission);
+    const handleResize = () => {
+      // 画面のリサイズが発生したときにカメラを更新
+      getPermission();
     };
-  }, [getDevice, selectedDevice, mode, videoRef, devices]);
+
+    // イベントリスナーの設定
+    window.addEventListener("resize", handleResize);
+
+    // 初期読み込み時にもカメラストリームを取得
+    getPermission();
+
+    // クリーンアップ関数
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [getDevice, selectedDevice, mode, devices]);
 
   //カメラデータの取得
   useEffect(() => {
