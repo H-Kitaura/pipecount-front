@@ -94,9 +94,10 @@ export default function Home() {
     const handleResize = () => {
       // ウィンドウの幅または高さが変わったかどうかをチェック
       if (
-        previousWidth === window.innerWidth
+        previousWidth == window.innerWidth
         // previousHeight === window.innerHeight
       ) {
+        alert("リサイズされなかった");
         return;
       }
 
