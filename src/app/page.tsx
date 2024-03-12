@@ -94,15 +94,15 @@ export default function Home() {
     const handleResize = () => {
       // ウィンドウの幅または高さが変わったかどうかをチェック
       if (
-        previousWidth === window.innerWidth &&
-        previousHeight === window.innerHeight
+        previousWidth === window.innerWidth
+        // previousHeight === window.innerHeight
       ) {
         return;
       }
 
       // 現在のウィンドウサイズを更新
       previousWidth = window.innerWidth;
-      previousHeight = window.innerHeight;
+      // previousHeight = window.innerHeight;
 
       // カメラストリームを更新
       getPermission();
