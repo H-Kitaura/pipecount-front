@@ -106,7 +106,7 @@ export default function Home() {
 
       // カメラストリームを更新
       getPermission();
-      console.log("リサイズされました");
+      alert("リサイズされました");
     };
     window.addEventListener("resize", handleResize);
     getPermission();
