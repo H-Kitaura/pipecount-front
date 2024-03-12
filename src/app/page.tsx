@@ -45,8 +45,8 @@ export default function Home() {
     audio: false,
     video: {
       deviceId: getDevice ? getDevice.deviceId : undefined,
-      width: { ideal: 1280 }, // 画面の幅に合わせて設定
-      height: { ideal: 720 }, // 画面の高さに合わせて設定
+      width: { ideal: size.width }, // 画面の幅に合わせて設定
+      height: { ideal: size.height }, // 画面の高さに合わせて設定
     },
   };
 
@@ -78,6 +78,25 @@ export default function Home() {
       setMode("video");
     }
   }, [devices]);
+
+  //videoの解像度とサイズを取得
+  useEffect(() => {
+    const handleResize = () => {
+      if (videoRef.current) {
+        setSize({
+          width: window.innerWidth * 2,
+          height: window.innerHeight * 2,
+        });
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  console.log("解像度", size);
 
   return (
     <main>
