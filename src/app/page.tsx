@@ -85,18 +85,18 @@ export default function Home() {
       setMode("video");
     }
   }, [devices]);
-  useEffect(() => {
-    function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-    handleResize();
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setWindowSize({
+  //       width: window.innerWidth,
+  //       height: window.innerHeight,
+  //     });
+  //   }
+  //   handleResize();
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   console.log("video", videoRef.current);
   // console.log("image", image);
