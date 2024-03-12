@@ -41,34 +41,61 @@ export default function Home() {
   //   selectedDevice &&
   //   devices.find((v) => v.deviceId === selectedDevice);
 
-  const getPermission = async () => {
-    if (videoRef.current === null) return;
-    try {
-      // カメラ情報が取得できない場合はフロントカメラを利用する
-      const constraints = {
-        audio: false,
-        video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: 1280 }, // 画面の幅に合わせて設定
-          height: { ideal: 720 }, // 画面の高さに合わせて設定
-        },
-      };
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream; // 新しいストリームで更新
-      }
-    } catch (err) {
-      console.error("Error", err);
-      alert("カメラ認証ができませんでした。");
-      // エラー処理、ユーザーにフィードバックを提供する
-    }
-  };
+  // const isLandscape = window.innerWidth > window.innerHeight;
 
-  useEffect(() => {
-    if (!videoRef.current && mode !== "video") return;
-    getPermission();
-  }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
+  // console.log(isLandscape);
+
+  // カメラ情報が取得できない場合はフロントカメラを利用する
+  // const constraints = {
+  //   audio: false,
+  //   video: {
+  //     deviceId: getDevice ? getDevice.deviceId : undefined,
+  //     width: { ideal: 1280 }, // 画面の幅に合わせて設定
+  //     height: { ideal: 720 }, // 画面の高さに合わせて設定
+  //   },
+  // };
+  // const constraints = {
+  //   audio: false,
+  //   video: {
+  //     deviceId: getDevice ? getDevice.deviceId : undefined,
+  //     width: { ideal: isLandscape ? 1280 : 720 },
+  //     height: { ideal: isLandscape ? 720 : 1280 },
+  //   },
+  // };
+  // const getPermission = async () => {
+  //   if (videoRef.current === null) return;
+  //   try {
+  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  //     if (videoRef.current) {
+  //       videoRef.current.srcObject = stream; // 新しいストリームで更新
+  //     }
+  //   } catch (err) {
+  //     console.error("Error", err);
+  //     alert("カメラ認証ができませんでした。");
+  //     // エラー処理、ユーザーにフィードバックを提供する
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (!videoRef.current && mode !== "video") return;
+  //   getPermission();
+  // }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
   // console.log("video", videoRef.current);
+  // useEffect(() => {
+  //   // 画面の向きが変わったときにビデオストリームを再取得する関数を定義
+  //   const handleOrientationChange = () => {
+  //     getPermission();
+  //   };
+  //   console.log("動いた？");
+
+  //   // orientationchangeイベントにリスナーを追加
+  //   window.addEventListener("orientationchange", handleOrientationChange);
+
+  //   // コンポーネントがアンマウントされる際にイベントリスナーを解除
+  //   return () => {
+  //     window.removeEventListener("orientationchange", handleOrientationChange);
+  //   };
+  // }, [getPermission]);
 
   //カメラデータの取得
   useEffect(() => {
@@ -82,6 +109,51 @@ export default function Home() {
   console.log("video", videoRef.current);
   // console.log("image", image);
   console.log("canvas", canvasRef.current);
+
+  useEffect(() => {
+    const isLandscape = () => window.innerWidth > window.innerHeight;
+
+    // 画面の向きに応じてビデオの解像度を設定
+    const setVideoConstraints = () => {
+      const constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: isLandscape() ? 1280 : 720 },
+          height: { ideal: isLandscape() ? 720 : 1280 },
+        },
+      };
+      return constraints;
+    };
+
+    const getPermission = async () => {
+      if (videoRef.current === null) return;
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(
+          setVideoConstraints()
+        );
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream; // 新しいストリームで更新
+        }
+      } catch (err) {
+        console.error("Error", err);
+        alert("カメラ認証ができませんでした。");
+      }
+    };
+
+    // 画面の向きが変わったときにビデオストリームを再取得する関数を定義
+    const handleOrientationChange = () => {
+      getPermission();
+    };
+
+    // orientationchangeイベントにリスナーを追加
+    window.addEventListener("orientationchange", handleOrientationChange);
+
+    // コンポーネントがアンマウントされる際にイベントリスナーを解除
+    return () => {
+      window.removeEventListener("orientationchange", handleOrientationChange);
+    };
+  }, [getDevice, selectedDevice, videoRef, devices, canvasRef]);
 
   return (
     <main>
