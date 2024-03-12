@@ -66,13 +66,14 @@ export default function Home() {
       //         height: { ideal: 720 },
       //       },
       //     };
-      const isLandscape = window.innerWidth > window.innerHeight;
       const constraints = {
         audio: false,
         video: {
           deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: isLandscape ? 1280 : 720 },
-          height: { ideal: isLandscape ? 720 : 1280 },
+          width: { ideal: window.innerWidth }, // 画面の幅に合わせて設定
+          height: { ideal: window.innerHeight }, // 画面の高さに合わせて設定
+          // width: { ideal: 1280 }, // 画面の幅に合わせて設定
+          // height: { ideal: 720 }, // 画面の高さに合わせて設定
         },
       };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -80,10 +81,6 @@ export default function Home() {
       if (videoRef.current) {
         videoRef.current.srcObject = stream; // 新しいストリームで更新
       }
-      const track = stream.getVideoTracks()[0];
-      const settings = track.getSettings();
-      if (settings.width && settings.height)
-        setSize({ width: settings.width, height: settings.height });
     } catch (err) {
       console.error("Error", err);
       alert("カメラ認証ができませんでした。");
