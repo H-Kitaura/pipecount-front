@@ -79,8 +79,6 @@ export default function Home() {
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
-      alert(constraints.video.width);
-      alert(constraints.video.height);
 
       if (videoRef.current === null) return;
       try {
