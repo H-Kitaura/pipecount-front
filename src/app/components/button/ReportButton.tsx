@@ -35,13 +35,13 @@ const ReportButton = ({
     <>
       <button
         onClick={onOpen}
-        className={`${style.buttonLayout} w-2/5 flex items-center justify-center h-[40px]`}
+        className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
       >
         <p className="text-center">内容を送信する</p>
       </button>
       <ModalOverlay isOpen={isOpen} onClose={onClose}>
         <ModalContainer
-          className="bg-white p-2 max-w-sm w-full"
+          className="bg-white p-2 mx-2 max-w-sm w-full"
           isOpen={isOpen}
           onClose={onClose}
         >

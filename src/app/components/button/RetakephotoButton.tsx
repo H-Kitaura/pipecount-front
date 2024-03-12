@@ -18,7 +18,7 @@ const RetakephotoButton = ({ setMode, setImage, setPoints }: Props) => {
   return (
     <button
       onClick={handleReset}
-      className={`${style.buttonLayout} w-1/5 flex items-center justify-center h-[40px]`}
+      className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
     >
       <p className="text-center">再撮影</p>
     </button>

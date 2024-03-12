@@ -24,7 +24,7 @@ const Footer = ({
   setTotalCounts,
 }: Props) => {
   return (
-    <div className="flex items-center justify-center w-full pt-4 space-x-4">
+    <div className="flex items-center justify-center w-full px-4 pb-4 space-x-4">
       <PhotoButton
         videoRef={videoRef}
         mode={mode}
