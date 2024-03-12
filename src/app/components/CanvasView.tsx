@@ -113,25 +113,22 @@ const CanvasView = ({
       const startY = centerY - adjustedSideLength / 2;
       const endX = centerX + adjustedSideLength / 2;
       const endY = centerY + adjustedSideLength / 2;
+      const selectedPoint = points.find((point: any) => {
+        const pointCenterX = (point.start.x + point.end.x) / 2;
+        const pointCenterY = (point.start.y + point.end.y) / 2;
+        const distance = Math.sqrt(
+          Math.pow(centerX - pointCenterX, 2) +
+            Math.pow(centerY - pointCenterY, 2)
+        );
+        return distance < 2 * pointSize;
+      });
 
-      const selectedPoint = points.find(
-        (point: any) =>
-          centerX >= point.start.x &&
-          centerX <= point.end.x &&
-          centerY >= point.start.y &&
-          centerY <= point.end.y
-      );
       //クリックした座標が去れば削除
       if (selectedPoint) {
         const updatedPoints = points.filter(
-          (point: any) =>
-            !(
-              centerX >= point.start.x &&
-              centerX <= point.end.x &&
-              centerY >= point.start.y &&
-              centerY <= point.end.y
-            )
+          (point: any) => point !== selectedPoint
         );
+
         setPoints(updatedPoints);
       } else {
         //なければ追加

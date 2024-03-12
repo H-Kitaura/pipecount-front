@@ -67,9 +67,7 @@ export default function Home() {
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        console.log("ref読んだ");
       }
-      console.log("ref読んでない");
 
       setLoading(false);
     } catch (err) {
