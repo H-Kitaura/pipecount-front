@@ -73,18 +73,19 @@ export default function Home() {
 
   useEffect(() => {
     if (!videoRef.current && mode !== "video") return;
+    if (!selectedDevice) return;
     getPermission();
   }, [getDevice, selectedDevice, mode, videoRef, devices, canvasRef]);
   // console.log("video", videoRef.current);
 
   //カメラデータの取得
-  useEffect(() => {
-    if (devices && devices.length > 0) {
-      // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
-      setSelectedDevice(devices[0].deviceId);
-      setMode("video");
-    }
-  }, [devices]);
+  // useEffect(() => {
+  //   if (devices && devices.length > 0) {
+  //     // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
+  //     setSelectedDevice(devices[0].deviceId);
+  //     setMode("video");
+  //   }
+  // }, [devices]);
   // useEffect(() => {
   //   function handleResize() {
   //     setWindowSize({
@@ -104,7 +105,12 @@ export default function Home() {
 
   return (
     <main>
-      <Header devices={devices} setSelectedDevice={setSelectedDevice} />
+      <Header
+        devices={devices}
+        selectedDevice={selectedDevice}
+        setSelectedDevice={setSelectedDevice}
+        setMode={setMode}
+      />
       <Container>
         <Wrapper>
           {mode === "canvas" && (
