@@ -99,43 +99,46 @@ export default function Home() {
   return (
     <main>
       <Header devices={devices} setSelectedDevice={setSelectedDevice} />
-      {/* <Container> */}
-      {/* <Wrapper> */}
-      {mode === "canvas" && (
-        <CordinatesButton
-          cordinatesDisplay={cordinatesDisplay}
-          setCordinatesDisplay={setCordinatesDisplay}
-        />
-      )}
-      {mode === "canvas" && (
-        <PointSizeSlider pointSize={pointSize} setPointSize={setPointSize} />
-      )}
-      <MainImageDisplay
-        videoRef={videoRef}
-        canvasRef={canvasRef}
-        mode={mode}
-        setMode={setMode}
-        image={image}
-        setImage={setImage}
-        size={size}
-        setSize={setSize}
-        cordinatesDisplay={cordinatesDisplay}
-        setCordinatesDisplay={setCordinatesDisplay}
-        points={points}
-        setPoints={setPoints}
-        pointSize={pointSize}
-        windowSize={windowSize}
-      />
+      <Container>
+        <Wrapper>
+          {mode === "canvas" && (
+            <CordinatesButton
+              cordinatesDisplay={cordinatesDisplay}
+              setCordinatesDisplay={setCordinatesDisplay}
+            />
+          )}
+          {mode === "canvas" && (
+            <PointSizeSlider
+              pointSize={pointSize}
+              setPointSize={setPointSize}
+            />
+          )}
+          <MainImageDisplay
+            videoRef={videoRef}
+            canvasRef={canvasRef}
+            mode={mode}
+            setMode={setMode}
+            image={image}
+            setImage={setImage}
+            size={size}
+            setSize={setSize}
+            cordinatesDisplay={cordinatesDisplay}
+            setCordinatesDisplay={setCordinatesDisplay}
+            points={points}
+            setPoints={setPoints}
+            pointSize={pointSize}
+            windowSize={windowSize}
+          />
 
-      <div className="grid grid-cols-2 px-8">
-        <AICountContent points={points} />
-        {totalCounts.length > 0 && (
-          <TotalCountResult totalCounts={totalCounts} />
-        )}
-      </div>
-      {totalCounts.length > 0 && <CountResult totalCounts={totalCounts} />}
-      {/* </Wrapper> */}
-      {/* </Container> */}
+          <div className="grid grid-cols-2 px-8">
+            <AICountContent points={points} />
+            {totalCounts.length > 0 && (
+              <TotalCountResult totalCounts={totalCounts} />
+            )}
+          </div>
+          {totalCounts.length > 0 && <CountResult totalCounts={totalCounts} />}
+        </Wrapper>
+      </Container>
       <Footer
         videoRef={videoRef}
         mode={mode}
