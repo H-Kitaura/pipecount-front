@@ -34,10 +34,18 @@ export default function Home() {
     height: 0,
   });
   //<==================================hooks
+  // const getDevice =
+  //   devices &&
+  //   selectedDevice &&
+  //   devices.find((v) => v.label === selectedDevice);
   const getDevice =
     devices &&
     selectedDevice &&
-    devices.find((v) => v.label === selectedDevice);
+    devices.find((v) => v.deviceId === selectedDevice);
+
+  console.log(devices);
+
+  console.log(getDevice);
 
   const getPermission = async () => {
     if (videoRef.current === null) return;

@@ -23,16 +23,16 @@ const ImageView = ({ image, setImage, setMode, size }: Props) => {
       <img src={image} className="w-full h-auto" alt="image" />
       <div className="flex items-center justify-center w-full space-x-4 my-4">
         <button
-          onClick={handleImage}
-          className={`${style.buttonLayout} py-2 px-4 w-1/2 `}
-        >
-          送信
-        </button>
-        <button
           onClick={imageCancel}
           className={`${style.buttonLayout} py-2 px-4  w-1/2`}
         >
           再撮影
+        </button>
+        <button
+          onClick={handleImage}
+          className={`${style.buttonLayout} py-2 px-4 w-1/2 `}
+        >
+          送信
         </button>
       </div>
     </div>
