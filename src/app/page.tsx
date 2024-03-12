@@ -68,79 +68,49 @@ export default function Home() {
   useEffect(() => {
     let previousWidth = window.innerWidth;
     let previousHeight = window.innerHeight;
-    const isLandscape = window.innerWidth > window.innerHeight;
-    let constraints: any;
 
-    if (isLandscape) {
-      // 横向きの場合の解像度設定
-      constraints = {
-        audio: false,
-        video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
-        },
-      };
-      alert("横向き");
-    } else {
-      // 縦向きの場合の解像度設定
-      constraints = {
-        audio: false,
-        video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: 720 },
-          height: { ideal: 1280 },
-        },
-      };
-      alert("縦むき");
-    }
     const getPermission = async () => {
+      const isLandscape = window.innerWidth > window.innerHeight;
+      const constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 },
+        },
+      };
+
       if (videoRef.current === null) return;
       try {
-        // カメラ情報が取得できない場合はフロントカメラを利用する
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream; // 新しいストリームで更新
-        }
+        videoRef.current.srcObject = stream;
       } catch (err) {
         console.error("Error", err);
         alert("カメラ認証ができませんでした。");
-        // エラー処理、ユーザーにフィードバックを提供する
       }
     };
 
     const handleResize = () => {
-      // ウィンドウの幅または高さが変わったかどうかをチェック
       if (
         previousWidth === window.innerWidth &&
         previousHeight === window.innerHeight
       ) {
-        // ウインドウのサイズが変わっていないため処理をキャンセル
         return;
       }
 
-      // 現在のウィンドウサイズを更新
       previousWidth = window.innerWidth;
       previousHeight = window.innerHeight;
 
-      // カメラストリームを更新
       getPermission();
-
-      // デバッグ用
-      // alert("ウィンドウサイズが変更されました");
     };
 
-    // イベントリスナーを設定
     window.addEventListener("resize", handleResize);
-
-    // 初期読み込み時にもカメラストリームを取得
     getPermission();
 
-    // コンポーネントがアンマウントされる際にイベントリスナーを解除
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [getDevice, selectedDevice, mode, devices]);
+  }, [getDevice, selectedDevice, mode, devices, videoRef]);
 
   //カメラデータの取得
   useEffect(() => {
