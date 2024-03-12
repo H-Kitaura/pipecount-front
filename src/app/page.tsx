@@ -66,6 +66,8 @@ export default function Home() {
   // };
 
   useEffect(() => {
+    let previousWidth = window.innerWidth;
+    let previousHeight = window.innerHeight;
     const isLandscape = window.innerWidth > window.innerHeight;
     let constraints: any;
 
@@ -90,38 +92,55 @@ export default function Home() {
           height: { ideal: 1280 },
         },
       };
-      alert("縦向き");
+      alert("縦むき");
     }
-
     const getPermission = async () => {
       if (videoRef.current === null) return;
-
       try {
+        // カメラ情報が取得できない場合はフロントカメラを利用する
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef.current) {
-          videoRef.current.srcObject = stream;
+          videoRef.current.srcObject = stream; // 新しいストリームで更新
         }
       } catch (err) {
         console.error("Error", err);
         alert("カメラ認証ができませんでした。");
+        // エラー処理、ユーザーにフィードバックを提供する
       }
     };
 
-    getPermission();
+    const handleResize = () => {
+      // ウィンドウの幅または高さが変わったかどうかをチェック
+      if (
+        previousWidth === window.innerWidth &&
+        previousHeight === window.innerHeight
+      ) {
+        // ウインドウのサイズが変わっていないため処理をキャンセル
+        return;
+      }
 
-    // 画面の向きが変わったときにビデオストリームを再取得する関数を定義
-    const handleOrientationChange = () => {
+      // 現在のウィンドウサイズを更新
+      previousWidth = window.innerWidth;
+      previousHeight = window.innerHeight;
+
+      // カメラストリームを更新
       getPermission();
+
+      // デバッグ用
+      // alert("ウィンドウサイズが変更されました");
     };
 
-    // orientationchangeイベントにリスナーを追加
-    window.addEventListener("resize", handleOrientationChange);
+    // イベントリスナーを設定
+    window.addEventListener("resize", handleResize);
+
+    // 初期読み込み時にもカメラストリームを取得
+    getPermission();
 
     // コンポーネントがアンマウントされる際にイベントリスナーを解除
     return () => {
-      window.removeEventListener("resize", handleOrientationChange);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [getDevice, selectedDevice, mode, videoRef, devices]);
+  }, [getDevice, selectedDevice, mode, devices]);
 
   //カメラデータの取得
   useEffect(() => {
