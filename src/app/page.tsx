@@ -45,8 +45,10 @@ export default function Home() {
     audio: false,
     video: {
       deviceId: getDevice ? getDevice.deviceId : undefined,
-      width: { ideal: 1280 }, // 画面の幅に合わせて設定
-      height: { ideal: 720 }, // 画面の高さに合わせて設定
+      // width: { ideal: 1280 }, // 画面の幅に合わせて設定
+      // height: { ideal: 720 }, // 画面の高さに合わせて設定
+      width: { ideal: 500 }, // 画面の幅に合わせて設定
+      height: { ideal: 500 }, // 画面の高さに合わせて設定
     },
   };
 
@@ -81,7 +83,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [getDevice, selectedDevice, mode, devices]);
 
   //カメラデータの取得
   useEffect(() => {
