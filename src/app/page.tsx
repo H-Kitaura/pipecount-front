@@ -22,7 +22,8 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("");
   const [image, setImage] = useState("");
-  const [size, setSize] = useState({ width: 1280, height: 720 });
+  // const [size, setSize] = useState({ width: 1280, height: 720 });
+  const [size, setSize] = useState({ width: 0, height: 0 });
 
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
@@ -39,6 +40,7 @@ export default function Home() {
     devices.find((v) => v.label === selectedDevice);
 
   const getPermission = async () => {
+    if (videoRef.current === null) return;
     try {
       // カメラ情報が取得できない場合はフロントカメラを利用する
       const constraints = getDevice
@@ -46,22 +48,20 @@ export default function Home() {
             audio: false,
             video: {
               deviceId: getDevice.deviceId,
-              width: { ideal: 1280 },
-              height: { ideal: 720 },
+              // width: { ideal: 1280 },
+              // height: { ideal: 720 },
             },
           }
         : {
             audio: false,
             video: {
               facingMode: "user",
-              width: { ideal: 1280 },
-              height: { ideal: 720 },
+              // width: { ideal: 1280 },
+              // height: { ideal: 720 },
             },
           };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
+      videoRef.current.srcObject = stream;
     } catch (err) {
       console.error("Error", err);
       alert("カメラ認証ができませんでした。");
@@ -97,7 +97,7 @@ export default function Home() {
   }, []);
 
   console.log("video", videoRef.current);
-  console.log("image", image);
+  // console.log("image", image);
   console.log("canvas", canvasRef.current);
 
   return (
