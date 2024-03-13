@@ -29,18 +29,22 @@ const VideoConnection = ({
       alert("カメラ認証ができませんでした。");
     }
   };
+
+  const getDevice =
+    devices &&
+    selectedDevice &&
+    devices.find((v: any) => v.deviceId === selectedDevice);
+
   const handleConnectClick = () => {
     const isLandscape = window.screen.orientation.type.includes("landscape");
     const constraints = {
       audio: false,
       video: {
-        deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+        deviceId: getDevice ? getDevice.deviceId : undefined,
         width: { ideal: isLandscape ? 1280 : 720 },
         height: { ideal: isLandscape ? 720 : 1280 },
       },
     };
-    console.log("constraints", constraints);
-    console.log(selectedDevice);
 
     getPermission(constraints);
     setCameraCheck(true);
@@ -54,7 +58,6 @@ const VideoConnection = ({
       setMode("video");
     }
   }, [devices]);
-
   return (
     <div className="px-4">
       {cameraCheck ? (
