@@ -25,7 +25,17 @@ const VideoConnection = ({
       alert("カメラ認証ができませんでした。");
     }
   };
-  useEffect(() => {}, [selectedDevice]);
+  useEffect(() => {
+    const constraints = {
+      audio: false,
+      video: {
+        deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+      },
+    };
+
+    getPermission(constraints);
+  }, [selectedDevice]);
+
   const handleConnectClick = () => {
     const constraints = {
       audio: false,
