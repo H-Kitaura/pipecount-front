@@ -57,8 +57,16 @@ Props) => {
     const imageSrc = videoRef.current.getScreenshot();
     // ここで取得した画像を使用できます
     console.log(imageSrc);
+    const image = new Image();
+    image.onload = () => {
+      // 画像の読み込みが完了したらサイズを取得
+      const imageSize = { width: image.width, height: image.height };
+      console.log(imageSize);
+      setSize(imageSize);
+      setMode("image");
+    };
+    image.src = imageSrc;
     setImage(imageSrc);
-    setMode("image");
   };
 
   return (

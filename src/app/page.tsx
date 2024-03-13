@@ -40,6 +40,7 @@ export default function Home() {
   //     setMode("video");
   //   }
   // }, [devices]);
+  console.log(size);
 
   return (
     <main>
