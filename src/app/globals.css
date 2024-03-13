@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.landscape-mode {
+  width: 100%; /* 全幅 */
+  height: auto; /* 高さはアスペクト比に応じて自動調整 */
+}
+
 .portrait-mode {
-  transform: rotate(90deg);
+  width: auto; /* 幅はアスペクト比に応じて自動調整 */
+  height: 100%; /* 全高 */
 }

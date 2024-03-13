@@ -26,6 +26,13 @@ const VideoConnection = ({
     if (!cameraCheck) return;
     const updateVideoResolution = () => {
       const isLandscape = window.screen.orientation.type.includes("landscape");
+      if (isLandscape) {
+        videoRef.current!.classList.add("landscape-mode");
+        videoRef.current!.classList.remove("portrait-mode");
+      } else {
+        videoRef.current!.classList.add("portrait-mode");
+        videoRef.current!.classList.remove("landscape-mode");
+      }
       const constraints = {
         audio: false,
         video: {
@@ -37,35 +44,16 @@ const VideoConnection = ({
       };
       getPermission(constraints);
     };
-    const handleOrientationChange = () => {
-      const type = window.screen.orientation.type;
-      if (type.includes("portrait")) {
-        // ポートレートモード
-        videoRef.current?.classList.add("portrait-mode");
-        videoRef.current?.classList.remove("landscape-mode");
-      } else if (type.includes("landscape")) {
-        // ランドスケープモード
-        videoRef.current?.classList.add("landscape-mode");
-        videoRef.current?.classList.remove("portrait-mode");
-      }
-    }; // 初期読み込み時にも解像度を更新
 
     window.screen.orientation.addEventListener("change", updateVideoResolution);
-    window.screen.orientation.addEventListener(
-      "change",
-      handleOrientationChange
-    );
 
+    // 初期読み込み時にも解像度を更新
     updateVideoResolution();
 
     return () => {
       window.screen.orientation.removeEventListener(
         "change",
         updateVideoResolution
-      );
-      window.screen.orientation.removeEventListener(
-        "change",
-        handleOrientationChange
       );
     };
   }, [cameraCheck, selectedDevice]);
