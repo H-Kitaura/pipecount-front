@@ -53,6 +53,32 @@ const VideoConnection = ({
       );
     };
   }, [cameraCheck, selectedDevice]);
+  useEffect(() => {
+    const isLandscapeMode = () => {
+      // ウィンドウの幅と高さを使用してデバイスの向きを判断
+      return window.innerWidth > window.innerHeight;
+    };
+
+    const updateVideoOrientation = () => {
+      if (!videoRef.current) return;
+
+      const isLandscape = isLandscapeMode();
+      if (isLandscape) {
+        // 横向きの場合、特別な回転は不要
+        videoRef.current.style.transform = "";
+      } else {
+        // 縦向きの場合、90度回転
+        videoRef.current.style.transform = "rotate(90deg)";
+      }
+    };
+
+    window.addEventListener("resize", updateVideoOrientation);
+    updateVideoOrientation();
+
+    return () => {
+      window.removeEventListener("resize", updateVideoOrientation);
+    };
+  }, []);
 
   const getPermission = async (constraints: any) => {
     if (videoRef.current === null) return;
