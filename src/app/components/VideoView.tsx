@@ -1,9 +1,10 @@
 import React from "react";
 import PhotoButton from "./button/PhotoButton";
 import PhotoViewButton from "./button/PhotoViewButton";
+import Webcam from "react-webcam";
 
 type Props = {
-  videoRef: React.RefObject<HTMLVideoElement>;
+  videoRef: any;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
@@ -31,7 +32,7 @@ const VideoView = ({
           : "hidden"
       }`}
     >
-      <video
+      {/* <video
         ref={videoRef}
         // width={size.width}
         // height={size.height}
@@ -39,6 +40,12 @@ const VideoView = ({
         muted
         playsInline
         className="w-full h-auto"
+      /> */}
+      <Webcam
+        audio={false}
+        ref={videoRef}
+        screenshotFormat="image/jpeg"
+        // ここでカメラの設定を行うことができます
       />
       <PhotoViewButton
         videoRef={videoRef}
