@@ -84,13 +84,12 @@ export default function Home() {
   // }, [devices, selectedDevice]);
 
   //カメラデータの取得
-  // useEffect(() => {
-  //   if (devices && devices.length > 0) {
-  //     // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
-  //     setSelectedDevice(devices[0].deviceId);
-  //     setMode("video");
-  //   }
-  // }, [devices]);
+  useEffect(() => {
+    if (devices && devices.length > 0) {
+      setSelectedDevice(devices[0].deviceId);
+      setMode("video");
+    }
+  }, [devices]);
 
   return (
     <main>

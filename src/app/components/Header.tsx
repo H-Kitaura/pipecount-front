@@ -12,7 +12,10 @@ const Header = ({ devices, setSelectedDevice }: Props) => {
       <p className="text-2xl">PIPE COUNT</p>
       <select onChange={(e) => setSelectedDevice(e.target.value)}>
         {devices.map((v) => (
-          <option key={v.deviceId}>{v.label}</option>
+          // <option key={v.deviceId}>{v.label}</option>
+          <option key={v.deviceId} value={v.deviceId}>
+            {v.label}
+          </option>
         ))}
       </select>
     </div>
