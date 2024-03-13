@@ -54,30 +54,36 @@ export default function Home() {
       }
     };
 
+    const getDeviceOrientation = () => {
+      const orientation: any = window.screen.orientation || window.orientation;
+      const isLandscape =
+        orientation.type.includes("landscape") ||
+        orientation === 90 ||
+        orientation === -90;
+      return isLandscape;
+    };
+
     const updateVideoResolution = () => {
-      const isLandscape = window.screen.orientation.type.includes("landscape");
+      const isLandscape = getDeviceOrientation();
       const constraints = {
         audio: false,
         video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
+          // deviceId: getDevice ? getDevice.deviceId : undefined,
           width: { ideal: isLandscape ? 1280 : 720 },
           height: { ideal: isLandscape ? 720 : 1280 },
+          facingMode: "user", // カメラの向きを前面に設定
         },
       };
       getPermission(constraints);
     };
 
-    window.screen.orientation.addEventListener("change", updateVideoResolution);
+    window.addEventListener("orientationchange", updateVideoResolution);
 
     // 初期読み込み時にも解像度を更新
     updateVideoResolution();
 
     return () => {
-      window.screen.orientation.removeEventListener(
-        "change",
-        updateVideoResolution
-      );
+      window.removeEventListener("orientationchange", updateVideoResolution);
     };
   }, [devices, selectedDevice]);
 
