@@ -67,24 +67,7 @@ export default function Home() {
   // };
 
   useEffect(() => {
-    let previousWidth = window.innerWidth;
-    let previousHeight = window.innerHeight;
-    const getPermission = async () => {
-      const isLandscape = window.innerWidth > window.innerHeight;
-      const width = isLandscape ? 1280 : 720;
-      const height = isLandscape ? 720 : 1280;
-      const constraints = {
-        audio: false,
-        video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: isLandscape ? 1280 : 720 },
-          height: { ideal: isLandscape ? 720 : 1280 },
-        },
-      };
-      setSize({ width, height });
-
-      console.log(size);
-
+    const getPermission = async (constraints: any) => {
       if (videoRef.current === null) return;
       try {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -95,27 +78,29 @@ export default function Home() {
       }
     };
 
-    const handleResize = () => {
-      // ウィンドウの幅または高さが変わったかどうかをチェック
-      if (
-        previousWidth == window.innerWidth
-        // previousHeight === window.innerHeight
-      ) {
-        return;
-      }
-
-      // 現在のウィンドウサイズを更新
-      previousWidth = window.innerWidth;
-      // previousHeight = window.innerHeight;
-
-      // カメラストリームを更新
-      getPermission();
+    const updateVideoResolution = () => {
+      const isLandscape = window.screen.orientation.type.includes("landscape");
+      const constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 },
+        },
+      };
+      getPermission(constraints);
     };
-    window.addEventListener("resize", handleResize);
-    getPermission();
+
+    window.screen.orientation.addEventListener("change", updateVideoResolution);
+
+    // 初期読み込み時にも解像度を更新
+    updateVideoResolution();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.screen.orientation.removeEventListener(
+        "change",
+        updateVideoResolution
+      );
     };
   }, [getDevice, selectedDevice, mode, devices]);
 
