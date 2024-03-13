@@ -32,21 +32,16 @@ const VideoView = ({
           : "hidden"
       }`}
     >
-      {/* <video
+      <video
         ref={videoRef}
         // width={size.width}
         // height={size.height}
-        autoPlay
+        // autoPlay
         muted
-        playsInline
-        className="w-full h-auto"
-      /> */}
-      <Webcam
-        audio={false}
-        ref={videoRef}
-        screenshotFormat="image/jpeg"
-        // ここでカメラの設定を行うことができます
+        // playsInline
+        // className="w-full h-auto"
       />
+      {/* <Webcam audio={false} ref={videoRef} screenshotFormat="image/jpeg" /> */}
       <PhotoViewButton
         videoRef={videoRef}
         setImage={setImage}
