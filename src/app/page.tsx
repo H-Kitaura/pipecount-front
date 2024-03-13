@@ -58,11 +58,12 @@ export default function Home() {
       const isLandscape = window.screen.orientation.type.includes("landscape");
       const constraints = {
         audio: false,
-        video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: isLandscape ? 1280 : 720 },
-          height: { ideal: isLandscape ? 720 : 1280 },
-        },
+        // video: {
+        //   deviceId: getDevice ? getDevice.deviceId : undefined,
+        //   width: { ideal: isLandscape ? 1280 : 720 },
+        //   height: { ideal: isLandscape ? 720 : 1280 },
+        // },
+        video: { exact: 1.5 },
       };
       getPermission(constraints);
     };
@@ -70,9 +71,8 @@ export default function Home() {
     window.screen.orientation.addEventListener("change", updateVideoResolution);
 
     // 初期読み込み時にも解像度を更新
-    setTimeout(() => {
-      updateVideoResolution();
-    }, 200);
+    updateVideoResolution();
+
     return () => {
       window.screen.orientation.removeEventListener(
         "change",
