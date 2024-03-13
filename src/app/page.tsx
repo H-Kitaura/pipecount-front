@@ -79,6 +79,7 @@ export default function Home() {
     };
 
     const updateVideoResolution = () => {
+      alert("切り替わったよ");
       const isLandscape = window.screen.orientation.type.includes("landscape");
       const constraints = {
         audio: false,
@@ -88,9 +89,6 @@ export default function Home() {
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
-      console.log("読み込んだ？");
-      console.log(constraints);
-
       getPermission(constraints);
     };
 

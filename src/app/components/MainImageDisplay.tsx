@@ -53,6 +53,7 @@ const MainImageDisplay = ({
           setImage={setImage}
           setMode={setMode}
           size={size}
+          setPoints={setPoints}
         />
       )}
       {mode === "canvas" && (
