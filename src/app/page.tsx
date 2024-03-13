@@ -33,10 +33,10 @@ export default function Home() {
 
   //<==================================hooks
   //スマホではこちら-----v
-  const getDevice =
-    devices &&
-    selectedDevice &&
-    devices.find((v) => v.label === selectedDevice);
+  // const getDevice =
+  //   devices &&
+  //   selectedDevice &&
+  //   devices.find((v) => v.label === selectedDevice);
   //PCではこちら-----v
   // const getDevice =
   //   devices &&
