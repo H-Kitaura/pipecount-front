@@ -50,7 +50,7 @@ const VideoConnection = ({
   const handleConnectClick = () => {
     // const isLandscape = window.screen.orientation.type.includes("landscape");
 
-    getPermission(constraints);
+    // getPermission(constraints);
     setCameraCheck(true);
   };
 
