@@ -24,6 +24,12 @@ const VideoView = ({
 }: Props) => {
   if (!videoRef) return;
 
+  const videoConstraints = {
+    width: 1920,
+    height: 1080,
+    facingMode: "user",
+  };
+
   return (
     <div
       className={`${
@@ -41,7 +47,12 @@ const VideoView = ({
         playsInline
         className="w-full h-auto"
       /> */}
-      <Webcam audio={false} ref={videoRef} screenshotFormat="image/jpeg" />
+      <Webcam
+        audio={false}
+        ref={videoRef}
+        screenshotFormat="image/jpeg"
+        videoConstraints={videoConstraints}
+      />
       <PhotoViewButton
         videoRef={videoRef}
         setImage={setImage}
