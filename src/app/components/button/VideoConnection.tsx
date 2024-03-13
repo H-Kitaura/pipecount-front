@@ -38,18 +38,18 @@ const VideoConnection = ({
     selectedDevice &&
     devices.find((v: any) => v.deviceId === selectedDevice);
 
+  const isLandscape = window.screen.orientation.type.includes("landscape");
+
   const constraints = {
     audio: false,
     video: {
       deviceId: getDevice ? getDevice.deviceId : undefined,
-      // width: { ideal: isLandscape ? 1280 : 720 },
-      // height: { ideal: isLandscape ? 720 : 1280 },
+      width: { ideal: isLandscape ? 1280 : 720 },
+      height: { ideal: isLandscape ? 720 : 1280 },
     },
   };
 
   const handleConnectClick = () => {
-    // const isLandscape = window.screen.orientation.type.includes("landscape");
-
     // getPermission(constraints);
     setCameraCheck(true);
   };
