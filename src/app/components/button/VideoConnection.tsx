@@ -54,9 +54,25 @@ const VideoConnection = ({
   }, [cameraCheck, selectedDevice]);
 
   //ストリームをvideoRefに入れる、キャンセルしたらエラーを返す
+  // const getPermission = async (constraints: any) => {
+  //   if (videoRef.current === null) return;
+  //   try {
+  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  //     videoRef.current.srcObject = stream;
+  //   } catch (err) {
+  //     console.error("Error", err);
+  //     alert("カメラ認証ができませんでした。");
+  //   }
+  // };
   const getPermission = async (constraints: any) => {
     if (videoRef.current === null) return;
     try {
+      if (videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        // 既存のストリームを停止する
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop());
+      }
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       videoRef.current.srcObject = stream;
     } catch (err) {
