@@ -58,6 +58,8 @@ const VideoConnection = ({
   const handleUnConnectClick = () => {
     setCameraCheck(false);
   };
+
+  alert(selectedDevice);
   return (
     <div className="px-4">
       {cameraCheck ? (
