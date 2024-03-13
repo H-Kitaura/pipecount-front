@@ -25,8 +25,8 @@ const VideoView = ({
   if (!videoRef) return;
 
   const videoConstraints = {
-    width: 1920,
-    height: 1080,
+    width: 800,
+    height: 800,
     facingMode: "user",
   };
 

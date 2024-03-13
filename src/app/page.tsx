@@ -19,7 +19,7 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { devices } = useVideoDeviceList();
-  const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
+  const [selectedDevice, setSelectedDevice] = useState<string>("");
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("video");
   const [image, setImage] = useState("");
@@ -59,6 +59,7 @@ export default function Home() {
           {cameraCheck && (
             <CameraSelect
               devices={devices}
+              selectedDevice={selectedDevice}
               setSelectedDevice={setSelectedDevice}
             />
           )}

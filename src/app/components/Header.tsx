@@ -7,7 +7,7 @@ type Props = {
   selectedDevice: string | null;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   videoRef: React.RefObject<HTMLVideoElement>;
-  setSelectedDevice: React.Dispatch<React.SetStateAction<string | null>>;
+  setSelectedDevice: React.Dispatch<React.SetStateAction<string>>;
   cameraCheck: boolean;
   setCameraCheck: React.Dispatch<React.SetStateAction<boolean>>;
   setSize: React.Dispatch<React.SetStateAction<any>>;

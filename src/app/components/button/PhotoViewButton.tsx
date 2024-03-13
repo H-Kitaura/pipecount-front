@@ -61,7 +61,7 @@ Props) => {
     image.onload = () => {
       // 画像の読み込みが完了したらサイズを取得
       // const imageSize = { width: image.width, height: image.height };
-      const imageSize = { width: 1920, height: 1080 };
+      const imageSize = { width: 800, height: 800 };
       console.log(imageSize);
       setSize(imageSize);
       setMode("image");

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 type Props = {
   selectedDevice: string | null;
-  setSelectedDevice: React.Dispatch<React.SetStateAction<string | null>>;
+  setSelectedDevice: React.Dispatch<React.SetStateAction<string>>;
   devices: any;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   videoRef: React.RefObject<HTMLVideoElement>;
