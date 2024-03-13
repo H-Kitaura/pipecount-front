@@ -65,22 +65,14 @@ export default function Home() {
         },
       };
       getPermission(constraints);
-      if (videoRef.current) {
-        if (isLandscape) {
-          videoRef.current.style.width = "100%";
-          videoRef.current.style.height = "auto";
-        } else {
-          videoRef.current.style.height = "100%";
-          videoRef.current.style.width = "auto";
-        }
-      }
     };
 
     window.screen.orientation.addEventListener("change", updateVideoResolution);
 
     // 初期読み込み時にも解像度を更新
-    updateVideoResolution();
-
+    setTimeout(() => {
+      updateVideoResolution();
+    }, 200);
     return () => {
       window.screen.orientation.removeEventListener(
         "change",
