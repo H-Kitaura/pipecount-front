@@ -38,7 +38,8 @@ const VideoView = ({
         autoPlay
         muted
         playsInline
-        className="w-full h-auto"
+        // className="w-full h-auto"
+        className="w-auto h-full"
       />
       <PhotoViewButton
         videoRef={videoRef}
