@@ -20,7 +20,7 @@ const VideoConnection = ({
   setCameraCheck,
 }: Props) => {
   useEffect(() => {
-    // if (cameraCheck) return;
+    if (!cameraCheck) return;
     const updateVideoResolution = () => {
       const isLandscape = window.screen.orientation.type.includes("landscape");
       console.log("isLandscape", isLandscape);
@@ -34,6 +34,8 @@ const VideoConnection = ({
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
+      console.log("constraints", constraints);
+
       getPermission(constraints);
     };
 
@@ -48,7 +50,7 @@ const VideoConnection = ({
         updateVideoResolution
       );
     };
-  }, []);
+  }, [cameraCheck, selectedDevice]);
 
   //ストリームをvideoRefに入れる、キャンセルしたらエラーを返す
   const getPermission = async (constraints: any) => {
