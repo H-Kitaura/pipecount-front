@@ -58,12 +58,12 @@ export default function Home() {
       const isLandscape = window.screen.orientation.type.includes("landscape");
       const constraints = {
         audio: false,
-        // video: {
-        //   deviceId: getDevice ? getDevice.deviceId : undefined,
-        //   width: { ideal: isLandscape ? 1280 : 720 },
-        //   height: { ideal: isLandscape ? 720 : 1280 },
-        // },
-        video: { exact: 1.5 },
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 },
+        },
       };
       getPermission(constraints);
     };
