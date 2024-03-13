@@ -1,3 +1,4 @@
+import { style } from "@/app/styles/style";
 import React, { useEffect } from "react";
 
 type Props = {
@@ -95,11 +96,21 @@ const VideoConnection = ({
     <div className="px-4">
       {cameraCheck ? (
         <>
-          <button onClick={handleUnConnectClick}>カメラを非接続</button>
+          <button
+            className={`${style.buttonLayout} px-4 h-[30px]`}
+            onClick={handleUnConnectClick}
+          >
+            カメラを非接続
+          </button>
         </>
       ) : (
         <>
-          <button onClick={handleConnectClick}>カメラを接続</button>
+          <button
+            className={`${style.buttonLayout} px-4 h-[30px]`}
+            onClick={handleConnectClick}
+          >
+            カメラを接続
+          </button>
         </>
       )}
     </div>

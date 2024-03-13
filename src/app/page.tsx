@@ -12,7 +12,7 @@ import { dammyPoints } from "./dammyData";
 import PointSizeSlider from "./components/PointSizeSlider";
 import CountResult from "./components/CountResult";
 import TotalCountResult from "./components/TotalCountResult";
-import VideoConnection from "./components/button/VideoConnection";
+import CameraSelect from "./components/CameraSelect";
 
 export default function Home() {
   //hooks=======================================>
@@ -43,18 +43,23 @@ export default function Home() {
 
   return (
     <main>
-      <Header devices={devices} setSelectedDevice={setSelectedDevice} />
+      <Header
+        devices={devices}
+        selectedDevice={selectedDevice}
+        setMode={setMode}
+        videoRef={videoRef}
+        setSelectedDevice={setSelectedDevice}
+        cameraCheck={cameraCheck}
+        setCameraCheck={setCameraCheck}
+      />
       <Container>
         <Wrapper>
-          <VideoConnection
-            selectedDevice={selectedDevice}
-            setSelectedDevice={setSelectedDevice}
-            devices={devices}
-            setMode={setMode}
-            videoRef={videoRef}
-            cameraCheck={cameraCheck}
-            setCameraCheck={setCameraCheck}
-          />
+          {cameraCheck && (
+            <CameraSelect
+              devices={devices}
+              setSelectedDevice={setSelectedDevice}
+            />
+          )}
           {mode === "canvas" && (
             <CordinatesButton
               cordinatesDisplay={cordinatesDisplay}
