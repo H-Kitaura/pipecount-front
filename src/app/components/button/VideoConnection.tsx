@@ -19,6 +19,36 @@ const VideoConnection = ({
   cameraCheck,
   setCameraCheck,
 }: Props) => {
+  useEffect(() => {
+    if (cameraCheck) return;
+    const updateVideoResolution = () => {
+      const isLandscape = window.screen.orientation.type.includes("landscape");
+      const constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 },
+        },
+      };
+      getPermission(constraints);
+    };
+
+    window.screen.orientation.addEventListener("change", updateVideoResolution);
+
+    // 初期読み込み時にも解像度を更新
+    updateVideoResolution();
+
+    return () => {
+      window.screen.orientation.removeEventListener(
+        "change",
+        updateVideoResolution
+      );
+    };
+  }, [cameraCheck]);
+
+  //ストリームをvideoRefに入れる、キャンセルしたらエラーを返す
   const getPermission = async (constraints: any) => {
     if (videoRef.current === null) return;
     try {
@@ -30,33 +60,29 @@ const VideoConnection = ({
     }
   };
 
+  //デバイスのidが一致しているものを見つけて取得する
   const getDevice =
     devices &&
     selectedDevice &&
     devices.find((v: any) => v.deviceId === selectedDevice);
 
-  // useEffect(() => {
-  // const isLandscape = window.screen.orientation.type.includes("landscape");
+  // const constraints = {
+  //   audio: false,
+  //   video: {
+  //     deviceId: getDevice ? getDevice.deviceId : undefined,
+  //     // aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
+  //     // width: { ideal: isLandscape ? 1280 : 720 },
+  //     // height: { ideal: isLandscape ? 720 : 1280 },
+  //   },
+  // };
 
-  const constraints = {
-    audio: false,
-    video: {
-      deviceId: getDevice ? getDevice.deviceId : undefined,
-      // aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
-      // width: { ideal: isLandscape ? 1280 : 720 },
-      // height: { ideal: isLandscape ? 720 : 1280 },
-    },
-  };
-
-  // getPermission(constraints);
-  // alert(selectedDevice);
-  // }, []);
-
+  //カメラ表示の時に使うハンドラー
   const handleConnectClick = () => {
-    getPermission(constraints);
+    // getPermission(constraints);
     setCameraCheck(true);
   };
 
+  //カメラを切るときに使うハンドラー
   const handleUnConnectClick = () => {
     setCameraCheck(false);
   };

@@ -33,55 +33,6 @@ export default function Home() {
   const [cameraCheck, setCameraCheck] = useState(false);
 
   //<==================================hooks
-  //スマホではこちら-----v
-  // const getDevice =
-  //   devices &&
-  //   selectedDevice &&
-  //   devices.find((v) => v.label === selectedDevice);
-  //PCではこちら-----v
-  // const getDevice =
-  //   devices &&
-  //   selectedDevice &&
-  //   devices.find((v) => v.deviceId === selectedDevice);
-
-  // useEffect(() => {
-  //   const getPermission = async (constraints: any) => {
-  //     if (videoRef.current === null) return;
-  //     try {
-  //       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  //       videoRef.current.srcObject = stream;
-  //     } catch (err) {
-  //       console.error("Error", err);
-  //       alert("カメラ認証ができませんでした。");
-  //     }
-  //   };
-
-  //   const updateVideoResolution = () => {
-  //     const isLandscape = window.screen.orientation.type.includes("landscape");
-  //     const constraints = {
-  //       audio: false,
-  //       video: {
-  //         deviceId: getDevice ? getDevice.deviceId : undefined,
-  //         aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
-  //         width: { ideal: isLandscape ? 1280 : 720 },
-  //         height: { ideal: isLandscape ? 720 : 1280 },
-  //       },
-  //     };
-  //     getPermission(constraints);
-  //   };
-
-  //   window.screen.orientation.addEventListener("change", updateVideoResolution);
-
-  //   // 初期読み込み時にも解像度を更新
-  //   updateVideoResolution();
-
-  //   return () => {
-  //     window.screen.orientation.removeEventListener(
-  //       "change",
-  //       updateVideoResolution
-  //     );
-  //   };
-  // }, [devices, selectedDevice]);
 
   //カメラデータの取得
   // useEffect(() => {
