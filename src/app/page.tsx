@@ -51,6 +51,7 @@ export default function Home() {
         setSelectedDevice={setSelectedDevice}
         cameraCheck={cameraCheck}
         setCameraCheck={setCameraCheck}
+        setSize={setSize}
       />
       <Container>
         <Wrapper>

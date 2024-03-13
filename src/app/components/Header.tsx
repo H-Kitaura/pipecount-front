@@ -10,6 +10,7 @@ type Props = {
   setSelectedDevice: React.Dispatch<React.SetStateAction<string | null>>;
   cameraCheck: boolean;
   setCameraCheck: React.Dispatch<React.SetStateAction<boolean>>;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const Header = ({
@@ -20,6 +21,7 @@ const Header = ({
   setSelectedDevice,
   cameraCheck,
   setCameraCheck,
+  setSize,
 }: Props) => {
   return (
     <div className="flex items-center justify-between py-2 px-4">
@@ -42,6 +44,7 @@ const Header = ({
         videoRef={videoRef}
         cameraCheck={cameraCheck}
         setCameraCheck={setCameraCheck}
+        setSize={setSize}
       />
     </div>
   );
