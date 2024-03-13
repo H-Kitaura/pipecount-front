@@ -22,10 +22,13 @@ const VideoConnection = ({
 }: Props) => {
   useEffect(() => {
     if (!cameraCheck) return;
+    const isLandscapeMode = () => {
+      // ウィンドウの幅と高さを使用してデバイスの向きを判断
+      return window.innerWidth > window.innerHeight;
+    };
     const updateVideoResolution = () => {
-      const isLandscape = window.screen.orientation.type.includes("landscape");
-      console.log("isLandscape", isLandscape);
-
+      // const isLandscape = window.screen.orientation.type.includes("landscape");
+      const isLandscape = isLandscapeMode();
       const constraints = {
         audio: false,
         video: {
@@ -35,8 +38,6 @@ const VideoConnection = ({
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
-      console.log("constraints", constraints);
-
       getPermission(constraints);
     };
 
@@ -53,17 +54,6 @@ const VideoConnection = ({
     };
   }, [cameraCheck, selectedDevice]);
 
-  //ストリームをvideoRefに入れる、キャンセルしたらエラーを返す
-  // const getPermission = async (constraints: any) => {
-  //   if (videoRef.current === null) return;
-  //   try {
-  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  //     videoRef.current.srcObject = stream;
-  //   } catch (err) {
-  //     console.error("Error", err);
-  //     alert("カメラ認証ができませんでした。");
-  //   }
-  // };
   const getPermission = async (constraints: any) => {
     if (videoRef.current === null) return;
     try {
@@ -86,16 +76,6 @@ const VideoConnection = ({
     devices &&
     selectedDevice &&
     devices.find((v: any) => v.deviceId === selectedDevice);
-
-  // const constraints = {
-  //   audio: false,
-  //   video: {
-  //     deviceId: getDevice ? getDevice.deviceId : undefined,
-  //     // aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
-  //     // width: { ideal: isLandscape ? 1280 : 720 },
-  //     // height: { ideal: isLandscape ? 720 : 1280 },
-  //   },
-  // };
 
   //カメラ表示の時に使うハンドラー
   const handleConnectClick = () => {
@@ -134,3 +114,13 @@ const VideoConnection = ({
 };
 
 export default VideoConnection;
+
+// const constraints = {
+//   audio: false,
+//   video: {
+//     deviceId: getDevice ? getDevice.deviceId : undefined,
+//     // aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
+//     // width: { ideal: isLandscape ? 1280 : 720 },
+//     // height: { ideal: isLandscape ? 720 : 1280 },
+//   },
+// };
