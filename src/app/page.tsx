@@ -23,7 +23,6 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("video");
   const [image, setImage] = useState("");
-  // const [size, setSize] = useState({ width: 1280, height: 720 });
   const [size, setSize] = useState({ width: 0, height: 0 });
 
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
