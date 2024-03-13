@@ -42,30 +42,6 @@ export default function Home() {
   //   selectedDevice &&
   //   devices.find((v) => v.deviceId === selectedDevice);
 
-  // const constraints = {
-  //   audio: false,
-  //   video: {
-  //     deviceId: getDevice ? getDevice.deviceId : undefined,
-  //     width: { ideal: 1280 }, // 画面の幅に合わせて設定
-  //     height: { ideal: 720 }, // 画面の高さに合わせて設定
-  //   },
-  // };
-
-  // const getPermission = async () => {
-  //   if (videoRef.current === null) return;
-  //   try {
-  //     // カメラ情報が取得できない場合はフロントカメラを利用する
-  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  //     if (videoRef.current) {
-  //       videoRef.current.srcObject = stream; // 新しいストリームで更新
-  //     }
-  //   } catch (err) {
-  //     console.error("Error", err);
-  //     alert("カメラ認証ができませんでした。");
-  //     // エラー処理、ユーザーにフィードバックを提供する
-  //   }
-  // };
-
   useEffect(() => {
     const getPermission = async (constraints: any) => {
       if (videoRef.current === null) return;
@@ -79,7 +55,6 @@ export default function Home() {
     };
 
     const updateVideoResolution = () => {
-      alert("切り替わったよ");
       const isLandscape = window.screen.orientation.type.includes("landscape");
       const constraints = {
         audio: false,
@@ -103,7 +78,7 @@ export default function Home() {
         updateVideoResolution
       );
     };
-  }, [getDevice, selectedDevice, mode, devices]);
+  }, [getDevice, mode]);
 
   //カメラデータの取得
   useEffect(() => {
@@ -113,25 +88,6 @@ export default function Home() {
       setMode("video");
     }
   }, [devices]);
-
-  //videoの解像度とサイズを取得
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (videoRef.current) {
-  //       setSize({
-  //         width: window.innerWidth,
-  //         height: window.innerHeight,
-  //       });
-  //     }
-  //   };
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
-  // console.log("解像度", size);
 
   return (
     <main>
@@ -187,3 +143,27 @@ export default function Home() {
     </main>
   );
 }
+
+// const constraints = {
+//   audio: false,
+//   video: {
+//     deviceId: getDevice ? getDevice.deviceId : undefined,
+//     width: { ideal: 1280 }, // 画面の幅に合わせて設定
+//     height: { ideal: 720 }, // 画面の高さに合わせて設定
+//   },
+// };
+
+// const getPermission = async () => {
+//   if (videoRef.current === null) return;
+//   try {
+//     // カメラ情報が取得できない場合はフロントカメラを利用する
+//     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+//     if (videoRef.current) {
+//       videoRef.current.srcObject = stream; // 新しいストリームで更新
+//     }
+//   } catch (err) {
+//     console.error("Error", err);
+//     alert("カメラ認証ができませんでした。");
+//     // エラー処理、ユーザーにフィードバックを提供する
+//   }
+// };
