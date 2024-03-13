@@ -30,6 +30,7 @@ export default function Home() {
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(10);
+  const [cameraCheck, setCameraCheck] = useState(false);
 
   //<==================================hooks
   //スマホではこちら-----v
@@ -102,6 +103,8 @@ export default function Home() {
             devices={devices}
             setMode={setMode}
             videoRef={videoRef}
+            cameraCheck={cameraCheck}
+            setCameraCheck={setCameraCheck}
           />
           {mode === "canvas" && (
             <CordinatesButton
@@ -129,6 +132,7 @@ export default function Home() {
             points={points}
             setPoints={setPoints}
             pointSize={pointSize}
+            cameraCheck={cameraCheck}
           />
 
           <div className="grid grid-cols-2 px-8">

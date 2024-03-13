@@ -9,6 +9,7 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   size: any;
   setSize: React.Dispatch<React.SetStateAction<any>>;
+  cameraCheck: boolean;
 };
 
 const VideoView = ({
@@ -18,13 +19,14 @@ const VideoView = ({
   setMode,
   setSize,
   size,
+  cameraCheck,
 }: Props) => {
   if (!videoRef) return;
 
   return (
     <div
       className={`${
-        mode === "video"
+        mode === "video" && cameraCheck
           ? "h-full w-full flex items-center justify-center flex-col relative"
           : "hidden"
       }`}
