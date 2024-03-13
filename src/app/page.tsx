@@ -12,6 +12,7 @@ import { dammyPoints } from "./dammyData";
 import PointSizeSlider from "./components/PointSizeSlider";
 import CountResult from "./components/CountResult";
 import TotalCountResult from "./components/TotalCountResult";
+import VideoConnection from "./components/button/VideoConnection";
 
 export default function Home() {
   //hooks=======================================>
@@ -42,65 +43,66 @@ export default function Home() {
   //   selectedDevice &&
   //   devices.find((v) => v.deviceId === selectedDevice);
 
-  useEffect(() => {
-    const getPermission = async (constraints: any) => {
-      if (videoRef.current === null) return;
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        videoRef.current.srcObject = stream;
-      } catch (err) {
-        console.error("Error", err);
-        alert("カメラ認証ができませんでした。");
-      }
-    };
+  // useEffect(() => {
+  //   const getPermission = async (constraints: any) => {
+  //     if (videoRef.current === null) return;
+  //     try {
+  //       const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  //       videoRef.current.srcObject = stream;
+  //     } catch (err) {
+  //       console.error("Error", err);
+  //       alert("カメラ認証ができませんでした。");
+  //     }
+  //   };
 
-    const getDeviceOrientation = () => {
-      const orientation: any = window.screen.orientation || window.orientation;
-      const isLandscape =
-        orientation.type.includes("landscape") ||
-        orientation === 90 ||
-        orientation === -90;
-      return isLandscape;
-    };
+  //   const updateVideoResolution = () => {
+  //     const isLandscape = window.screen.orientation.type.includes("landscape");
+  //     const constraints = {
+  //       audio: false,
+  //       video: {
+  //         deviceId: getDevice ? getDevice.deviceId : undefined,
+  //         aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
+  //         width: { ideal: isLandscape ? 1280 : 720 },
+  //         height: { ideal: isLandscape ? 720 : 1280 },
+  //       },
+  //     };
+  //     getPermission(constraints);
+  //   };
 
-    const updateVideoResolution = () => {
-      const isLandscape = getDeviceOrientation();
-      const constraints = {
-        audio: false,
-        video: {
-          // deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: isLandscape ? 1280 : 720 },
-          height: { ideal: isLandscape ? 720 : 1280 },
-          facingMode: "user", // カメラの向きを前面に設定
-        },
-      };
-      getPermission(constraints);
-    };
+  //   window.screen.orientation.addEventListener("change", updateVideoResolution);
 
-    window.addEventListener("orientationchange", updateVideoResolution);
+  //   // 初期読み込み時にも解像度を更新
+  //   updateVideoResolution();
 
-    // 初期読み込み時にも解像度を更新
-    updateVideoResolution();
-
-    return () => {
-      window.removeEventListener("orientationchange", updateVideoResolution);
-    };
-  }, [devices, selectedDevice]);
+  //   return () => {
+  //     window.screen.orientation.removeEventListener(
+  //       "change",
+  //       updateVideoResolution
+  //     );
+  //   };
+  // }, [devices, selectedDevice]);
 
   //カメラデータの取得
-  useEffect(() => {
-    if (devices && devices.length > 0) {
-      // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
-      setSelectedDevice(devices[0].deviceId);
-      setMode("video");
-    }
-  }, [devices]);
+  // useEffect(() => {
+  //   if (devices && devices.length > 0) {
+  //     // devices[0] が MediaDeviceInfo オブジェクトであり、その deviceId プロパティを setSelectedDevice に渡す
+  //     setSelectedDevice(devices[0].deviceId);
+  //     setMode("video");
+  //   }
+  // }, [devices]);
 
   return (
     <main>
       <Header devices={devices} setSelectedDevice={setSelectedDevice} />
       <Container>
         <Wrapper>
+          <VideoConnection
+            selectedDevice={selectedDevice}
+            setSelectedDevice={setSelectedDevice}
+            devices={devices}
+            setMode={setMode}
+            videoRef={videoRef}
+          />
           {mode === "canvas" && (
             <CordinatesButton
               cordinatesDisplay={cordinatesDisplay}
