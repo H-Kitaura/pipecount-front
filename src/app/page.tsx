@@ -88,6 +88,9 @@ export default function Home() {
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
+      console.log("読み込んだ？");
+      console.log(constraints);
+
       getPermission(constraints);
     };
 
