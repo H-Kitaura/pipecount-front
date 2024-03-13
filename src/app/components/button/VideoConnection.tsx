@@ -37,7 +37,7 @@ const VideoConnection = ({
         audio: false,
         video: {
           deviceId: getDevice ? getDevice.deviceId : undefined,
-          aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
+          // aspectRatio: isLandscape ? { ideal: 16 / 9 } : { ideal: 9 / 16 },
           width: { ideal: isLandscape ? 1280 : 720 },
           height: { ideal: isLandscape ? 720 : 1280 },
         },
