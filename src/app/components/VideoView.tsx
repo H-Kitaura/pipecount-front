@@ -36,7 +36,7 @@ const VideoView = ({
         ref={videoRef}
         // width={size.width}
         // height={size.height}
-        // autoPlay
+        autoPlay
         muted
         // playsInline
         // className="w-full h-auto"

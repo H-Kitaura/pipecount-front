@@ -53,6 +53,12 @@ Props) => {
     setMode("image");
   };
 
+  // const capture = () => {
+  //   const imageSrc = videoRef.current.getScreenshot();
+  //   // ここで取得した画像を使用できます
+  //   console.log(imageSrc);
+  // };
+
   return (
     <>
       <button
