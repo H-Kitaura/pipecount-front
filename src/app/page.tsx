@@ -65,6 +65,15 @@ export default function Home() {
         },
       };
       getPermission(constraints);
+      if (videoRef.current) {
+        if (isLandscape) {
+          videoRef.current.style.width = "100%";
+          videoRef.current.style.height = "auto";
+        } else {
+          videoRef.current.style.height = "100%";
+          videoRef.current.style.width = "auto";
+        }
+      }
     };
 
     window.screen.orientation.addEventListener("change", updateVideoResolution);
@@ -78,7 +87,7 @@ export default function Home() {
         updateVideoResolution
       );
     };
-  }, [getDevice, mode]);
+  }, [devices, selectedDevice]);
 
   //カメラデータの取得
   useEffect(() => {
