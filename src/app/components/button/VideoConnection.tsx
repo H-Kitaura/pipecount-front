@@ -24,13 +24,8 @@ const VideoConnection = ({
 }: Props) => {
   useEffect(() => {
     if (!cameraCheck) return;
-    const isLandscapeMode = () => {
-      // ウィンドウの幅と高さを使用してデバイスの向きを判断
-      return window.innerWidth > window.innerHeight;
-    };
     const updateVideoResolution = () => {
-      // const isLandscape = window.screen.orientation.type.includes("landscape");
-      const isLandscape = isLandscapeMode();
+      const isLandscape = window.screen.orientation.type.includes("landscape");
       const constraints = {
         audio: false,
         video: {
@@ -40,10 +35,6 @@ const VideoConnection = ({
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
-      setSize({
-        width: isLandscape ? "720px" : "100%",
-        height: isLandscape ? "100%" : "1280px",
-      });
       getPermission(constraints);
     };
 
