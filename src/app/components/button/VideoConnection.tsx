@@ -43,6 +43,7 @@ const VideoConnection = ({
     };
 
     getPermission(constraints);
+    alert(selectedDevice);
   }, []);
 
   const getDevice =
@@ -59,7 +60,6 @@ const VideoConnection = ({
     setCameraCheck(false);
   };
 
-  alert(selectedDevice);
   return (
     <div className="px-4">
       {cameraCheck ? (
