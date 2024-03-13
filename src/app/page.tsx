@@ -71,6 +71,8 @@ export default function Home() {
     let previousHeight = window.innerHeight;
     const getPermission = async () => {
       const isLandscape = window.innerWidth > window.innerHeight;
+      const width = isLandscape ? 1280 : 720;
+      const height = isLandscape ? 720 : 1280;
       const constraints = {
         audio: false,
         video: {
@@ -79,6 +81,9 @@ export default function Home() {
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
+      setSize({ width, height });
+
+      console.log(size);
 
       if (videoRef.current === null) return;
       try {

@@ -31,8 +31,8 @@ const VideoView = ({
     >
       <video
         ref={videoRef}
-        // width={size.width}
-        // height={size.height}
+        width={size.width}
+        height={size.height}
         autoPlay
         muted
         playsInline
