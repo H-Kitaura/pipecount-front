@@ -11,6 +11,7 @@ type Props = {
   size: any;
   setSize: React.Dispatch<React.SetStateAction<any>>;
   cameraCheck: boolean;
+  selectedDevice: string;
 };
 
 const VideoView = ({
@@ -21,6 +22,7 @@ const VideoView = ({
   setSize,
   size,
   cameraCheck,
+  selectedDevice,
 }: Props) => {
   if (!videoRef) return;
 
@@ -51,8 +53,10 @@ const VideoView = ({
         audio={false}
         ref={videoRef}
         screenshotFormat="image/jpeg"
-        videoConstraints={videoConstraints}
+        // videoConstraints={videoConstraints}
+        videoConstraints={{ deviceId: selectedDevice }}
       />
+
       <PhotoViewButton
         videoRef={videoRef}
         setImage={setImage}

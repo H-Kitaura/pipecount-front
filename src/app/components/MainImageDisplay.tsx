@@ -18,6 +18,7 @@ type Props = {
   setPoints: React.Dispatch<React.SetStateAction<any>>;
   pointSize: number;
   cameraCheck: boolean;
+  selectedDevice: string;
 };
 
 const MainImageDisplay = ({
@@ -35,6 +36,7 @@ const MainImageDisplay = ({
   setPoints,
   pointSize,
   cameraCheck,
+  selectedDevice,
 }: Props) => {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center my-4a px-4">
@@ -48,6 +50,7 @@ const MainImageDisplay = ({
         size={size}
         setSize={setSize}
         cameraCheck={cameraCheck}
+        selectedDevice={selectedDevice}
       />
 
       {/* )} */}

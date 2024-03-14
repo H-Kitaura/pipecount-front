@@ -93,6 +93,7 @@ export default function Home() {
             setPoints={setPoints}
             pointSize={pointSize}
             cameraCheck={cameraCheck}
+            selectedDevice={selectedDevice}
           />
 
           <div className="grid grid-cols-2 px-8">
