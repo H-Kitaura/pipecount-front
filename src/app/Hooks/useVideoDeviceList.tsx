@@ -27,5 +27,5 @@ export const useVideoDeviceList = () => {
     };
   }, [refreshDevices]);
 
-  return { devices };
+  return { devices, setDevices };
 };
