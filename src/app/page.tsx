@@ -18,7 +18,8 @@ export default function Home() {
   //hooks=======================================>
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { devices, setDevices } = useVideoDeviceList();
+  // const { devices, setDevices } = useVideoDeviceList();
+  const [devices, setDevices] = useState<MediaDeviceInfo[] | []>([]);
   const [selectedDevice, setSelectedDevice] = useState<string>("");
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("video");
@@ -65,17 +66,18 @@ export default function Home() {
             />
           )}
           {mode === "canvas" && (
-            <CordinatesButton
-              cordinatesDisplay={cordinatesDisplay}
-              setCordinatesDisplay={setCordinatesDisplay}
-            />
-          )}
-          {mode === "canvas" && (
             <PointSizeSlider
               pointSize={pointSize}
               setPointSize={setPointSize}
             />
           )}
+          {mode === "canvas" && (
+            <CordinatesButton
+              cordinatesDisplay={cordinatesDisplay}
+              setCordinatesDisplay={setCordinatesDisplay}
+            />
+          )}
+
           <MainImageDisplay
             videoRef={videoRef}
             canvasRef={canvasRef}
