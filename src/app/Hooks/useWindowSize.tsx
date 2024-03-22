@@ -1,29 +1,32 @@
 import { useState, useEffect } from "react";
 
 function useWindowSize() {
-  // 安全な初期値を設定
-  const [size, setSize] = useState({
-    width: 0,
-    height: 0, // 初期値として0を設定、適宜調整可能
-  });
+  const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // 現在のウィンドウの幅を取得して状態に設定
-      const updateSize = () => {
-        setSize({
-          width: window.innerWidth,
-          // 高さは初期値または特定の値を維持
-          height: window.innerHeight,
+      const handleResize = () => {
+        // 横幅の変更時のみサイズを更新
+        setSize((prevSize) => {
+          const newWidth = window.innerWidth;
+          const newHeight = window.innerHeight;
+          // 横幅が変わった場合、または初回の場合（高さも含めて）サイズを更新
+          if (prevSize.width !== newWidth || prevSize.height === 0) {
+            return { width: newWidth, height: newHeight };
+          }
+          // 横幅の変更がない場合はサイズを更新しない
+          return prevSize;
         });
       };
 
-      window.addEventListener("resize", updateSize);
-      // コンポーネントマウント時にサイズを更新
-      updateSize();
+      // イベントリスナーを追加
+      window.addEventListener("resize", handleResize);
+      // 初期サイズを設定
+      handleResize();
 
       return () => {
-        window.removeEventListener("resize", updateSize);
+        // コンポーネントがアンマウントされた時にイベントリスナーを削除
+        window.removeEventListener("resize", handleResize);
       };
     }
   }, []);
