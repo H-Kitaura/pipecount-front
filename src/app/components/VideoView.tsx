@@ -52,6 +52,8 @@ const VideoView = ({
       <Webcam
         audio={false}
         ref={videoRef}
+        width={800}
+        height={800}
         screenshotFormat="image/jpeg"
         className="w-full h-auto"
         // videoConstraints={videoConstraints}
