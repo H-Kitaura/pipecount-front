@@ -46,6 +46,7 @@ const CanvasView = ({
 
     draw();
   }, [canvasRef, image, cordinatesDisplay, points, pointSize]);
+  console.log(points);
 
   const drawPoint = (ctx: CanvasRenderingContext2D) => {
     points.forEach((pointPair: any) => {
@@ -88,8 +89,8 @@ const CanvasView = ({
     const handleMouseDown = async (e: MouseEvent) => {
       setIsDrawing(true);
       const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.clientWidth / size.width;
-      const scaleY = canvas.clientHeight / size.height;
+      const scaleX = canvas.clientWidth / 800;
+      const scaleY = canvas.clientHeight / 800;
 
       const centerX = (e.clientX - rect.left) / scaleX;
       const centerY = (e.clientY - rect.top) / scaleY;
