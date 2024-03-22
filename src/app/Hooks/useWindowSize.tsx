@@ -4,20 +4,26 @@ function useWindowSize() {
   // 安全な初期値を設定
   const [size, setSize] = useState({
     width: 0,
-    height: 0,
+    height: 0, // 初期値として0を設定、適宜調整可能
   });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const handleResize = () => {
-        setSize({ width: window.innerWidth, height: window.innerHeight });
+      // 現在のウィンドウの幅を取得して状態に設定
+      const updateSize = () => {
+        setSize({
+          width: window.innerWidth,
+          // 高さは初期値または特定の値を維持
+          height: window.innerHeight,
+        });
       };
 
-      window.addEventListener("resize", handleResize);
-      handleResize(); // 初期サイズを設定
+      window.addEventListener("resize", updateSize);
+      // コンポーネントマウント時にサイズを更新
+      updateSize();
 
       return () => {
-        window.removeEventListener("resize", handleResize);
+        window.removeEventListener("resize", updateSize);
       };
     }
   }, []);
