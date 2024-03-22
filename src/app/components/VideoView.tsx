@@ -58,7 +58,11 @@ const VideoView = ({
         className="w-full h-auto"
         // videoConstraints={videoConstraints}
         // videoConstraints={{ deviceId: selectedDevice }}
-        videoConstraints={{ width: size, height: size }}
+        videoConstraints={{
+          width: size,
+          height: size,
+          deviceId: selectedDevice,
+        }}
       />
 
       <PhotoViewButton
