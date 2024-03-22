@@ -8,27 +8,19 @@ function useWindowSize() {
   });
 
   useEffect(() => {
-    // クライアントサイドの実行を確認
     if (typeof window !== "undefined") {
       const handleResize = () => {
-        setSize({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        });
+        setSize({ width: window.innerWidth, height: window.innerHeight });
       };
 
-      // イベントリスナーを追加
       window.addEventListener("resize", handleResize);
+      handleResize(); // 初期サイズを設定
 
-      // 初期サイズを設定
-      handleResize();
-
-      // コンポーネントアンマウント時にイベントリスナーを削除
       return () => {
         window.removeEventListener("resize", handleResize);
       };
     }
-  }, []); // 空の依存配列を指定して、コンポーネントのマウント時にのみ実行
+  }, []);
 
   return size;
 }

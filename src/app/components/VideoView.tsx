@@ -61,7 +61,7 @@ const VideoView = ({
         videoConstraints={{
           width: size,
           height: size,
-          deviceId: selectedDevice,
+          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
         }}
       />
 
