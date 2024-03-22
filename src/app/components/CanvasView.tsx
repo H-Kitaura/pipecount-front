@@ -149,7 +149,7 @@ const CanvasView = ({
     // <canvas ref={canvasRef} width={size.width} height={size.height}></canvas>
     <div className="h-full w-full flex items-center justify-center flex-col mt-8 mb-8">
       <canvas
-        className="w-full h-auto"
+        className="w-full h-auto "
         ref={canvasRef}
         width={size.width}
         height={size.height}

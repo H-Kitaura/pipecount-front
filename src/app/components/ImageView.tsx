@@ -14,7 +14,13 @@ type Props = {
 const ImageView = ({ image, setImage, setMode, size, setPoints }: Props) => {
   return (
     <div className="h-full w-full flex items-center justify-center flex-col">
-      <img src={image} className="w-full h-auto" alt="image" />
+      <img
+        src={image}
+        width={size.width}
+        height={size.height}
+        className="w-full h-auto"
+        alt="image"
+      />
       <div className="flex items-center justify-center w-full space-x-4 my-4">
         <RetakephotoButton
           setMode={setMode}

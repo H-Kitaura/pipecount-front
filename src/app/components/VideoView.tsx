@@ -53,6 +53,9 @@ const VideoView = ({
         audio={false}
         ref={videoRef}
         screenshotFormat="image/jpeg"
+        width={size.width}
+        height={size.height}
+        className="w-full h-auto"
         // videoConstraints={videoConstraints}
         videoConstraints={{ deviceId: selectedDevice }}
       />
