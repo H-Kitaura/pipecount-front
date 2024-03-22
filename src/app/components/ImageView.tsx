@@ -16,8 +16,8 @@ const ImageView = ({ image, setImage, setMode, size, setPoints }: Props) => {
     <div className="h-full w-full flex items-center justify-center flex-col">
       <img
         src={image}
-        width={size.width}
-        height={size.height}
+        width={800}
+        height={800}
         className="w-full h-auto"
         alt="image"
       />

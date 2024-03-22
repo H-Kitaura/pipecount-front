@@ -39,7 +39,7 @@ const MainImageDisplay = ({
   selectedDevice,
 }: Props) => {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center my-4a px-4">
+    <div className="flex h-full w-full flex-col items-center justify-center px-4">
       {/* <div className="w-full h-full border shadow-md flex items-center justify-center"> */}
       {/* {mode === "video" && ( */}
       <VideoView

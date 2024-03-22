@@ -70,8 +70,8 @@ const CanvasView = ({
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
       canvasImage.onload = () => {
-        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        ctx.drawImage(canvasImage, 0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, 800, 800);
+        ctx.drawImage(canvasImage, 0, 0, 800, 800);
         resolve(true);
       };
       canvasImage.onerror = reject;
@@ -151,8 +151,8 @@ const CanvasView = ({
       <canvas
         className="w-full h-auto "
         ref={canvasRef}
-        width={size.width}
-        height={size.height}
+        width={800}
+        height={800}
       ></canvas>
     </div>
   );
