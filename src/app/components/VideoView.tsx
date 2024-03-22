@@ -9,7 +9,7 @@ type Props = {
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   size: any;
-  setSize: React.Dispatch<React.SetStateAction<any>>;
+  // setSize: React.Dispatch<React.SetStateAction<any>>;
   cameraCheck: boolean;
   selectedDevice: string;
 };
@@ -19,7 +19,7 @@ const VideoView = ({
   setImage,
   mode,
   setMode,
-  setSize,
+  // setSize,
   size,
   cameraCheck,
   selectedDevice,
@@ -52,12 +52,13 @@ const VideoView = ({
       <Webcam
         audio={false}
         ref={videoRef}
-        width={800}
-        height={800}
+        width={size}
+        height={size}
         screenshotFormat="image/jpeg"
         className="w-full h-auto"
         // videoConstraints={videoConstraints}
-        videoConstraints={{ deviceId: selectedDevice }}
+        // videoConstraints={{ deviceId: selectedDevice }}
+        videoConstraints={{ width: size, height: size }}
       />
 
       <PhotoViewButton
@@ -65,7 +66,7 @@ const VideoView = ({
         setImage={setImage}
         mode={mode}
         setMode={setMode}
-        setSize={setSize}
+        // setSize={setSize}
       />
     </div>
   );

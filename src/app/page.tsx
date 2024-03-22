@@ -13,6 +13,7 @@ import PointSizeSlider from "./components/PointSizeSlider";
 import CountResult from "./components/CountResult";
 import TotalCountResult from "./components/TotalCountResult";
 import CameraSelect from "./components/CameraSelect";
+import useWindowSize from "./Hooks/useWindowSize";
 
 export default function Home() {
   //hooks=======================================>
@@ -24,13 +25,15 @@ export default function Home() {
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("video");
   const [image, setImage] = useState("");
-  const [size, setSize] = useState({ width: 0, height: 0 });
+  // const [size, setSize] = useState({ width: 0, height: 0 });
 
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(10);
   const [cameraCheck, setCameraCheck] = useState(false);
+  const { width, height } = useWindowSize();
+  const size = Math.min(width, height) * 0.9;
 
   //<==================================hooks
 
@@ -42,6 +45,7 @@ export default function Home() {
   //   }
   // }, [devices]);
   // console.log(size);
+  console.log(size);
 
   return (
     <main>
@@ -53,7 +57,7 @@ export default function Home() {
         setSelectedDevice={setSelectedDevice}
         cameraCheck={cameraCheck}
         setCameraCheck={setCameraCheck}
-        setSize={setSize}
+        // setSize={setSize}
       />
       <Container>
         <Wrapper>
@@ -86,7 +90,7 @@ export default function Home() {
             image={image}
             setImage={setImage}
             size={size}
-            setSize={setSize}
+            // setSize={setSize}
             cordinatesDisplay={cordinatesDisplay}
             setCordinatesDisplay={setCordinatesDisplay}
             points={points}

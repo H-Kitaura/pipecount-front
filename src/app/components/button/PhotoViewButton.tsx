@@ -6,7 +6,7 @@ type Props = {
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
-  setSize: React.Dispatch<React.SetStateAction<any>>;
+  // setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const PhotoViewButton = ({
@@ -14,8 +14,8 @@ const PhotoViewButton = ({
   setImage,
   mode,
   setMode,
-  setSize,
-}: Props) => {
+}: // setSize,
+Props) => {
   // const handlePhotoShot = () => {
   //   const video = videoRef.current;
   //   const canvas = document.createElement("canvas");

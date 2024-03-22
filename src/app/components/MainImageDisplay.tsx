@@ -11,7 +11,7 @@ type Props = {
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   size: any;
-  setSize: React.Dispatch<React.SetStateAction<any>>;
+  // setSize: React.Dispatch<React.SetStateAction<any>>;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   points: any;
@@ -29,7 +29,7 @@ const MainImageDisplay = ({
   image,
   setImage,
   size,
-  setSize,
+  // setSize,
   cordinatesDisplay,
   setCordinatesDisplay,
   points,
@@ -48,7 +48,7 @@ const MainImageDisplay = ({
         mode={mode}
         setMode={setMode}
         size={size}
-        setSize={setSize}
+        // setSize={setSize}
         cameraCheck={cameraCheck}
         selectedDevice={selectedDevice}
       />

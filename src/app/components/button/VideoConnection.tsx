@@ -9,7 +9,7 @@ type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
   cameraCheck: boolean;
   setCameraCheck: React.Dispatch<React.SetStateAction<boolean>>;
-  setSize: React.Dispatch<React.SetStateAction<any>>;
+  // setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const VideoConnection = ({
@@ -20,8 +20,8 @@ const VideoConnection = ({
   videoRef,
   cameraCheck,
   setCameraCheck,
-  setSize,
-}: Props) => {
+}: // setSize,
+Props) => {
   useEffect(() => {
     if (!cameraCheck) return;
     const updateVideoResolution = () => {
