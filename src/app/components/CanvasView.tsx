@@ -64,21 +64,6 @@ const CanvasView = ({
       ctx.closePath();
     });
   };
-  // const imageDraw = (
-  //   canvas: HTMLCanvasElement,
-  //   ctx: CanvasRenderingContext2D
-  // ) => {
-  //   return new Promise((resolve, reject) => {
-  //     const canvasImage = new Image();
-  //     canvasImage.onload = () => {
-  //       ctx.clearRect(0, 0, size.width, size.height);
-  //       ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
-  //       resolve(true);
-  //     };
-  //     canvasImage.onerror = reject;
-  //     canvasImage.src = image;
-  //   });
-  // };
   const imageDraw = (
     canvas: HTMLCanvasElement,
     ctx: CanvasRenderingContext2D
@@ -86,35 +71,50 @@ const CanvasView = ({
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
       canvasImage.onload = () => {
-        // キャンバスのサイズを取得
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-
-        // 画像のアスペクト比に基づいて描画サイズを計算
-        const imgAspectRatio = canvasImage.width / canvasImage.height;
-        const canvasAspectRatio = canvasWidth / canvasHeight;
-
-        let renderWidth, renderHeight;
-        if (imgAspectRatio < canvasAspectRatio) {
-          renderHeight = canvasHeight;
-          renderWidth = canvasImage.width * (renderHeight / canvasImage.height);
-        } else {
-          renderWidth = canvasWidth;
-          renderHeight = canvasImage.height * (renderWidth / canvasImage.width);
-        }
-
-        // キャンバスの中央に画像を配置
-        const offsetX = (canvasWidth - renderWidth) / 2;
-        const offsetY = (canvasHeight - renderHeight) / 2;
-
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        ctx.drawImage(canvasImage, offsetX, offsetY, renderWidth, renderHeight);
+        ctx.clearRect(0, 0, size.width, size.height);
+        ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
         resolve(true);
       };
       canvasImage.onerror = reject;
       canvasImage.src = image;
     });
   };
+  // const imageDraw = (
+  //   canvas: HTMLCanvasElement,
+  //   ctx: CanvasRenderingContext2D
+  // ) => {
+  //   return new Promise((resolve, reject) => {
+  //     const canvasImage = new Image();
+  //     canvasImage.onload = () => {
+  //       // キャンバスのサイズを取得
+  //       const canvasWidth = canvas.width;
+  //       const canvasHeight = canvas.height;
+
+  //       // 画像のアスペクト比に基づいて描画サイズを計算
+  //       const imgAspectRatio = canvasImage.width / canvasImage.height;
+  //       const canvasAspectRatio = canvasWidth / canvasHeight;
+
+  //       let renderWidth, renderHeight;
+  //       if (imgAspectRatio < canvasAspectRatio) {
+  //         renderHeight = canvasHeight;
+  //         renderWidth = canvasImage.width * (renderHeight / canvasImage.height);
+  //       } else {
+  //         renderWidth = canvasWidth;
+  //         renderHeight = canvasImage.height * (renderWidth / canvasImage.width);
+  //       }
+
+  //       // キャンバスの中央に画像を配置
+  //       const offsetX = (canvasWidth - renderWidth) / 2;
+  //       const offsetY = (canvasHeight - renderHeight) / 2;
+
+  //       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  //       ctx.drawImage(canvasImage, offsetX, offsetY, renderWidth, renderHeight);
+  //       resolve(true);
+  //     };
+  //     canvasImage.onerror = reject;
+  //     canvasImage.src = image;
+  //   });
+  // };
 
   useEffect(() => {
     if (canvasRef.current === null) return;
@@ -201,7 +201,7 @@ const CanvasView = ({
         // height={800}
         width={size.width}
         height={size.height}
-        style={{ width: `${size}px`, height: `${size}px` }}
+        // style={{ width: `${size}px`, height: `${size}px` }}
       ></canvas>
     </div>
   );
