@@ -32,20 +32,15 @@ export default function Home() {
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(10);
   const [cameraCheck, setCameraCheck] = useState(false);
-  // const { width, height } = useWindowSize();
-  // const size = Math.min(width, height) * 0.9;
-
   //<==================================hooks
 
   //カメラデータの取得
-  // useEffect(() => {
-  //   if (devices && devices.length > 0) {
-  //     setSelectedDevice(devices[0].deviceId);
-  //     setMode("video");
-  //   }
-  // }, [devices]);
-  // console.log(size);
-  // console.log(size);
+  useEffect(() => {
+    if (devices && devices.length > 0) {
+      setSelectedDevice(devices[0].deviceId);
+      setMode("video");
+    }
+  }, [devices]);
 
   return (
     <main>
