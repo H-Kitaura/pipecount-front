@@ -71,8 +71,8 @@ const CanvasView = ({
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
       canvasImage.onload = () => {
-        ctx.clearRect(0, 0, size.width, size.height);
-        ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
+        ctx.clearRect(0, 0, 800, 800);
+        ctx.drawImage(canvasImage, 0, 0, 800, 800);
         resolve(true);
       };
       canvasImage.onerror = reject;
@@ -120,22 +120,22 @@ const CanvasView = ({
     if (canvasRef.current === null) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    let windowRatio = window.innerWidth / window.innerHeight;
-    let imageRatio = size.width / size.height;
-    if (windowRatio > imageRatio) {
-      canvas.width = size.height * windowRatio;
-      canvas.height = size.height;
-    } else {
-      canvas.width = size.width;
-      canvas.height = size.width / windowRatio;
-    }
+    // let windowRatio = window.innerWidth / window.innerHeight;
+    // let imageRatio = size.width / size.height;
+    // if (windowRatio > imageRatio) {
+    //   canvas.width = size.height * windowRatio;
+    //   canvas.height = size.height;
+    // } else {
+    //   canvas.width = size.width;
+    //   canvas.height = size.width / windowRatio;
+    // }
     if (ctx === null) return;
     // マウスダウンイベントで始点を設定
     const handleMouseDown = async (e: MouseEvent) => {
       setIsDrawing(true);
       const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.clientWidth / canvas.width;
-      const scaleY = canvas.clientHeight / canvas.height;
+      const scaleX = canvas.clientWidth / 800;
+      const scaleY = canvas.clientHeight / 800;
 
       const centerX = (e.clientX - rect.left) / scaleX;
       const centerY = (e.clientY - rect.top) / scaleY;
@@ -197,10 +197,10 @@ const CanvasView = ({
       <canvas
         className="w-full h-auto "
         ref={canvasRef}
-        // width={800}
-        // height={800}
-        width={size.width}
-        height={size.height}
+        width={800}
+        height={800}
+        // width={size.width}
+        // height={size.height}
         // style={{ width: `${size}px`, height: `${size}px` }}
       ></canvas>
     </div>

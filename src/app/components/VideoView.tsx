@@ -28,13 +28,6 @@ const VideoView = ({
   const orientation = useDeviceOrientation(); // デバイスの向きを取得
 
   if (!videoRef) return;
-
-  // const videoConstraints = {
-  //   width: 800,
-  //   height: 800,
-  //   facingMode: "user",
-  // };
-
   // デバイスの向きに基づいてビデオ制約を設定
   const videoConstraints =
     orientation === "landscape"
@@ -70,7 +63,7 @@ const VideoView = ({
           : "hidden"
       }`}
     >
-      {/* <video
+      <video
         ref={videoRef}
         // width={size.width}
         // height={size.height}
@@ -78,8 +71,8 @@ const VideoView = ({
         muted
         playsInline
         className="w-full h-auto"
-      /> */}
-      <Webcam
+      />
+      {/* <Webcam
         audio={false}
         ref={videoRef}
         // width={size}
@@ -97,7 +90,7 @@ const VideoView = ({
         width={videoConstraints.width}
         videoConstraints={videoConstraints}
         onUserMedia={handleUserMedia}
-      />
+      /> */}
 
       <PhotoViewButton
         videoRef={videoRef}
