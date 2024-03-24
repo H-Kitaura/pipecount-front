@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ImageView from "./ImageView";
 import CanvasView from "./CanvasView";
 import VideoView from "./VideoView";
@@ -10,7 +10,7 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
-  size: any;
+  // size: any;
   // setSize: React.Dispatch<React.SetStateAction<any>>;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +28,7 @@ const MainImageDisplay = ({
   setMode,
   image,
   setImage,
-  size,
+  // size,
   // setSize,
   cordinatesDisplay,
   setCordinatesDisplay,
@@ -38,6 +38,10 @@ const MainImageDisplay = ({
   cameraCheck,
   selectedDevice,
 }: Props) => {
+  const [size, setSize] = useState({
+    width: 0,
+    height: 0,
+  });
   return (
     <div className="flex h-full w-full flex-col items-center justify-center px-4">
       {/* <div className="w-full h-full border shadow-md flex items-center justify-center"> */}
@@ -48,7 +52,7 @@ const MainImageDisplay = ({
         mode={mode}
         setMode={setMode}
         size={size}
-        // setSize={setSize}
+        setSize={setSize}
         cameraCheck={cameraCheck}
         selectedDevice={selectedDevice}
       />

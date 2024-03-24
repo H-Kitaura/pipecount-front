@@ -45,7 +45,7 @@ const CanvasView = ({
     if (!canvas) return;
 
     draw();
-  }, [canvasRef, image, cordinatesDisplay, points, pointSize]);
+  }, [canvasRef, image, cordinatesDisplay, points, pointSize, size]);
   console.log(points);
 
   const drawPoint = (ctx: CanvasRenderingContext2D) => {
@@ -64,6 +64,21 @@ const CanvasView = ({
       ctx.closePath();
     });
   };
+  // const imageDraw = (
+  //   canvas: HTMLCanvasElement,
+  //   ctx: CanvasRenderingContext2D
+  // ) => {
+  //   return new Promise((resolve, reject) => {
+  //     const canvasImage = new Image();
+  //     canvasImage.onload = () => {
+  //       ctx.clearRect(0, 0, size.width, size.height);
+  //       ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
+  //       resolve(true);
+  //     };
+  //     canvasImage.onerror = reject;
+  //     canvasImage.src = image;
+  //   });
+  // };
   const imageDraw = (
     canvas: HTMLCanvasElement,
     ctx: CanvasRenderingContext2D
@@ -71,8 +86,29 @@ const CanvasView = ({
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
       canvasImage.onload = () => {
-        ctx.clearRect(0, 0, size * 2, size * 2);
-        ctx.drawImage(canvasImage, 0, 0, size * 2, size * 2);
+        // キャンバスのサイズを取得
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+
+        // 画像のアスペクト比に基づいて描画サイズを計算
+        const imgAspectRatio = canvasImage.width / canvasImage.height;
+        const canvasAspectRatio = canvasWidth / canvasHeight;
+
+        let renderWidth, renderHeight;
+        if (imgAspectRatio < canvasAspectRatio) {
+          renderHeight = canvasHeight;
+          renderWidth = canvasImage.width * (renderHeight / canvasImage.height);
+        } else {
+          renderWidth = canvasWidth;
+          renderHeight = canvasImage.height * (renderWidth / canvasImage.width);
+        }
+
+        // キャンバスの中央に画像を配置
+        const offsetX = (canvasWidth - renderWidth) / 2;
+        const offsetY = (canvasHeight - renderHeight) / 2;
+
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        ctx.drawImage(canvasImage, offsetX, offsetY, renderWidth, renderHeight);
         resolve(true);
       };
       canvasImage.onerror = reject;
@@ -84,13 +120,22 @@ const CanvasView = ({
     if (canvasRef.current === null) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
+    let windowRatio = window.innerWidth / window.innerHeight;
+    let imageRatio = size.width / size.height;
+    if (windowRatio > imageRatio) {
+      canvas.width = size.height * windowRatio;
+      canvas.height = size.height;
+    } else {
+      canvas.width = size.width;
+      canvas.height = size.width / windowRatio;
+    }
     if (ctx === null) return;
     // マウスダウンイベントで始点を設定
     const handleMouseDown = async (e: MouseEvent) => {
       setIsDrawing(true);
       const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.clientWidth / (size * 2);
-      const scaleY = canvas.clientHeight / (size * 2);
+      const scaleX = canvas.clientWidth / canvas.width;
+      const scaleY = canvas.clientHeight / canvas.height;
 
       const centerX = (e.clientX - rect.left) / scaleX;
       const centerY = (e.clientY - rect.top) / scaleY;
@@ -154,9 +199,9 @@ const CanvasView = ({
         ref={canvasRef}
         // width={800}
         // height={800}
-        width={size * 2}
-        height={size * 2}
-        style={{ width: `${size}px`, height: `${size}px` }}
+        width={size.width}
+        height={size.height}
+        // style={{ width: `${size}px`, height: `${size}px` }}
       ></canvas>
     </div>
   );

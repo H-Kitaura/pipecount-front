@@ -32,8 +32,8 @@ export default function Home() {
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(10);
   const [cameraCheck, setCameraCheck] = useState(false);
-  const { width, height } = useWindowSize();
-  const size = Math.min(width, height) * 0.9;
+  // const { width, height } = useWindowSize();
+  // const size = Math.min(width, height) * 0.9;
 
   //<==================================hooks
 
@@ -45,7 +45,7 @@ export default function Home() {
   //   }
   // }, [devices]);
   // console.log(size);
-  console.log(size);
+  // console.log(size);
 
   return (
     <main>
@@ -89,7 +89,7 @@ export default function Home() {
             setMode={setMode}
             image={image}
             setImage={setImage}
-            size={size}
+            // size={size}
             // setSize={setSize}
             cordinatesDisplay={cordinatesDisplay}
             setCordinatesDisplay={setCordinatesDisplay}
