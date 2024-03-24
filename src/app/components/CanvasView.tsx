@@ -201,7 +201,7 @@ const CanvasView = ({
         // height={800}
         width={size.width}
         height={size.height}
-        // style={{ width: `${size}px`, height: `${size}px` }}
+        style={{ width: `${size}px`, height: `${size}px` }}
       ></canvas>
     </div>
   );
