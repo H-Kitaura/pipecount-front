@@ -5,7 +5,7 @@ type Props = {
 const CountResult = ({ totalCounts }: Props) => {
   return (
     <div className="p-4">
-      <p className="text-center text-sm font-semibold mb-4">過去のカウント</p>
+      <p className="text-start text-sm font-semibold mb-4">過去のカウント</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {totalCounts.map((count, index) => (
           <div
