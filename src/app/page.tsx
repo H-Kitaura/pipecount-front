@@ -56,7 +56,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (selectedDevice) {
+    if (selectedDevice && !cameraCheck) {
       getStream();
     }
   }, [selectedDevice, devices]);
