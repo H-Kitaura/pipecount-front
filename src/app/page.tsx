@@ -56,12 +56,38 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (selectedDevice && !cameraCheck) {
+    if (selectedDevice) {
       getStream();
     }
   }, [selectedDevice, devices]);
   // ^========================================変更しない
 
+  useEffect(() => {
+    if (!cameraCheck) return;
+
+    const updateVideoResolution = async () => {
+      await getStream(); // getStream 関数を適切な制約で呼び出し
+    };
+
+    updateVideoResolution(); // 初期ロード時に実行
+
+    // オリエンテーション変更のリスナー
+    window.addEventListener("orientationchange", updateVideoResolution);
+    // デバイスの向きやウィンドウのサイズが変わった時に解像度を更新
+    const handleResizeOrOrientationChange = () => {
+      updateVideoResolution();
+    };
+
+    window.addEventListener("resize", handleResizeOrOrientationChange);
+    // イベントリスナーをクリーンアップ
+    return () => {
+      window.removeEventListener("resize", handleResizeOrOrientationChange);
+      window.removeEventListener(
+        "orientationchange",
+        handleResizeOrOrientationChange
+      );
+    };
+  }, [cameraCheck, selectedDevice]);
   // useEffect(() => {
   //   if (!cameraCheck) return;
 
