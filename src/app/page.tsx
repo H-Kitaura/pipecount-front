@@ -90,31 +90,14 @@ export default function Home() {
 
   const getStream = async () => {
     try {
-      // const constraints = {
-      //   video: {
-      //     deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-      //     // ウィンドウサイズではなく、適切な解像度を指定
-      //     width: { ideal: 1280 },
-      //     height: { ideal: 720 },
-      //   },
-      //   audio: false,
-      // };
-      const constraints = selectedDevice
-        ? {
-            video: {
-              deviceId: { exact: selectedDevice },
-              width: { ideal: 1280 },
-              height: { ideal: 720 },
-            },
-            audio: false,
-          }
-        : {
-            video: {
-              width: { ideal: 1280 },
-              height: { ideal: 720 },
-            },
-            audio: false,
-          };
+      const constraints = {
+        video: {
+          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+        },
+        audio: false,
+      };
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       if (videoRef.current) {
@@ -133,7 +116,6 @@ export default function Home() {
       alert("カメラ認証ができませんでした。");
     }
   };
-
   //デバイスのidが一致しているものを見つけて取得する
   const getDevice =
     devices &&
