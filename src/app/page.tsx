@@ -92,7 +92,8 @@ export default function Home() {
     try {
       const constraints = {
         video: {
-          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          // deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
           width: { ideal: 1280 },
           height: { ideal: 720 },
         },
