@@ -57,11 +57,11 @@ export default function Home() {
     });
   }, []);
 
-  useEffect(() => {
-    if (selectedDevice && cameraCheck) {
-      getStream();
-    }
-  }, [selectedDevice, cameraCheck]);
+  // useEffect(() => {
+  //   if (selectedDevice && cameraCheck) {
+  //     getStream();
+  //   }
+  // }, [selectedDevice, cameraCheck]);
   // ^========================================変更しない
 
   useEffect(() => {
@@ -109,38 +109,38 @@ export default function Home() {
     };
   }, [selectedDevice]);
 
-  const getStream = async () => {
-    try {
-      // デバイスの向きに基づいて適切な解像度を設定
-      const isLandscape =
-        window.screen.orientation.type.includes("landscape-primary") ||
-        window.screen.orientation.type.includes("landscape-secondary");
-      const constraints = {
-        video: {
-          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-          width: { ideal: isLandscape ? 1000 : 1000 },
-          height: { ideal: isLandscape ? 1000 : 1000 },
-        },
-        audio: false,
-      };
+  // const getStream = async () => {
+  //   try {
+  //     // デバイスの向きに基づいて適切な解像度を設定
+  //     const isLandscape =
+  //       window.screen.orientation.type.includes("landscape-primary") ||
+  //       window.screen.orientation.type.includes("landscape-secondary");
+  //     const constraints = {
+  //       video: {
+  //         deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+  //         width: { ideal: isLandscape ? 1000 : 1000 },
+  //         height: { ideal: isLandscape ? 1000 : 1000 },
+  //       },
+  //       audio: false,
+  //     };
 
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = () => {
-          if (videoRef.current) {
-            // ビデオの実際のサイズを基にサイズを設定
-            setSize({
-              width: videoRef.current.videoWidth,
-              height: videoRef.current.videoHeight,
-            });
-          }
-        };
-      }
-    } catch (err) {
-      console.error("カメラへのアクセスに失敗しました: ", err);
-    }
-  };
+  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  //     if (videoRef.current) {
+  //       videoRef.current.srcObject = stream;
+  //       videoRef.current.onloadedmetadata = () => {
+  //         if (videoRef.current) {
+  //           // ビデオの実際のサイズを基にサイズを設定
+  //           setSize({
+  //             width: videoRef.current.videoWidth,
+  //             height: videoRef.current.videoHeight,
+  //           });
+  //         }
+  //       };
+  //     }
+  //   } catch (err) {
+  //     console.error("カメラへのアクセスに失敗しました: ", err);
+  //   }
+  // };
   //デバイスのidが一致しているものを見つけて取得する
   // const getDevice =
   //   devices &&
