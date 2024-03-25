@@ -186,7 +186,7 @@ export default function Home() {
             setAnnotation={setAnnotation}
           />
 
-          <div className="grid grid-cols-2 px-8">
+          <div className="grid grid-cols-2 gap-2 px-4">
             <AICountContent annotation={annotation} />
             {totalCounts.length > 0 && (
               <TotalCountResult totalCounts={totalCounts} />

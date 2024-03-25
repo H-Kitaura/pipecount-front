@@ -10,9 +10,12 @@ const CameraSelect = ({ devices, setSelectedDevice }: Props) => {
   //   setSelectedDevice(e.target.value);
   // };
   return (
-    <div className="px-4">
+    <div className="px-4 mb-4">
       {/* <select onChange={(e) => handleDeviceChange}> */}
-      <select onChange={(e) => setSelectedDevice(e.target.value)}>
+      <select
+        className="border px-2 py-1 bg-slate-50"
+        onChange={(e) => setSelectedDevice(e.target.value)}
+      >
         {devices.map((v) => (
           // <option key={v.deviceId}>{v.label}</option>
           <option key={v.deviceId} value={v.deviceId}>

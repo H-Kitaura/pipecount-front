@@ -1,3 +1,3 @@
 export const style = {
-  buttonLayout: "shadow-md border bg-slate-100 hover:bg-slate-200 text-sm",
+  buttonLayout: "shadow border bg-white hover:bg-slate-200 text-sm",
 };
