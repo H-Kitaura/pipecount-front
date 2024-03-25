@@ -175,7 +175,7 @@ export default function Home() {
               setCordinatesDisplay={setCordinatesDisplay}
             />
           )}
-          {/* {selectedDevice} */}
+          {selectedDevice}
 
           <MainImageDisplay
             videoRef={videoRef}
