@@ -87,7 +87,7 @@ export default function Home() {
         handleResizeOrOrientationChange
       );
     };
-  }, [cameraCheck, selectedDevice]);
+  }, [cameraCheck]);
   // useEffect(() => {
   //   if (!cameraCheck) return;
 
@@ -184,7 +184,6 @@ export default function Home() {
               setCordinatesDisplay={setCordinatesDisplay}
             />
           )}
-          {selectedDevice}
 
           <MainImageDisplay
             videoRef={videoRef}
