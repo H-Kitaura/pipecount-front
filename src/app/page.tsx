@@ -97,7 +97,7 @@ export default function Home() {
         video: {
           // facingMode: "environment",
           // 例: デバイスの向きに応じて解像度を調整
-          deviceId: { exact: selectedDevice },
+          deviceId: getDevice ? getDevice.deviceId : undefined,
           width: { ideal: window.innerWidth },
           height: { ideal: window.innerHeight },
         },
