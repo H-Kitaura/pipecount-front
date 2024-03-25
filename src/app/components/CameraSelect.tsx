@@ -33,7 +33,7 @@ const CameraSelect = ({
 
   return (
     <div className="px-4">
-      <select onChange={(e) => setSelectedDevice(e.target.value)}>
+      <select onChange={(e) => handleDeviceChange}>
         {devices.map((v) => (
           // <option key={v.deviceId}>{v.label}</option>
           <option key={v.deviceId} value={v.deviceId}>

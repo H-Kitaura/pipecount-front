@@ -24,18 +24,20 @@ Props) => {
     if (!video || !canvas) return;
 
     // ビデオのアスペクト比を計算
-    // const videoAspectRatio = video.videoWidth / video.videoHeight;
+    const videoAspectRatio = video.videoWidth / video.videoHeight;
 
     // キャンバスのサイズをビデオのアスペクト比に合わせて設定
-    // if (video.videoHeight > video.videoWidth) {
-    //   // 縦向きの場合
-    //   canvas.width = video.videoHeight * videoAspectRatio;
-    //   canvas.height = video.videoHeight;
-    // } else {
-    //   // 横向きの場合
-    //   canvas.width = video.videoWidth;
-    //   canvas.height = video.videoWidth / videoAspectRatio;
-    // }
+    if (video.videoHeight > video.videoWidth) {
+      // 縦向きの場合
+      canvas.width = video.videoHeight * videoAspectRatio;
+      canvas.height = video.videoHeight;
+    } else {
+      // 横向きの場合
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoWidth / videoAspectRatio;
+    }
+
+    console.log("canvas size", canvas.width, canvas.height);
 
     // setSize({
     //   width: canvas.width,
