@@ -19,8 +19,8 @@ export default function Home() {
   //hooks=======================================>
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // const { devices, setDevices } = useVideoDeviceList();
-  const [devices, setDevices] = useState<MediaDeviceInfo[] | []>([]);
+  const { devices, setDevices } = useVideoDeviceList();
+  // const [devices, setDevices] = useState<MediaDeviceInfo[] | []>([]);
   const [selectedDevice, setSelectedDevice] = useState<string>("");
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("video");
