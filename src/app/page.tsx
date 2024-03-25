@@ -48,61 +48,31 @@ export default function Home() {
 
   useEffect(() => {
     if (!cameraCheck) return;
-
-    const isLandscape = window.screen.orientation.type.includes("landscape");
-    const constraints = {
-      audio: false,
-      video: {
-        deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-        width: { ideal: isLandscape ? 1280 : 720 },
-        height: { ideal: isLandscape ? 720 : 1280 },
-      },
+    const updateVideoResolution = () => {
+      const isLandscape = window.screen.orientation.type.includes("landscape");
+      const constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 },
+        },
+      };
+      getStream();
     };
 
-    const getStream = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.onloadedmetadata = () => {
-            if (videoRef.current) {
-              const width = videoRef.current.videoWidth;
-              const height = videoRef.current.videoHeight;
-              // ストリームから取得した実際のビデオサイズでサイズを更新
-              setSize({ width, height });
-            }
-          };
-        }
-      } catch (err) {
-        console.error("カメラへのアクセスに失敗しました: ", err);
-        alert("カメラ認証ができませんでした。");
-      }
-    };
+    window.screen.orientation.addEventListener("change", updateVideoResolution);
 
-    getStream();
-
-    // オリエンテーションの変更イベントリスナーを設定
-    const handleOrientationChange = () => {
-      const isLandscapeNow =
-        window.screen.orientation.type.includes("landscape");
-      // オリエンテーションが変わったらビデオ制約を更新してストリームを再取得
-      if (isLandscape !== isLandscapeNow) {
-        getStream();
-      }
-    };
-
-    window.screen.orientation.addEventListener(
-      "change",
-      handleOrientationChange
-    );
+    // 初期読み込み時にも解像度を更新
+    updateVideoResolution();
 
     return () => {
       window.screen.orientation.removeEventListener(
         "change",
-        handleOrientationChange
+        updateVideoResolution
       );
     };
-  }, [cameraCheck, selectedDevice]);
+  }, [cameraCheck, selectedDevice, videoRef]);
 
   // const getPermission = async (constraints: any) => {
   //   if (videoRef.current === null) return;
@@ -120,44 +90,44 @@ export default function Home() {
   //     alert("カメラ認証ができませんでした。");
   //   }
   // };
-  // const getStream = async () => {
-  //   try {
-  //     // デバイスの向きやサイズに基づいて適切なconstraintsを設定
-  //     const constraints = {
-  //       video: {
-  //         // facingMode: "environment",
-  //         // 例: デバイスの向きに応じて解像度を調整
-  //         deviceId: getDevice ? getDevice.deviceId : undefined,
-  //         width: { ideal: window.innerWidth },
-  //         height: { ideal: window.innerHeight },
-  //       },
-  //       audio: false,
-  //     };
+  const getStream = async () => {
+    try {
+      // デバイスの向きやサイズに基づいて適切なconstraintsを設定
+      const constraints = {
+        video: {
+          facingMode: "environment",
+          // 例: デバイスの向きに応じて解像度を調整
+          width: { ideal: window.innerWidth },
+          height: { ideal: window.innerHeight },
+        },
+        audio: false,
+      };
 
-  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  //     if (videoRef.current) {
-  //       videoRef.current.srcObject = stream;
-  //       // ストリームから取得した実際のビデオサイズを使用してサイズを更新
-  //       videoRef.current.onloadedmetadata = () => {
-  //         if (videoRef.current) {
-  //           setSize({
-  //             width: videoRef.current.videoWidth,
-  //             height: videoRef.current.videoHeight,
-  //           });
-  //         }
-  //       };
-  //     }
-  //   } catch (err) {
-  //     console.error("カメラへのアクセスに失敗しました: ", err);
-  //     alert("カメラ認証ができませんでした。");
-  //   }
-  // };
-  // console.log("ここでサイズが取得？", size);
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        // ストリームから取得した実際のビデオサイズを使用してサイズを更新
+        videoRef.current.onloadedmetadata = () => {
+          if (videoRef.current) {
+            setSize({
+              width: videoRef.current.videoWidth,
+              height: videoRef.current.videoHeight,
+            });
+            console.log("ここでサイズが取得？");
+          }
+        };
+      }
+    } catch (err) {
+      console.error("カメラへのアクセスに失敗しました: ", err);
+      alert("カメラ認証ができませんでした。");
+    }
+  };
+
   //デバイスのidが一致しているものを見つけて取得する
-  // const getDevice =
-  //   devices &&
-  //   selectedDevice &&
-  //   devices.find((v: any) => v.deviceId === selectedDevice);
+  const getDevice =
+    devices &&
+    selectedDevice &&
+    devices.find((v: any) => v.deviceId === selectedDevice);
 
   return (
     <main>

@@ -46,7 +46,6 @@ const CanvasView = ({
 
     draw();
   }, [canvasRef, image, cordinatesDisplay, points, pointSize, size]);
-  console.log(points);
 
   const drawPoint = (ctx: CanvasRenderingContext2D) => {
     points.forEach((pointPair: any) => {
