@@ -62,32 +62,67 @@ export default function Home() {
   }, [selectedDevice, cameraCheck]);
   // ^========================================変更しない
 
+  // useEffect(() => {
+  //   if (!cameraCheck) return;
+
+  //   const updateVideoResolution = async () => {
+  //     await getStream(); // getStream 関数を適切な制約で呼び出し
+  //   };
+
+  //   updateVideoResolution(); // 初期ロード時に実行
+
+  //   // オリエンテーション変更のリスナー
+  //   window.addEventListener("orientationchange", updateVideoResolution);
+  //   // デバイスの向きやウィンドウのサイズが変わった時に解像度を更新
+  //   const handleResizeOrOrientationChange = () => {
+  //     updateVideoResolution();
+  //   };
+
+  //   // window.addEventListener("resize", handleResizeOrOrientationChange);
+  //   // イベントリスナーをクリーンアップ
+  //   return () => {
+  //     // window.removeEventListener("resize", handleResizeOrOrientationChange);
+  //     window.removeEventListener(
+  //       "orientationchange",
+  //       handleResizeOrOrientationChange
+  //     );
+  //   };
+  // }, [cameraCheck]);
   useEffect(() => {
-    if (!cameraCheck) return;
-
     const updateVideoResolution = async () => {
-      await getStream(); // getStream 関数を適切な制約で呼び出し
+      const isLandscape = window.screen.orientation.type.includes("landscape");
+      const constraints = {
+        video: {
+          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 },
+        },
+        audio: false,
+      };
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (err) {
+        console.error("カメラへのアクセスに失敗しました: ", err);
+      }
     };
 
-    updateVideoResolution(); // 初期ロード時に実行
-
-    // オリエンテーション変更のリスナー
+    // デバイスの向きやウィンドウサイズの変更を検出
     window.addEventListener("orientationchange", updateVideoResolution);
-    // デバイスの向きやウィンドウのサイズが変わった時に解像度を更新
-    const handleResizeOrOrientationChange = () => {
-      updateVideoResolution();
-    };
+    // window.addEventListener("resize", updateVideoResolution);
 
-    // window.addEventListener("resize", handleResizeOrOrientationChange);
-    // イベントリスナーをクリーンアップ
+    // 初回実行
+    updateVideoResolution();
+
     return () => {
-      // window.removeEventListener("resize", handleResizeOrOrientationChange);
-      window.removeEventListener(
-        "orientationchange",
-        handleResizeOrOrientationChange
-      );
+      window.removeEventListener("orientationchange", updateVideoResolution);
+      // window.removeEventListener("resize", updateVideoResolution);
     };
-  }, [cameraCheck]);
+  }, [selectedDevice]);
+
   // useEffect(() => {
   //   if (!cameraCheck) return;
 
