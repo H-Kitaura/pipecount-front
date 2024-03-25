@@ -61,17 +61,18 @@ export default function Home() {
     if (selectedDevice && cameraCheck) {
       getStream();
     }
-  }, [selectedDevice, cameraCheck]);
+  }, [selectedDevice, cameraCheck, videoRef]);
   // ^========================================変更しない
 
   useEffect(() => {
     const updateVideoResolution = async () => {
-      const isLandscape = window.screen.orientation.type.includes("landscape");
+      // デバイスの向きに基づいて解像度の制約を設定
+      const isPortrait = window.matchMedia("(orientation: portrait)").matches;
       const constraints = {
         video: {
           deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-          width: { ideal: isLandscape ? 1280 : 720 },
-          height: { ideal: isLandscape ? 720 : 1280 },
+          width: { ideal: isPortrait ? 1000 : 1000 },
+          height: { ideal: isPortrait ? 1000 : 1000 },
         },
         audio: false,
       };
@@ -80,30 +81,45 @@ export default function Home() {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
+          videoRef.current.onloadedmetadata = () => {
+            if (videoRef.current) {
+              setSize({
+                width: videoRef.current.videoWidth,
+                height: videoRef.current.videoHeight,
+              });
+            }
+          };
         }
       } catch (err) {
         console.error("カメラへのアクセスに失敗しました: ", err);
       }
     };
 
-    // デバイスの向きやウィンドウサイズの変更を検出
+    // オリエンテーションやリサイズイベントに基づいて解像度を更新
     window.addEventListener("orientationchange", updateVideoResolution);
+    // resizeイベントも考慮する場合は追加（iPhoneでの誤検知に注意）
+    // window.addEventListener("resize", updateVideoResolution);
 
-    // 初回実行
+    // 初期ロードとイベント発火時に実行
     updateVideoResolution();
 
     return () => {
       window.removeEventListener("orientationchange", updateVideoResolution);
+      // window.removeEventListener("resize", updateVideoResolution);
     };
-  }, [selectedDevice]);
+  }, [selectedDevice, videoRef]);
 
   const getStream = async () => {
     try {
+      // デバイスの向きに基づいて適切な解像度を設定
+      const isLandscape =
+        window.screen.orientation.type.includes("landscape-primary") ||
+        window.screen.orientation.type.includes("landscape-secondary");
       const constraints = {
         video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
+          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+          width: { ideal: isLandscape ? 1000 : 1000 },
+          height: { ideal: isLandscape ? 1000 : 1000 },
         },
         audio: false,
       };
@@ -113,6 +129,7 @@ export default function Home() {
         videoRef.current.srcObject = stream;
         videoRef.current.onloadedmetadata = () => {
           if (videoRef.current) {
+            // ビデオの実際のサイズを基にサイズを設定
             setSize({
               width: videoRef.current.videoWidth,
               height: videoRef.current.videoHeight,
@@ -122,7 +139,6 @@ export default function Home() {
       }
     } catch (err) {
       console.error("カメラへのアクセスに失敗しました: ", err);
-      alert("カメラ認証ができませんでした。");
     }
   };
   //デバイスのidが一致しているものを見つけて取得する
@@ -131,18 +147,11 @@ export default function Home() {
     selectedDevice &&
     devices.find((v: any) => v.deviceId === selectedDevice);
 
+  console.log(size);
+
   return (
     <main>
-      <Header
-        devices={devices}
-        selectedDevice={selectedDevice}
-        setMode={setMode}
-        videoRef={videoRef}
-        setSelectedDevice={setSelectedDevice}
-        cameraCheck={cameraCheck}
-        setCameraCheck={setCameraCheck}
-        setSize={setSize}
-      />
+      <Header cameraCheck={cameraCheck} setCameraCheck={setCameraCheck} />
       <Container>
         <Wrapper>
           {cameraCheck && (

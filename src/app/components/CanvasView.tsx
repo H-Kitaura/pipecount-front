@@ -190,7 +190,7 @@ const CanvasView = ({
     return () => {
       canvas.removeEventListener("mousedown", handleMouseDown);
     };
-  }, [isDrawing, annotation]);
+  }, [isDrawing, annotation, size]);
   function drawAddArc(ctx: CanvasRenderingContext2D, x: number, y: number) {
     // const pointSize = 3;
     ctx.beginPath();

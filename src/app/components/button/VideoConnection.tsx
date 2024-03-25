@@ -2,26 +2,11 @@ import { style } from "@/app/styles/style";
 import React, { useEffect } from "react";
 
 type Props = {
-  selectedDevice: string | null;
-  setSelectedDevice: React.Dispatch<React.SetStateAction<string>>;
-  devices: any;
-  setMode: React.Dispatch<React.SetStateAction<string>>;
-  // videoRef: React.RefObject<HTMLVideoElement>;
   cameraCheck: boolean;
   setCameraCheck: React.Dispatch<React.SetStateAction<boolean>>;
-  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const VideoConnection = ({
-  selectedDevice,
-  setSelectedDevice,
-  devices,
-  setMode,
-  // videoRef,
-  cameraCheck,
-  setCameraCheck,
-  setSize,
-}: Props) => {
+const VideoConnection = ({ cameraCheck, setCameraCheck }: Props) => {
   //カメラ表示の時に使うハンドラー
   const handleConnectClick = () => {
     // getPermission(constraints);
