@@ -9,7 +9,7 @@ type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
   cameraCheck: boolean;
   setCameraCheck: React.Dispatch<React.SetStateAction<boolean>>;
-  // setSize: React.Dispatch<React.SetStateAction<any>>;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const VideoConnection = ({
@@ -20,8 +20,8 @@ const VideoConnection = ({
   videoRef,
   cameraCheck,
   setCameraCheck,
-}: // setSize,
-Props) => {
+  setSize,
+}: Props) => {
   useEffect(() => {
     if (!cameraCheck) return;
     const updateVideoResolution = () => {
@@ -34,7 +34,7 @@ Props) => {
           height: { ideal: isLandscape ? 720 : 1280 },
         },
       };
-      getPermission(constraints);
+      getStream();
     };
 
     window.screen.orientation.addEventListener("change", updateVideoResolution);
@@ -50,19 +50,50 @@ Props) => {
     };
   }, [cameraCheck, selectedDevice]);
 
-  const getPermission = async (constraints: any) => {
-    if (videoRef.current === null) return;
+  // const getPermission = async (constraints: any) => {
+  //   if (videoRef.current === null) return;
+  //   try {
+  //     if (videoRef.current.srcObject) {
+  //       const stream = videoRef.current.srcObject as MediaStream;
+  //       // 既存のストリームを停止する
+  //       const tracks = stream.getTracks();
+  //       tracks.forEach((track) => track.stop());
+  //     }
+  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  //     videoRef.current.srcObject = stream;
+  //   } catch (err) {
+  //     console.error("Error", err);
+  //     alert("カメラ認証ができませんでした。");
+  //   }
+  // };
+  const getStream = async () => {
     try {
-      if (videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
-        // 既存のストリームを停止する
-        const tracks = stream.getTracks();
-        tracks.forEach((track) => track.stop());
-      }
+      // デバイスの向きやサイズに基づいて適切なconstraintsを設定
+      const constraints = {
+        video: {
+          facingMode: "environment",
+          // 例: デバイスの向きに応じて解像度を調整
+          width: { ideal: window.innerWidth },
+          height: { ideal: window.innerHeight },
+        },
+        audio: false,
+      };
+
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      videoRef.current.srcObject = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        // ストリームから取得した実際のビデオサイズを使用してサイズを更新
+        videoRef.current.onloadedmetadata = () => {
+          if (videoRef.current) {
+            setSize({
+              width: videoRef.current.videoWidth,
+              height: videoRef.current.videoHeight,
+            });
+          }
+        };
+      }
     } catch (err) {
-      console.error("Error", err);
+      console.error("カメラへのアクセスに失敗しました: ", err);
       alert("カメラ認証ができませんでした。");
     }
   };

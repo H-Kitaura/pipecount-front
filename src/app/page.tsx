@@ -26,6 +26,10 @@ export default function Home() {
   const [mode, setMode] = useState("video");
   const [image, setImage] = useState("");
   // const [size, setSize] = useState({ width: 0, height: 0 });
+  const [size, setSize] = useState({
+    width: 0,
+    height: 0,
+  });
 
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
@@ -52,7 +56,7 @@ export default function Home() {
         setSelectedDevice={setSelectedDevice}
         cameraCheck={cameraCheck}
         setCameraCheck={setCameraCheck}
-        // setSize={setSize}
+        setSize={setSize}
       />
       <Container>
         <Wrapper>
@@ -62,6 +66,7 @@ export default function Home() {
               setDevices={setDevices}
               selectedDevice={selectedDevice}
               setSelectedDevice={setSelectedDevice}
+              setSize={setSize}
             />
           )}
           {mode === "canvas" && (
@@ -84,8 +89,8 @@ export default function Home() {
             setMode={setMode}
             image={image}
             setImage={setImage}
-            // size={size}
-            // setSize={setSize}
+            size={size}
+            setSize={setSize}
             cordinatesDisplay={cordinatesDisplay}
             setCordinatesDisplay={setCordinatesDisplay}
             points={points}

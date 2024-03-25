@@ -71,8 +71,8 @@ const CanvasView = ({
     return new Promise((resolve, reject) => {
       const canvasImage = new Image();
       canvasImage.onload = () => {
-        ctx.clearRect(0, 0, 800, 800);
-        ctx.drawImage(canvasImage, 0, 0, 800, 800);
+        ctx.clearRect(0, 0, size.width, size.height);
+        ctx.drawImage(canvasImage, 0, 0, size.width, size.height);
         resolve(true);
       };
       canvasImage.onerror = reject;
@@ -134,8 +134,8 @@ const CanvasView = ({
     const handleMouseDown = async (e: MouseEvent) => {
       setIsDrawing(true);
       const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.clientWidth / 800;
-      const scaleY = canvas.clientHeight / 800;
+      const scaleX = canvas.clientWidth / size.width;
+      const scaleY = canvas.clientHeight / size.height;
 
       const centerX = (e.clientX - rect.left) / scaleX;
       const centerY = (e.clientY - rect.top) / scaleY;
@@ -197,10 +197,10 @@ const CanvasView = ({
       <canvas
         className="w-full h-auto "
         ref={canvasRef}
-        width={800}
-        height={800}
-        // width={size.width}
-        // height={size.height}
+        // width={800}
+        // height={800}
+        width={size.width}
+        height={size.height}
         // style={{ width: `${size}px`, height: `${size}px` }}
       ></canvas>
     </div>

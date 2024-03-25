@@ -10,7 +10,7 @@ type Props = {
   setSelectedDevice: React.Dispatch<React.SetStateAction<string>>;
   cameraCheck: boolean;
   setCameraCheck: React.Dispatch<React.SetStateAction<boolean>>;
-  // setSize: React.Dispatch<React.SetStateAction<any>>;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const Header = ({
@@ -21,8 +21,8 @@ const Header = ({
   setSelectedDevice,
   cameraCheck,
   setCameraCheck,
-}: // setSize,
-Props) => {
+  setSize,
+}: Props) => {
   return (
     <div className="flex items-center justify-between py-2 px-4">
       <p className="text-2xl">PIPE COUNT</p>
@@ -44,7 +44,7 @@ Props) => {
         videoRef={videoRef}
         cameraCheck={cameraCheck}
         setCameraCheck={setCameraCheck}
-        // setSize={setSize}
+        setSize={setSize}
       />
     </div>
   );

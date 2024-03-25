@@ -5,6 +5,7 @@ type Props = {
   setDevices: React.Dispatch<React.SetStateAction<MediaDeviceInfo[]>>;
   selectedDevice: string;
   setSelectedDevice: React.Dispatch<React.SetStateAction<string>>;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const CameraSelect = ({
@@ -12,6 +13,7 @@ const CameraSelect = ({
   setDevices,
   selectedDevice,
   setSelectedDevice,
+  setSize,
 }: Props) => {
   const handleDeviceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedDevice(e.target.value);
@@ -25,6 +27,7 @@ const CameraSelect = ({
       if (videoDevices.length > 0) {
         setSelectedDevice(videoDevices[0].deviceId);
       }
+      // setSize({ width: 300, height: 300 });
     });
   }, []);
 

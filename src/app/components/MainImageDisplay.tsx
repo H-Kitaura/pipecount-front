@@ -10,8 +10,8 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   image: string;
   setImage: React.Dispatch<React.SetStateAction<string>>;
-  // size: any;
-  // setSize: React.Dispatch<React.SetStateAction<any>>;
+  size: any;
+  setSize: React.Dispatch<React.SetStateAction<any>>;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   points: any;
@@ -28,8 +28,8 @@ const MainImageDisplay = ({
   setMode,
   image,
   setImage,
-  // size,
-  // setSize,
+  size,
+  setSize,
   cordinatesDisplay,
   setCordinatesDisplay,
   points,
@@ -38,10 +38,14 @@ const MainImageDisplay = ({
   cameraCheck,
   selectedDevice,
 }: Props) => {
-  const [size, setSize] = useState({
-    width: 0,
-    height: 0,
-  });
+  useEffect(() => {
+    if (videoRef.current) {
+      setSize({
+        width: videoRef.current.videoWidth,
+        height: videoRef.current.videoHeight,
+      });
+    }
+  }, [videoRef]);
   return (
     <div className="flex h-full w-full flex-col items-center justify-center px-4">
       {/* <div className="w-full h-full border shadow-md flex items-center justify-center"> */}
