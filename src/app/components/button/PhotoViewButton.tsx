@@ -17,6 +17,7 @@ const PhotoViewButton = ({
   size,
   setAnnotation,
 }: Props) => {
+  let date = new Date();
   const handlePhotoShot = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
@@ -51,7 +52,7 @@ const PhotoViewButton = ({
     setAnnotation((prev) => ({
       ...prev,
       imageBase64: imageData,
-      imageFilename: "pipeCount",
+      imageFilename: "pipeCount" + "_" + date,
     }));
     setMode("image");
   };
