@@ -14,6 +14,7 @@ import CountResult from "./components/CountResult";
 import TotalCountResult from "./components/TotalCountResult";
 import CameraSelect from "./components/CameraSelect";
 import useWindowSize from "./Hooks/useWindowSize";
+import { Annotation } from "./schemas/type";
 
 export default function Home() {
   //hooks=======================================>
@@ -23,16 +24,20 @@ export default function Home() {
   const [selectedDevice, setSelectedDevice] = useState<string>("");
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("video");
-  const [image, setImage] = useState("");
   const [size, setSize] = useState({
     width: 0,
     height: 0,
   });
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
-  const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(10);
   const [cameraCheck, setCameraCheck] = useState(false);
+
+  const [annotation, setAnnotation] = useState<Annotation>({
+    points: [],
+    imageBase64: "",
+    imageFilename: null,
+  });
   //<==================================hooks
 
   //カメラデータの取得
@@ -88,47 +93,12 @@ export default function Home() {
   //     );
   //   };
   // }, [cameraCheck]);
-  // useEffect(() => {
-  //   const updateVideoResolution = async () => {
-  //     const isLandscape = window.screen.orientation.type.includes("landscape");
-  //     const constraints = {
-  //       video: {
-  //         deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-  //         width: { ideal: isLandscape ? 1280 : 720 },
-  //         height: { ideal: isLandscape ? 720 : 1280 },
-  //       },
-  //       audio: false,
-  //     };
-
-  //     try {
-  //       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  //       if (videoRef.current) {
-  //         videoRef.current.srcObject = stream;
-  //       }
-  //     } catch (err) {
-  //       console.error("カメラへのアクセスに失敗しました: ", err);
-  //     }
-  //   };
-
-  //   // デバイスの向きやウィンドウサイズの変更を検出
-  //   window.addEventListener("orientationchange", updateVideoResolution);
-  //   // window.addEventListener("resize", updateVideoResolution);
-
-  //   // 初回実行
-  //   updateVideoResolution();
-
-  //   return () => {
-  //     window.removeEventListener("orientationchange", updateVideoResolution);
-  //     // window.removeEventListener("resize", updateVideoResolution);
-  //   };
-  // }, [selectedDevice]);
   useEffect(() => {
     const updateVideoResolution = async () => {
       const isLandscape = window.screen.orientation.type.includes("landscape");
       const constraints = {
         video: {
           deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-          // ランドスケープとポートレートで適切な解像度を設定
           width: { ideal: isLandscape ? 1280 : 720 },
           height: { ideal: isLandscape ? 720 : 1280 },
         },
@@ -139,17 +109,6 @@ export default function Home() {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
-          // ビデオのメタデータが読み込まれたらキャンバスのサイズを更新
-          videoRef.current.onloadedmetadata = () => {
-            if (videoRef.current && canvasRef.current) {
-              const videoWidth = videoRef.current.videoWidth;
-              const videoHeight = videoRef.current.videoHeight;
-              // キャンバスのサイズをビデオのサイズに合わせて設定
-              canvasRef.current.width = videoWidth;
-              canvasRef.current.height = videoHeight;
-              // 必要に応じて他の関連する状態も更新
-            }
-          };
         }
       } catch (err) {
         console.error("カメラへのアクセスに失敗しました: ", err);
@@ -158,11 +117,14 @@ export default function Home() {
 
     // デバイスの向きやウィンドウサイズの変更を検出
     window.addEventListener("orientationchange", updateVideoResolution);
+    // window.addEventListener("resize", updateVideoResolution);
+
     // 初回実行
     updateVideoResolution();
 
     return () => {
       window.removeEventListener("orientationchange", updateVideoResolution);
+      // window.removeEventListener("resize", updateVideoResolution);
     };
   }, [selectedDevice]);
 
@@ -267,21 +229,19 @@ export default function Home() {
             canvasRef={canvasRef}
             mode={mode}
             setMode={setMode}
-            image={image}
-            setImage={setImage}
             size={size}
             setSize={setSize}
             cordinatesDisplay={cordinatesDisplay}
             setCordinatesDisplay={setCordinatesDisplay}
-            points={points}
-            setPoints={setPoints}
             pointSize={pointSize}
             cameraCheck={cameraCheck}
             selectedDevice={selectedDevice}
+            annotation={annotation}
+            setAnnotation={setAnnotation}
           />
 
           <div className="grid grid-cols-2 px-8">
-            <AICountContent points={points} />
+            <AICountContent annotation={annotation} />
             {totalCounts.length > 0 && (
               <TotalCountResult totalCounts={totalCounts} />
             )}
@@ -293,10 +253,9 @@ export default function Home() {
         videoRef={videoRef}
         mode={mode}
         setMode={setMode}
-        setImage={setImage}
-        points={points}
-        setPoints={setPoints}
         setTotalCounts={setTotalCounts}
+        annotation={annotation}
+        setAnnotation={setAnnotation}
       />
     </main>
   );

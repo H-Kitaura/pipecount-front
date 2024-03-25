@@ -3,27 +3,28 @@ import PhotoButton from "./button/PhotoButton";
 import PhotoViewButton from "./button/PhotoViewButton";
 import Webcam from "react-webcam";
 import useDeviceOrientation from "../Hooks/useDeviceOrientation";
+import { Annotation } from "../schemas/type";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
-  setImage: React.Dispatch<React.SetStateAction<string>>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   size: any;
   setSize: React.Dispatch<React.SetStateAction<any>>;
   cameraCheck: boolean;
   selectedDevice: string;
+  setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
 
 const VideoView = ({
   videoRef,
-  setImage,
   mode,
   setMode,
   setSize,
   size,
   cameraCheck,
   selectedDevice,
+  setAnnotation,
 }: Props) => {
   // const orientation = useDeviceOrientation(); // デバイスの向きを取得
 
@@ -94,11 +95,10 @@ const VideoView = ({
 
       <PhotoViewButton
         videoRef={videoRef}
-        setImage={setImage}
         mode={mode}
         setMode={setMode}
         size={size}
-        // setSize={setSize}
+        setAnnotation={setAnnotation}
       />
     </div>
   );

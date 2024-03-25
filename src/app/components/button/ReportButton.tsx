@@ -8,27 +8,32 @@ import {
   ModalOverlay,
 } from "../Modal";
 import useDisclosure from "@/app/Hooks/useDisclosure";
+import { Annotation } from "@/app/schemas/type";
 
 type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  points: any;
-  setPoints: React.Dispatch<React.SetStateAction<any>>;
   setTotalCounts: React.Dispatch<React.SetStateAction<number[]>>;
+  annotation: Annotation;
+  setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
 
 const ReportButton = ({
   setMode,
-  points,
-  setPoints,
   setTotalCounts,
+  annotation,
+  setAnnotation,
 }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const countSubmit = () => {
     onClose();
     setMode("video");
-    setTotalCounts((prev) => [...prev, points.length]);
-    setPoints([]);
+    setTotalCounts((prev) => [...prev, annotation.points.length]);
+    // setPoints([]);
+    setAnnotation((prev) => ({
+      ...prev,
+      points: [],
+    }));
   };
 
   return (

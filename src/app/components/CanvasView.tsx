@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { dammyPoints } from "@/app/dammyData";
+import { Annotation } from "../schemas/type";
 
 type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   videoRef: React.RefObject<HTMLVideoElement>;
-  image: string;
   size: any;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-  points: any;
-  setPoints: React.Dispatch<React.SetStateAction<any>>;
   pointSize: number;
+  annotation: Annotation;
+  setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
 
 const CanvasView = ({
   canvasRef,
-  image,
   size,
   cordinatesDisplay,
   setCordinatesDisplay,
-  points,
-  setPoints,
   pointSize,
+  annotation,
+  setAnnotation,
 }: Props) => {
   const [isDrawing, setIsDrawing] = useState(true);
   const draw = async () => {
@@ -47,10 +46,10 @@ const CanvasView = ({
     if (!canvas) return;
 
     draw();
-  }, [canvasRef, image, cordinatesDisplay, points, pointSize, size]);
+  }, [canvasRef, cordinatesDisplay, annotation, pointSize, size]);
 
   const drawPoint = (ctx: CanvasRenderingContext2D) => {
-    points.forEach((pointPair: any) => {
+    annotation.points.forEach((pointPair: any) => {
       const { start, end } = pointPair;
       // 保存された座標をスケーリング
       const centerX = (start.x + end.x) / 2;
@@ -77,7 +76,7 @@ const CanvasView = ({
         resolve(true);
       };
       canvasImage.onerror = reject;
-      canvasImage.src = image;
+      canvasImage.src = annotation.imageBase64;
     });
   };
   // const imageDraw = (
@@ -148,7 +147,7 @@ const CanvasView = ({
       const startY = centerY - adjustedSideLength / 2;
       const endX = centerX + adjustedSideLength / 2;
       const endY = centerY + adjustedSideLength / 2;
-      const selectedPoint = points.find((point: any) => {
+      const selectedPoint = annotation.points.find((point: any) => {
         const pointCenterX = (point.start.x + point.end.x) / 2;
         const pointCenterY = (point.start.y + point.end.y) / 2;
         const distance = Math.sqrt(
@@ -160,21 +159,30 @@ const CanvasView = ({
 
       //クリックした座標が去れば削除
       if (selectedPoint) {
-        const updatedPoints = points.filter(
+        const updatedPoints = annotation.points.filter(
           (point: any) => point !== selectedPoint
         );
 
-        setPoints(updatedPoints);
+        setAnnotation((prev) => ({
+          ...prev,
+          points: updatedPoints,
+        }));
       } else {
         //なければ追加
         await drawAddArc(ctx, centerX, centerY);
-        if (points === null) return;
+        if (annotation.points === null) return;
         const newPoint = {
+          id: annotation.points.length + 1,
           start: { x: startX, y: startY },
           end: { x: endX, y: endY },
+          score: null,
         };
 
-        setPoints([...points, newPoint]);
+        // setPoints([...points, newPoint]);
+        setAnnotation((prev) => ({
+          ...prev,
+          points: [...prev.points, newPoint],
+        }));
       }
     };
     canvas.addEventListener("mousedown", handleMouseDown);
@@ -182,7 +190,7 @@ const CanvasView = ({
     return () => {
       canvas.removeEventListener("mousedown", handleMouseDown);
     };
-  }, [isDrawing, points]);
+  }, [isDrawing, annotation]);
   function drawAddArc(ctx: CanvasRenderingContext2D, x: number, y: number) {
     // const pointSize = 3;
     ctx.beginPath();

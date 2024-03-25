@@ -3,25 +3,24 @@ import PhotoButton from "./button/PhotoButton";
 import PrevButton from "./button/PrevButton";
 import NextButton from "./button/NextButton";
 import ReportButton from "./button/ReportButton";
+import { Annotation } from "../schemas/type";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  setImage: React.Dispatch<React.SetStateAction<string>>;
-  points: any;
-  setPoints: React.Dispatch<React.SetStateAction<any>>;
   setTotalCounts: React.Dispatch<React.SetStateAction<number[]>>;
+  annotation: Annotation;
+  setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
 
 const Footer = ({
   videoRef,
   mode,
   setMode,
-  setImage,
-  points,
-  setPoints,
   setTotalCounts,
+  annotation,
+  setAnnotation,
 }: Props) => {
   return (
     <div className="flex items-center justify-center w-full px-4 pb-12 space-x-4">
@@ -29,15 +28,14 @@ const Footer = ({
         videoRef={videoRef}
         mode={mode}
         setMode={setMode}
-        setImage={setImage}
-        setPoints={setPoints}
+        setAnnotation={setAnnotation}
       />
       {mode === "canvas" && (
         <ReportButton
           setMode={setMode}
-          points={points}
-          setPoints={setPoints}
           setTotalCounts={setTotalCounts}
+          annotation={annotation}
+          setAnnotation={setAnnotation}
         />
       )}
     </div>

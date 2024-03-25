@@ -1,3 +1,4 @@
+import { Annotation } from "@/app/schemas/type";
 import React, { useState } from "react";
 import { MdOutlineCameraAlt } from "react-icons/md";
 
@@ -5,19 +6,17 @@ type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  setImage: React.Dispatch<React.SetStateAction<string>>;
-  // setSize: React.Dispatch<React.SetStateAction<any>>;
   size: any;
+  setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
 
 const PhotoViewButton = ({
   videoRef,
-  setImage,
   mode,
   setMode,
   size,
-}: // setSize,
-Props) => {
+  setAnnotation,
+}: Props) => {
   const handlePhotoShot = () => {
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
@@ -51,7 +50,10 @@ Props) => {
     ctx.drawImage(video, 0, 0, size.width, size.height);
 
     const imageData = canvas.toDataURL("image/png");
-    setImage(imageData);
+    setAnnotation((prev) => ({
+      ...prev,
+      imageBase64: imageData,
+    }));
     setMode("image");
   };
 

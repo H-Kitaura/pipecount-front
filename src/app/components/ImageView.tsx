@@ -2,20 +2,21 @@ import React from "react";
 import { style } from "../styles/style";
 import RetakephotoButton from "./button/RetakephotoButton";
 import SendButton from "./button/SendButton";
+import { Annotation } from "../schemas/type";
 
 type Props = {
-  image: string;
-  setImage: React.Dispatch<React.SetStateAction<string>>;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   size: any;
-  setPoints: React.Dispatch<React.SetStateAction<any>>;
+  annotation: Annotation;
+  setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
 
-const ImageView = ({ image, setImage, setMode, size, setPoints }: Props) => {
+const ImageView = ({ setMode, size, annotation, setAnnotation }: Props) => {
+  if (annotation.imageBase64 === null) return;
   return (
     <div className="h-full w-full flex items-center justify-center flex-col">
       <img
-        src={image}
+        src={annotation.imageBase64}
         // width={800}
         // height={800}
         // width={size.width}
@@ -24,11 +25,7 @@ const ImageView = ({ image, setImage, setMode, size, setPoints }: Props) => {
         alt="image"
       />
       <div className="flex items-center justify-center w-full space-x-4 my-4">
-        <RetakephotoButton
-          setMode={setMode}
-          setImage={setImage}
-          setPoints={setPoints}
-        />
+        <RetakephotoButton setMode={setMode} setAnnotation={setAnnotation} />
         <SendButton setMode={setMode} />
       </div>
     </div>

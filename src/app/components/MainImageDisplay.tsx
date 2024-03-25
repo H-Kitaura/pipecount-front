@@ -2,23 +2,26 @@ import React, { useEffect, useState } from "react";
 import ImageView from "./ImageView";
 import CanvasView from "./CanvasView";
 import VideoView from "./VideoView";
+import { Annotation } from "../schemas/type";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  image: string;
-  setImage: React.Dispatch<React.SetStateAction<string>>;
+  // image: string;
+  // setImage: React.Dispatch<React.SetStateAction<string>>;
   size: any;
   setSize: React.Dispatch<React.SetStateAction<any>>;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-  points: any;
-  setPoints: React.Dispatch<React.SetStateAction<any>>;
+  // points: any;
+  // setPoints: React.Dispatch<React.SetStateAction<any>>;
   pointSize: number;
   cameraCheck: boolean;
   selectedDevice: string;
+  annotation: Annotation;
+  setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
 
 const MainImageDisplay = ({
@@ -26,17 +29,15 @@ const MainImageDisplay = ({
   canvasRef,
   mode,
   setMode,
-  image,
-  setImage,
   size,
   setSize,
   cordinatesDisplay,
   setCordinatesDisplay,
-  points,
-  setPoints,
   pointSize,
   cameraCheck,
   selectedDevice,
+  annotation,
+  setAnnotation,
 }: Props) => {
   // useEffect(() => {
   //   if (videoRef.current) {
@@ -52,36 +53,34 @@ const MainImageDisplay = ({
       {/* {mode === "video" && ( */}
       <VideoView
         videoRef={videoRef}
-        setImage={setImage}
         mode={mode}
         setMode={setMode}
         size={size}
         setSize={setSize}
         cameraCheck={cameraCheck}
         selectedDevice={selectedDevice}
+        setAnnotation={setAnnotation}
       />
 
       {/* )} */}
       {mode === "image" && (
         <ImageView
-          image={image}
-          setImage={setImage}
           setMode={setMode}
           size={size}
-          setPoints={setPoints}
+          annotation={annotation}
+          setAnnotation={setAnnotation}
         />
       )}
       {mode === "canvas" && (
         <CanvasView
           videoRef={videoRef}
           canvasRef={canvasRef}
-          image={image}
           size={size}
           cordinatesDisplay={cordinatesDisplay}
           setCordinatesDisplay={setCordinatesDisplay}
-          points={points}
-          setPoints={setPoints}
           pointSize={pointSize}
+          annotation={annotation}
+          setAnnotation={setAnnotation}
         />
       )}
       {/* </div> */}

@@ -1,18 +1,19 @@
+import { Annotation } from "@/app/schemas/type";
 import { style } from "@/app/styles/style";
 import React from "react";
 type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  setImage: React.Dispatch<React.SetStateAction<string>>;
-  setPoints?: React.Dispatch<React.SetStateAction<any>>;
+  setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
 
-const RetakephotoButton = ({ setMode, setImage, setPoints }: Props) => {
+const RetakephotoButton = ({ setMode, setAnnotation }: Props) => {
   const handleReset = () => {
     setMode("video");
-    setImage("");
-    if (setPoints) {
-      setPoints([]);
-    }
+    setAnnotation((prev) => ({
+      ...prev,
+      points: [],
+      imageBase64: "",
+    }));
   };
 
   return (
