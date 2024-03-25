@@ -59,7 +59,7 @@ export default function Home() {
     if (selectedDevice) {
       getStream();
     }
-  }, [selectedDevice, devices]);
+  }, [selectedDevice]);
   // ^========================================変更しない
 
   useEffect(() => {
