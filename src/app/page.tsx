@@ -88,12 +88,47 @@ export default function Home() {
   //     );
   //   };
   // }, [cameraCheck]);
+  // useEffect(() => {
+  //   const updateVideoResolution = async () => {
+  //     const isLandscape = window.screen.orientation.type.includes("landscape");
+  //     const constraints = {
+  //       video: {
+  //         deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+  //         width: { ideal: isLandscape ? 1280 : 720 },
+  //         height: { ideal: isLandscape ? 720 : 1280 },
+  //       },
+  //       audio: false,
+  //     };
+
+  //     try {
+  //       const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  //       if (videoRef.current) {
+  //         videoRef.current.srcObject = stream;
+  //       }
+  //     } catch (err) {
+  //       console.error("カメラへのアクセスに失敗しました: ", err);
+  //     }
+  //   };
+
+  //   // デバイスの向きやウィンドウサイズの変更を検出
+  //   window.addEventListener("orientationchange", updateVideoResolution);
+  //   // window.addEventListener("resize", updateVideoResolution);
+
+  //   // 初回実行
+  //   updateVideoResolution();
+
+  //   return () => {
+  //     window.removeEventListener("orientationchange", updateVideoResolution);
+  //     // window.removeEventListener("resize", updateVideoResolution);
+  //   };
+  // }, [selectedDevice]);
   useEffect(() => {
     const updateVideoResolution = async () => {
       const isLandscape = window.screen.orientation.type.includes("landscape");
       const constraints = {
         video: {
           deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+          // ランドスケープとポートレートで適切な解像度を設定
           width: { ideal: isLandscape ? 1280 : 720 },
           height: { ideal: isLandscape ? 720 : 1280 },
         },
@@ -104,6 +139,17 @@ export default function Home() {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
+          // ビデオのメタデータが読み込まれたらキャンバスのサイズを更新
+          videoRef.current.onloadedmetadata = () => {
+            if (videoRef.current && canvasRef.current) {
+              const videoWidth = videoRef.current.videoWidth;
+              const videoHeight = videoRef.current.videoHeight;
+              // キャンバスのサイズをビデオのサイズに合わせて設定
+              canvasRef.current.width = videoWidth;
+              canvasRef.current.height = videoHeight;
+              // 必要に応じて他の関連する状態も更新
+            }
+          };
         }
       } catch (err) {
         console.error("カメラへのアクセスに失敗しました: ", err);
@@ -112,14 +158,11 @@ export default function Home() {
 
     // デバイスの向きやウィンドウサイズの変更を検出
     window.addEventListener("orientationchange", updateVideoResolution);
-    // window.addEventListener("resize", updateVideoResolution);
-
     // 初回実行
     updateVideoResolution();
 
     return () => {
       window.removeEventListener("orientationchange", updateVideoResolution);
-      // window.removeEventListener("resize", updateVideoResolution);
     };
   }, [selectedDevice]);
 
