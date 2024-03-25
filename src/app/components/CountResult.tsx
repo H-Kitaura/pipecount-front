@@ -10,7 +10,9 @@ const CountResult = ({ totalCounts }: Props) => {
         <div className="grid grid-cols-3 gap-4">
           {totalCounts.map((count, index) => (
             <p key={index} className="text-4xl font-bold leading-none">
-              {index + 1}:{count}
+              {index + 1}
+              {"=>"}
+              {count}
             </p>
           ))}
         </div>

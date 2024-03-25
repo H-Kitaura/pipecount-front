@@ -18,8 +18,8 @@ const ImageView = ({ image, setImage, setMode, size, setPoints }: Props) => {
         src={image}
         // width={800}
         // height={800}
-        width={size.width}
-        height={size.height}
+        // width={size.width}
+        // height={size.height}
         className="w-full h-auto"
         alt="image"
       />
