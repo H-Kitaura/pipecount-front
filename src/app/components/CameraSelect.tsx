@@ -29,7 +29,7 @@ const CameraSelect = ({
       }
       // setSize({ width: 300, height: 300 });
     });
-  }, [selectedDevice, devices]);
+  }, [selectedDevice]);
 
   return (
     <div className="px-4">

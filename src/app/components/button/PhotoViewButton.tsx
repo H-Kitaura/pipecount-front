@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MdOutlineCameraAlt } from "react-icons/md";
 
 type Props = {
-  videoRef: any;
+  videoRef: React.RefObject<HTMLVideoElement>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;

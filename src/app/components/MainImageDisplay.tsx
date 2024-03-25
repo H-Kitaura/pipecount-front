@@ -38,14 +38,14 @@ const MainImageDisplay = ({
   cameraCheck,
   selectedDevice,
 }: Props) => {
-  useEffect(() => {
-    if (videoRef.current) {
-      setSize({
-        width: videoRef.current.videoWidth,
-        height: videoRef.current.videoHeight,
-      });
-    }
-  }, [videoRef]);
+  // useEffect(() => {
+  //   if (videoRef.current) {
+  //     setSize({
+  //       width: videoRef.current.videoWidth,
+  //       height: videoRef.current.videoHeight,
+  //     });
+  //   }
+  // }, [videoRef]);
   return (
     <div className="flex h-full w-full flex-col items-center justify-center px-4">
       {/* <div className="w-full h-full border shadow-md flex items-center justify-center"> */}

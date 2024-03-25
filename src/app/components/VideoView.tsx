@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 import useDeviceOrientation from "../Hooks/useDeviceOrientation";
 
 type Props = {
-  videoRef: any;
+  videoRef: React.RefObject<HTMLVideoElement>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
