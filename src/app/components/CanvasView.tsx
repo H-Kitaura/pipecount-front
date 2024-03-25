@@ -33,7 +33,7 @@ const CanvasView = ({
     await imageDraw(canvas, ctx)
       .then(() => {
         if (cordinatesDisplay) {
-          drawPoint(ctx, canvas);
+          drawPoint(ctx);
         }
       })
       .catch((err) => {
@@ -49,34 +49,18 @@ const CanvasView = ({
     draw();
   }, [canvasRef, image, cordinatesDisplay, points, pointSize, size]);
 
-  // const drawPoint = (ctx: CanvasRenderingContext2D) => {
-  //   points.forEach((pointPair: any) => {
-  //     const { start, end } = pointPair;
-  //     // 保存された座標をスケーリング
-  //     const centerX = (start.x + end.x) / 2;
-  //     const centerY = (start.y + end.y) / 2;
-  //     // スケーリングされた座標で円を描画
-  //     ctx.beginPath();
-  //     ctx.arc(centerX, centerY, pointSize, 0, Math.PI * 2);
-  //     ctx.strokeStyle = "green";
-  //     ctx.lineWidth = 10;
-
-  //     ctx.stroke();
-  //     ctx.closePath();
-  //   });
-  // };
-  const drawPoint = (
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement
-  ) => {
+  const drawPoint = (ctx: CanvasRenderingContext2D) => {
     points.forEach((pointPair: any) => {
       const { start, end } = pointPair;
-      const centerX = ((start.x + end.x) / 2) * (canvas.width / size.width);
-      const centerY = ((start.y + end.y) / 2) * (canvas.height / size.height);
+      // 保存された座標をスケーリング
+      const centerX = (start.x + end.x) / 2;
+      const centerY = (start.y + end.y) / 2;
+      // スケーリングされた座標で円を描画
       ctx.beginPath();
       ctx.arc(centerX, centerY, pointSize, 0, Math.PI * 2);
       ctx.strokeStyle = "green";
       ctx.lineWidth = 10;
+
       ctx.stroke();
       ctx.closePath();
     });
