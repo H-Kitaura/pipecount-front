@@ -78,10 +78,10 @@ export default function Home() {
       updateVideoResolution();
     };
 
-    window.addEventListener("resize", handleResizeOrOrientationChange);
+    // window.addEventListener("resize", handleResizeOrOrientationChange);
     // イベントリスナーをクリーンアップ
     return () => {
-      window.removeEventListener("resize", handleResizeOrOrientationChange);
+      // window.removeEventListener("resize", handleResizeOrOrientationChange);
       window.removeEventListener(
         "orientationchange",
         handleResizeOrOrientationChange
