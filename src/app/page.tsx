@@ -8,12 +8,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useVideoDeviceList } from "./Hooks/useVideoDeviceList";
 import CordinatesButton from "./components/button/CordinatesButton";
-import { dammyPoints } from "./dammyData";
 import PointSizeSlider from "./components/PointSizeSlider";
 import CountResult from "./components/CountResult";
 import TotalCountResult from "./components/TotalCountResult";
 import CameraSelect from "./components/CameraSelect";
-import useWindowSize from "./Hooks/useWindowSize";
 import { Annotation } from "./schemas/type";
 
 export default function Home() {
@@ -32,7 +30,6 @@ export default function Home() {
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
   const [pointSize, setPointSize] = useState(10);
   const [cameraCheck, setCameraCheck] = useState(false);
-
   const [annotation, setAnnotation] = useState<Annotation>({
     points: [],
     imageBase64: "",
@@ -67,32 +64,6 @@ export default function Home() {
   }, [selectedDevice, cameraCheck]);
   // ^========================================変更しない
 
-  // useEffect(() => {
-  //   if (!cameraCheck) return;
-
-  //   const updateVideoResolution = async () => {
-  //     await getStream(); // getStream 関数を適切な制約で呼び出し
-  //   };
-
-  //   updateVideoResolution(); // 初期ロード時に実行
-
-  //   // オリエンテーション変更のリスナー
-  //   window.addEventListener("orientationchange", updateVideoResolution);
-  //   // デバイスの向きやウィンドウのサイズが変わった時に解像度を更新
-  //   const handleResizeOrOrientationChange = () => {
-  //     updateVideoResolution();
-  //   };
-
-  //   // window.addEventListener("resize", handleResizeOrOrientationChange);
-  //   // イベントリスナーをクリーンアップ
-  //   return () => {
-  //     // window.removeEventListener("resize", handleResizeOrOrientationChange);
-  //     window.removeEventListener(
-  //       "orientationchange",
-  //       handleResizeOrOrientationChange
-  //     );
-  //   };
-  // }, [cameraCheck]);
   useEffect(() => {
     const updateVideoResolution = async () => {
       const isLandscape = window.screen.orientation.type.includes("landscape");
@@ -117,42 +88,14 @@ export default function Home() {
 
     // デバイスの向きやウィンドウサイズの変更を検出
     window.addEventListener("orientationchange", updateVideoResolution);
-    // window.addEventListener("resize", updateVideoResolution);
 
     // 初回実行
     updateVideoResolution();
 
     return () => {
       window.removeEventListener("orientationchange", updateVideoResolution);
-      // window.removeEventListener("resize", updateVideoResolution);
     };
   }, [selectedDevice]);
-
-  // useEffect(() => {
-  //   if (!cameraCheck) return;
-
-  //   const updateVideoResolution = async () => {
-  //     // const isLandscape = window.screen.orientation.type.includes("landscape");
-  //     // const constraints = {
-  //     //   audio: false,
-  //     //   video: {
-  //     //     deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-  //     //     width: { ideal: isLandscape ? 1280 : 720 },
-  //     //     height: { ideal: isLandscape ? 720 : 1280 },
-  //     //   },
-  //     // };
-  //     await getStream(); // getStream 関数を適切な制約で呼び出し
-  //   };
-
-  //   updateVideoResolution(); // 初期ロード時にも適用
-
-  //   // オリエンテーション変更のリスナー
-  //   window.addEventListener("orientationchange", updateVideoResolution);
-
-  //   return () => {
-  //     window.removeEventListener("orientationchange", updateVideoResolution);
-  //   };
-  // }, [cameraCheck, selectedDevice]);
 
   const getStream = async () => {
     try {
@@ -205,10 +148,7 @@ export default function Home() {
           {cameraCheck && (
             <CameraSelect
               devices={devices}
-              setDevices={setDevices}
-              selectedDevice={selectedDevice}
               setSelectedDevice={setSelectedDevice}
-              setSize={setSize}
             />
           )}
           {mode === "canvas" && (
@@ -230,12 +170,10 @@ export default function Home() {
             mode={mode}
             setMode={setMode}
             size={size}
-            setSize={setSize}
             cordinatesDisplay={cordinatesDisplay}
             setCordinatesDisplay={setCordinatesDisplay}
             pointSize={pointSize}
             cameraCheck={cameraCheck}
-            selectedDevice={selectedDevice}
             annotation={annotation}
             setAnnotation={setAnnotation}
           />
@@ -260,27 +198,3 @@ export default function Home() {
     </main>
   );
 }
-
-// const constraints = {
-//   audio: false,
-//   video: {
-//     deviceId: getDevice ? getDevice.deviceId : undefined,
-//     width: { ideal: 1280 }, // 画面の幅に合わせて設定
-//     height: { ideal: 720 }, // 画面の高さに合わせて設定
-//   },
-// };
-
-// const getPermission = async () => {
-//   if (videoRef.current === null) return;
-//   try {
-//     // カメラ情報が取得できない場合はフロントカメラを利用する
-//     const stream = await navigator.mediaDevices.getUserMedia(constraints);
-//     if (videoRef.current) {
-//       videoRef.current.srcObject = stream; // 新しいストリームで更新
-//     }
-//   } catch (err) {
-//     console.error("Error", err);
-//     alert("カメラ認証ができませんでした。");
-//     // エラー処理、ユーザーにフィードバックを提供する
-//   }
-// };

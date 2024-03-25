@@ -2,19 +2,10 @@ import React, { useEffect } from "react";
 
 type Props = {
   devices: MediaDeviceInfo[];
-  setDevices: React.Dispatch<React.SetStateAction<MediaDeviceInfo[]>>;
-  selectedDevice: string;
   setSelectedDevice: React.Dispatch<React.SetStateAction<string>>;
-  setSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const CameraSelect = ({
-  devices,
-  setDevices,
-  selectedDevice,
-  setSelectedDevice,
-  setSize,
-}: Props) => {
+const CameraSelect = ({ devices, setSelectedDevice }: Props) => {
   // const handleDeviceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   //   setSelectedDevice(e.target.value);
   // };

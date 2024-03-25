@@ -36,8 +36,6 @@ const PhotoViewButton = ({
       canvas.height = video.videoWidth / videoAspectRatio;
     }
 
-    console.log("canvas size", canvas.width, canvas.height);
-
     // setSize({
     //   width: canvas.width,
     //   height: canvas.height,
@@ -53,6 +51,7 @@ const PhotoViewButton = ({
     setAnnotation((prev) => ({
       ...prev,
       imageBase64: imageData,
+      imageFilename: "pipeCount",
     }));
     setMode("image");
   };

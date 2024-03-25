@@ -9,17 +9,11 @@ type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<string>>;
-  // image: string;
-  // setImage: React.Dispatch<React.SetStateAction<string>>;
   size: any;
-  setSize: React.Dispatch<React.SetStateAction<any>>;
   cordinatesDisplay: boolean;
   setCordinatesDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-  // points: any;
-  // setPoints: React.Dispatch<React.SetStateAction<any>>;
   pointSize: number;
   cameraCheck: boolean;
-  selectedDevice: string;
   annotation: Annotation;
   setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
 };
@@ -30,12 +24,10 @@ const MainImageDisplay = ({
   mode,
   setMode,
   size,
-  setSize,
   cordinatesDisplay,
   setCordinatesDisplay,
   pointSize,
   cameraCheck,
-  selectedDevice,
   annotation,
   setAnnotation,
 }: Props) => {
@@ -49,20 +41,14 @@ const MainImageDisplay = ({
   // }, [videoRef]);
   return (
     <div className="flex h-full w-full flex-col items-center justify-center px-4">
-      {/* <div className="w-full h-full border shadow-md flex items-center justify-center"> */}
-      {/* {mode === "video" && ( */}
       <VideoView
         videoRef={videoRef}
         mode={mode}
         setMode={setMode}
         size={size}
-        setSize={setSize}
         cameraCheck={cameraCheck}
-        selectedDevice={selectedDevice}
         setAnnotation={setAnnotation}
       />
-
-      {/* )} */}
       {mode === "image" && (
         <ImageView
           setMode={setMode}

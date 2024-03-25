@@ -1,10 +1,8 @@
 import React from "react";
 import PhotoButton from "./button/PhotoButton";
-import PrevButton from "./button/PrevButton";
 import NextButton from "./button/NextButton";
 import ReportButton from "./button/ReportButton";
 import { Annotation } from "../schemas/type";
-import { style } from "../styles/style";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;

@@ -33,8 +33,6 @@ const VideoConnection = ({
     setCameraCheck(false);
   };
 
-  // console.log(videoRef.current);
-
   return (
     <div className="px-4">
       {cameraCheck ? (
