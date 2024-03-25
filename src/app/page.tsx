@@ -47,27 +47,32 @@ export default function Home() {
   }, [devices]);
 
   useEffect(() => {
-    if (!cameraCheck || !selectedDevice) return;
-    const updateVideoStream = async () => {
-      try {
-        const constraints = {
-          video: {
-            deviceId: { exact: selectedDevice },
-          },
-          audio: false,
-        };
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        console.error("カメラへのアクセスに失敗しました: ", err);
-        alert("カメラ認証ができませんでした。");
-      }
+    if (!cameraCheck) return;
+    const updateVideoResolution = () => {
+      const isLandscape = window.screen.orientation.type.includes("landscape");
+      // const constraints = {
+      //   audio: false,
+      //   video: {
+      //     deviceId: getDevice ? getDevice.deviceId : undefined,
+      //     width: { ideal: isLandscape ? 1280 : 720 },
+      //     height: { ideal: isLandscape ? 720 : 1280 },
+      //   },
+      // };
+      getStream();
     };
 
-    updateVideoStream();
-  }, [selectedDevice, cameraCheck]);
+    window.screen.orientation.addEventListener("change", updateVideoResolution);
+
+    // 初期読み込み時にも解像度を更新
+    updateVideoResolution();
+
+    return () => {
+      window.screen.orientation.removeEventListener(
+        "change",
+        updateVideoResolution
+      );
+    };
+  }, [cameraCheck, selectedDevice, videoRef]);
 
   // const getPermission = async (constraints: any) => {
   //   if (videoRef.current === null) return;
@@ -92,7 +97,7 @@ export default function Home() {
         video: {
           // facingMode: "environment",
           // 例: デバイスの向きに応じて解像度を調整
-          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+          deviceId: { exact: selectedDevice },
           width: { ideal: window.innerWidth },
           height: { ideal: window.innerHeight },
         },
@@ -123,7 +128,6 @@ export default function Home() {
     devices &&
     selectedDevice &&
     devices.find((v: any) => v.deviceId === selectedDevice);
-  alert(selectedDevice);
 
   return (
     <main>
