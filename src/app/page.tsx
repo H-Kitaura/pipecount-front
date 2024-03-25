@@ -20,17 +20,14 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { devices, setDevices } = useVideoDeviceList();
-  // const [devices, setDevices] = useState<MediaDeviceInfo[] | []>([]);
   const [selectedDevice, setSelectedDevice] = useState<string>("");
   //ここにvideo,image,canvasの文字列でモードを分ける
   const [mode, setMode] = useState("video");
   const [image, setImage] = useState("");
-  // const [size, setSize] = useState({ width: 0, height: 0 });
   const [size, setSize] = useState({
     width: 0,
     height: 0,
   });
-
   const [cordinatesDisplay, setCordinatesDisplay] = useState(true);
   const [points, setPoints] = useState(dammyPoints);
   const [totalCounts, setTotalCounts] = useState<number[]>([]);
@@ -47,62 +44,71 @@ export default function Home() {
   }, [devices]);
 
   useEffect(() => {
-    if (!cameraCheck) return;
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      const videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      setDevices(videoDevices);
+      if (videoDevices.length > 0) {
+        setSelectedDevice(videoDevices[0].deviceId);
+      }
+    });
+  }, []);
 
-    const updateVideoResolution = async () => {
-      // const isLandscape = window.screen.orientation.type.includes("landscape");
-      // const constraints = {
-      //   audio: false,
-      //   video: {
-      //     deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-      //     width: { ideal: isLandscape ? 1280 : 720 },
-      //     height: { ideal: isLandscape ? 720 : 1280 },
-      //   },
-      // };
-      await getStream(); // getStream 関数を適切な制約で呼び出し
-    };
+  useEffect(() => {
+    if (selectedDevice) {
+      getStream();
+    }
+  }, [selectedDevice]);
+  // ^========================================変更しない
 
-    updateVideoResolution(); // 初期ロード時にも適用
+  // useEffect(() => {
+  //   if (!cameraCheck) return;
 
-    // オリエンテーション変更のリスナー
-    window.addEventListener("orientationchange", updateVideoResolution);
+  //   const updateVideoResolution = async () => {
+  //     // const isLandscape = window.screen.orientation.type.includes("landscape");
+  //     // const constraints = {
+  //     //   audio: false,
+  //     //   video: {
+  //     //     deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+  //     //     width: { ideal: isLandscape ? 1280 : 720 },
+  //     //     height: { ideal: isLandscape ? 720 : 1280 },
+  //     //   },
+  //     // };
+  //     await getStream(); // getStream 関数を適切な制約で呼び出し
+  //   };
 
-    return () => {
-      window.removeEventListener("orientationchange", updateVideoResolution);
-    };
-  }, [cameraCheck, selectedDevice]);
+  //   updateVideoResolution(); // 初期ロード時にも適用
+
+  //   // オリエンテーション変更のリスナー
+  //   window.addEventListener("orientationchange", updateVideoResolution);
+
+  //   return () => {
+  //     window.removeEventListener("orientationchange", updateVideoResolution);
+  //   };
+  // }, [cameraCheck, selectedDevice]);
 
   const getStream = async () => {
     try {
-      const constraints = getDevice
-        ? {
-            video: {
-              deviceId: getDevice.deviceId,
-              width: { ideal: window.innerWidth },
-              height: { ideal: window.innerHeight },
-            },
-            audio: false,
-          }
-        : {
-            video: {
-              facingMode: "user",
-              width: { ideal: window.innerWidth },
-              height: { ideal: window.innerHeight },
-            },
-            audio: false,
-          };
+      const constraints = {
+        video: {
+          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+          // ウィンドウサイズではなく、適切な解像度を指定
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+        },
+        audio: false,
+      };
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        // ストリームから取得した実際のビデオサイズを使用してサイズを更新
         videoRef.current.onloadedmetadata = () => {
           if (videoRef.current) {
             setSize({
               width: videoRef.current.videoWidth,
               height: videoRef.current.videoHeight,
             });
-            console.log("ここでサイズが取得？");
           }
         };
       }
@@ -153,7 +159,7 @@ export default function Home() {
               setCordinatesDisplay={setCordinatesDisplay}
             />
           )}
-          {selectedDevice}
+          {/* {selectedDevice} */}
 
           <MainImageDisplay
             videoRef={videoRef}

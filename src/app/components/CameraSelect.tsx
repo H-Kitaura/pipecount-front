@@ -18,19 +18,6 @@ const CameraSelect = ({
   // const handleDeviceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
   //   setSelectedDevice(e.target.value);
   // };
-  useEffect(() => {
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      const videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
-      setDevices(videoDevices);
-      if (videoDevices.length > 0) {
-        setSelectedDevice(videoDevices[0].deviceId);
-      }
-      // setSize({ width: 300, height: 300 });
-    });
-  }, []);
-
   return (
     <div className="px-4">
       {/* <select onChange={(e) => handleDeviceChange}> */}
