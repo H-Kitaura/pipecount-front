@@ -4,6 +4,7 @@ import PrevButton from "./button/PrevButton";
 import NextButton from "./button/NextButton";
 import ReportButton from "./button/ReportButton";
 import { Annotation } from "../schemas/type";
+import { style } from "../styles/style";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -31,12 +32,20 @@ const Footer = ({
         setAnnotation={setAnnotation}
       />
       {mode === "canvas" && (
-        <ReportButton
-          setMode={setMode}
-          setTotalCounts={setTotalCounts}
-          annotation={annotation}
-          setAnnotation={setAnnotation}
-        />
+        <>
+          <NextButton
+            annotation={annotation}
+            setAnnotation={setAnnotation}
+            setTotalCounts={setTotalCounts}
+            setMode={setMode}
+          />
+          <ReportButton
+            setMode={setMode}
+            setTotalCounts={setTotalCounts}
+            annotation={annotation}
+            setAnnotation={setAnnotation}
+          />
+        </>
       )}
     </div>
   );

@@ -28,7 +28,7 @@ const ReportButton = ({
   const countSubmit = () => {
     onClose();
     setMode("video");
-    setTotalCounts((prev) => [...prev, annotation.points.length]);
+    // setTotalCounts((prev) => [...prev, annotation.points.length]);
     // setPoints([]);
     setAnnotation((prev) => ({
       ...prev,
@@ -42,7 +42,7 @@ const ReportButton = ({
         onClick={onOpen}
         className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
       >
-        <p className="text-center">内容を送信する</p>
+        <p className="text-center">フィードバック</p>
       </button>
       <ModalOverlay isOpen={isOpen} onClose={onClose}>
         <ModalContainer

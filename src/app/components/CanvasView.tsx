@@ -57,7 +57,7 @@ const CanvasView = ({
       // スケーリングされた座標で円を描画
       ctx.beginPath();
       ctx.arc(centerX, centerY, pointSize, 0, Math.PI * 2);
-      ctx.strokeStyle = "green";
+      ctx.strokeStyle = "#00FF00";
       ctx.lineWidth = 10;
 
       ctx.stroke();
@@ -195,7 +195,7 @@ const CanvasView = ({
     // const pointSize = 3;
     ctx.beginPath();
     ctx.arc(x, y, pointSize, 0, Math.PI * 2);
-    ctx.strokeStyle = "green";
+    ctx.strokeStyle = "#00FF00";
     ctx.lineWidth = 10;
     ctx.stroke();
   }
