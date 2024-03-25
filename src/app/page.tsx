@@ -101,13 +101,13 @@ export default function Home() {
     // window.addEventListener("resize", updateVideoResolution);
 
     // 初期ロードとイベント発火時に実行
-    // updateVideoResolution();
+    updateVideoResolution();
 
     return () => {
       window.removeEventListener("orientationchange", updateVideoResolution);
       // window.removeEventListener("resize", updateVideoResolution);
     };
-  }, [selectedDevice]);
+  }, []);
 
   // const getStream = async () => {
   //   try {
