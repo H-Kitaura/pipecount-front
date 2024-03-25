@@ -46,6 +46,89 @@ export default function Home() {
     }
   }, [devices]);
 
+  useEffect(() => {
+    if (!cameraCheck) return;
+    const updateVideoResolution = () => {
+      const isLandscape = window.screen.orientation.type.includes("landscape");
+      const constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 },
+        },
+      };
+      getStream();
+    };
+
+    window.screen.orientation.addEventListener("change", updateVideoResolution);
+
+    // 初期読み込み時にも解像度を更新
+    updateVideoResolution();
+
+    return () => {
+      window.screen.orientation.removeEventListener(
+        "change",
+        updateVideoResolution
+      );
+    };
+  }, [cameraCheck, selectedDevice, videoRef]);
+
+  // const getPermission = async (constraints: any) => {
+  //   if (videoRef.current === null) return;
+  //   try {
+  //     if (videoRef.current.srcObject) {
+  //       const stream = videoRef.current.srcObject as MediaStream;
+  //       // 既存のストリームを停止する
+  //       const tracks = stream.getTracks();
+  //       tracks.forEach((track) => track.stop());
+  //     }
+  //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  //     videoRef.current.srcObject = stream;
+  //   } catch (err) {
+  //     console.error("Error", err);
+  //     alert("カメラ認証ができませんでした。");
+  //   }
+  // };
+  const getStream = async () => {
+    try {
+      // デバイスの向きやサイズに基づいて適切なconstraintsを設定
+      const constraints = {
+        video: {
+          facingMode: "environment",
+          // 例: デバイスの向きに応じて解像度を調整
+          width: { ideal: window.innerWidth },
+          height: { ideal: window.innerHeight },
+        },
+        audio: false,
+      };
+
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        // ストリームから取得した実際のビデオサイズを使用してサイズを更新
+        videoRef.current.onloadedmetadata = () => {
+          if (videoRef.current) {
+            setSize({
+              width: videoRef.current.videoWidth,
+              height: videoRef.current.videoHeight,
+            });
+          }
+        };
+      }
+    } catch (err) {
+      console.error("カメラへのアクセスに失敗しました: ", err);
+      alert("カメラ認証ができませんでした。");
+    }
+  };
+  console.log("ここでサイズが取得？", size);
+
+  //デバイスのidが一致しているものを見つけて取得する
+  const getDevice =
+    devices &&
+    selectedDevice &&
+    devices.find((v: any) => v.deviceId === selectedDevice);
+
   return (
     <main>
       <Header

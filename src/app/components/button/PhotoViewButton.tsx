@@ -7,6 +7,7 @@ type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   // setSize: React.Dispatch<React.SetStateAction<any>>;
+  size: any;
 };
 
 const PhotoViewButton = ({
@@ -14,6 +15,7 @@ const PhotoViewButton = ({
   setImage,
   mode,
   setMode,
+  size,
 }: // setSize,
 Props) => {
   const handlePhotoShot = () => {
@@ -22,18 +24,18 @@ Props) => {
     if (!video || !canvas) return;
 
     // ビデオのアスペクト比を計算
-    const videoAspectRatio = video.videoWidth / video.videoHeight;
+    // const videoAspectRatio = video.videoWidth / video.videoHeight;
 
     // キャンバスのサイズをビデオのアスペクト比に合わせて設定
-    if (video.videoHeight > video.videoWidth) {
-      // 縦向きの場合
-      canvas.width = video.videoHeight * videoAspectRatio;
-      canvas.height = video.videoHeight;
-    } else {
-      // 横向きの場合
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoWidth / videoAspectRatio;
-    }
+    // if (video.videoHeight > video.videoWidth) {
+    //   // 縦向きの場合
+    //   canvas.width = video.videoHeight * videoAspectRatio;
+    //   canvas.height = video.videoHeight;
+    // } else {
+    //   // 横向きの場合
+    //   canvas.width = video.videoWidth;
+    //   canvas.height = video.videoWidth / videoAspectRatio;
+    // }
 
     // setSize({
     //   width: canvas.width,
@@ -44,7 +46,7 @@ Props) => {
     if (!ctx) return;
 
     // ビデオの幅と高さを指定して描画
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(video, 0, 0, size.width, size.height);
 
     const imageData = canvas.toDataURL("image/png");
     setImage(imageData);

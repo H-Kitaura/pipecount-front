@@ -25,35 +25,35 @@ const VideoView = ({
   cameraCheck,
   selectedDevice,
 }: Props) => {
-  const orientation = useDeviceOrientation(); // デバイスの向きを取得
+  // const orientation = useDeviceOrientation(); // デバイスの向きを取得
 
   if (!videoRef) return;
   // デバイスの向きに基づいてビデオ制約を設定
-  const videoConstraints =
-    orientation === "landscape"
-      ? {
-          width: 1280,
-          height: 720,
-          aspectRatio: 16 / 9,
-          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-        }
-      : {
-          width: 720,
-          height: 1280,
-          aspectRatio: 9 / 16,
-          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
-        };
+  // const videoConstraints =
+  //   orientation === "landscape"
+  //     ? {
+  //         width: 1280,
+  //         height: 720,
+  //         aspectRatio: 16 / 9,
+  //         deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+  //       }
+  //     : {
+  //         width: 720,
+  //         height: 1280,
+  //         aspectRatio: 9 / 16,
+  //         deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+  //       };
 
-  const handleUserMedia = (stream: MediaStream) => {
-    const videoTracks = stream.getVideoTracks();
-    if (videoTracks.length > 0) {
-      const trackSettings = videoTracks[0].getSettings();
-      console.log("Video track settings:", trackSettings);
-      setSize({ width: trackSettings.width, height: trackSettings.height });
-    }
-  };
+  // const handleUserMedia = (stream: MediaStream) => {
+  //   const videoTracks = stream.getVideoTracks();
+  //   if (videoTracks.length > 0) {
+  //     const trackSettings = videoTracks[0].getSettings();
+  //     console.log("Video track settings:", trackSettings);
+  //     setSize({ width: trackSettings.width, height: trackSettings.height });
+  //   }
+  // };
 
-  console.log(size);
+  // console.log(size);
 
   return (
     <div
@@ -65,8 +65,8 @@ const VideoView = ({
     >
       <video
         ref={videoRef}
-        // width={size.width}
-        // height={size.height}
+        width={size.width}
+        height={size.height}
         autoPlay
         muted
         playsInline
@@ -97,6 +97,7 @@ const VideoView = ({
         setImage={setImage}
         mode={mode}
         setMode={setMode}
+        size={size}
         // setSize={setSize}
       />
     </div>
