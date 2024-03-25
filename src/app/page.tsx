@@ -65,6 +65,7 @@ export default function Home() {
   // ^========================================変更しない
 
   useEffect(() => {
+    if (!cameraCheck) return;
     const updateVideoResolution = async () => {
       // デバイスの向きに基づいて解像度の制約を設定
       const isPortrait = window.matchMedia("(orientation: portrait)").matches;
