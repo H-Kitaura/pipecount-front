@@ -107,7 +107,7 @@ export default function Home() {
       window.removeEventListener("orientationchange", updateVideoResolution);
       // window.removeEventListener("resize", updateVideoResolution);
     };
-  }, [selectedDevice]);
+  }, []);
 
   const getStream = async () => {
     try {
@@ -142,12 +142,10 @@ export default function Home() {
     }
   };
   //デバイスのidが一致しているものを見つけて取得する
-  const getDevice =
-    devices &&
-    selectedDevice &&
-    devices.find((v: any) => v.deviceId === selectedDevice);
-
-  console.log(size);
+  // const getDevice =
+  //   devices &&
+  //   selectedDevice &&
+  //   devices.find((v: any) => v.deviceId === selectedDevice);
 
   return (
     <main>
