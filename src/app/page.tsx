@@ -56,10 +56,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (selectedDevice) {
+    if (selectedDevice && cameraCheck) {
       getStream();
     }
-  }, [selectedDevice]);
+  }, [selectedDevice, cameraCheck]);
   // ^========================================変更しない
 
   useEffect(() => {
@@ -119,7 +119,6 @@ export default function Home() {
       const constraints = {
         video: {
           deviceId: getDevice ? getDevice.deviceId : undefined,
-          // deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
           width: { ideal: 1280 },
           height: { ideal: 720 },
         },
