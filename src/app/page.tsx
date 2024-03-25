@@ -61,7 +61,7 @@ export default function Home() {
     if (selectedDevice && cameraCheck) {
       getStream();
     }
-  }, [selectedDevice, cameraCheck, videoRef]);
+  }, [selectedDevice, cameraCheck]);
   // ^========================================変更しない
 
   useEffect(() => {
