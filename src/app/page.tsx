@@ -108,7 +108,7 @@ export default function Home() {
       window.removeEventListener("orientationchange", updateVideoResolution);
       // window.removeEventListener("resize", updateVideoResolution);
     };
-  }, [selectedDevice]);
+  }, [selectedDevice, cameraCheck]);
 
   // const getStream = async () => {
   //   try {
