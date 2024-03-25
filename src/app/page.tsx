@@ -44,39 +44,34 @@ export default function Home() {
       setSelectedDevice(devices[0].deviceId);
       setMode("video");
     }
-  }, [devices, selectedDevice, setSelectedDevice]);
+  }, [devices]);
 
   useEffect(() => {
     if (!cameraCheck) return;
 
     const updateVideoResolution = async () => {
-      // デバイスの向きに応じた制約を設定する部分は省略
-      // ここで getStream 関数を呼び出す
-      await getStream();
+      // const isLandscape = window.screen.orientation.type.includes("landscape");
+      // const constraints = {
+      //   audio: false,
+      //   video: {
+      //     deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
+      //     width: { ideal: isLandscape ? 1280 : 720 },
+      //     height: { ideal: isLandscape ? 720 : 1280 },
+      //   },
+      // };
+      await getStream(); // getStream 関数を適切な制約で呼び出し
     };
 
-    updateVideoResolution(); // 初期ロード時に実行
+    updateVideoResolution(); // 初期ロード時にも適用
 
-    // デバイスの向きやウィンドウのサイズが変わった時に解像度を更新
-    const handleResizeOrOrientationChange = () => {
-      updateVideoResolution();
-    };
+    // オリエンテーション変更のリスナー
+    window.addEventListener("orientationchange", updateVideoResolution);
 
-    window.addEventListener("resize", handleResizeOrOrientationChange);
-    window.addEventListener(
-      "orientationchange",
-      handleResizeOrOrientationChange
-    );
-
-    // イベントリスナーをクリーンアップ
     return () => {
-      window.removeEventListener("resize", handleResizeOrOrientationChange);
-      window.removeEventListener(
-        "orientationchange",
-        handleResizeOrOrientationChange
-      );
+      window.removeEventListener("orientationchange", updateVideoResolution);
     };
   }, [cameraCheck, selectedDevice]);
+
   const getStream = async () => {
     try {
       const constraints = getDevice
