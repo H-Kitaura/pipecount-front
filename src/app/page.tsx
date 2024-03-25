@@ -48,31 +48,33 @@ export default function Home() {
 
   useEffect(() => {
     if (!cameraCheck) return;
-    const updateVideoResolution = () => {
-      const isLandscape = window.screen.orientation.type.includes("landscape");
-      const constraints = {
-        audio: false,
-        video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: isLandscape ? 1280 : 720 },
-          height: { ideal: isLandscape ? 720 : 1280 },
-        },
-      };
-      getStream();
-    };
+    // const updateVideoResolution = () => {
+    //   const isLandscape = window.screen.orientation.type.includes("landscape");
+    //   const constraints = {
+    //     audio: false,
+    //     video: {
+    //       deviceId: getDevice ? getDevice.deviceId : undefined,
+    //       width: { ideal: isLandscape ? 1280 : 720 },
+    //       height: { ideal: isLandscape ? 720 : 1280 },
+    //     },
+    //   };
+    // };
+    getStream();
 
-    window.screen.orientation.addEventListener("change", updateVideoResolution);
+    // window.screen.orientation.addEventListener("change", updateVideoResolution);
 
     // 初期読み込み時にも解像度を更新
-    updateVideoResolution();
+    // updateVideoResolution();
 
-    return () => {
-      window.screen.orientation.removeEventListener(
-        "change",
-        updateVideoResolution
-      );
-    };
+    // return () => {
+    // window.screen.orientation.removeEventListener(
+    //   "change",
+    //   updateVideoResolution
+    // );
+    // };
   }, [cameraCheck, selectedDevice, videoRef]);
+
+  console.log(selectedDevice);
 
   // const getPermission = async (constraints: any) => {
   //   if (videoRef.current === null) return;
@@ -95,8 +97,9 @@ export default function Home() {
       // デバイスの向きやサイズに基づいて適切なconstraintsを設定
       const constraints = {
         video: {
-          facingMode: "environment",
+          // facingMode: "environment",
           // 例: デバイスの向きに応じて解像度を調整
+          deviceId: getDevice ? getDevice.deviceId : undefined,
           width: { ideal: window.innerWidth },
           height: { ideal: window.innerHeight },
         },
