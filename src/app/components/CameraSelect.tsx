@@ -15,9 +15,9 @@ const CameraSelect = ({
   setSelectedDevice,
   setSize,
 }: Props) => {
-  const handleDeviceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDevice(e.target.value);
-  };
+  // const handleDeviceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelectedDevice(e.target.value);
+  // };
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const videoDevices = devices.filter(
