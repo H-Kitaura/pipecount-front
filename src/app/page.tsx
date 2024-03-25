@@ -48,30 +48,30 @@ export default function Home() {
 
   useEffect(() => {
     if (!cameraCheck) return;
-    // const updateVideoResolution = () => {
-    //   const isLandscape = window.screen.orientation.type.includes("landscape");
-    //   const constraints = {
-    //     audio: false,
-    //     video: {
-    //       deviceId: getDevice ? getDevice.deviceId : undefined,
-    //       width: { ideal: isLandscape ? 1280 : 720 },
-    //       height: { ideal: isLandscape ? 720 : 1280 },
-    //     },
-    //   };
-    // };
+    const updateVideoResolution = () => {
+      const isLandscape = window.screen.orientation.type.includes("landscape");
+      const constraints = {
+        audio: false,
+        video: {
+          deviceId: getDevice ? getDevice.deviceId : undefined,
+          width: { ideal: isLandscape ? 1280 : 720 },
+          height: { ideal: isLandscape ? 720 : 1280 },
+        },
+      };
+    };
     getStream();
 
-    // window.screen.orientation.addEventListener("change", updateVideoResolution);
+    window.screen.orientation.addEventListener("change", updateVideoResolution);
 
     // 初期読み込み時にも解像度を更新
-    // updateVideoResolution();
+    updateVideoResolution();
 
-    // return () => {
-    // window.screen.orientation.removeEventListener(
-    //   "change",
-    //   updateVideoResolution
-    // );
-    // };
+    return () => {
+      window.screen.orientation.removeEventListener(
+        "change",
+        updateVideoResolution
+      );
+    };
   }, [cameraCheck, selectedDevice, videoRef]);
 
   console.log(selectedDevice);
@@ -95,16 +95,32 @@ export default function Home() {
   const getStream = async () => {
     try {
       // デバイスの向きやサイズに基づいて適切なconstraintsを設定
-      const constraints = {
-        video: {
-          // facingMode: "environment",
-          // 例: デバイスの向きに応じて解像度を調整
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: window.innerWidth },
-          height: { ideal: window.innerHeight },
-        },
-        audio: false,
-      };
+      // const constraints = {
+      //   video: {
+      //     facingMode: "environment",
+      //     // 例: デバイスの向きに応じて解像度を調整
+      //     width: { ideal: window.innerWidth },
+      //     height: { ideal: window.innerHeight },
+      //   },
+      //   audio: false,
+      // };
+      const constraints = getDevice
+        ? {
+            video: {
+              deviceId: getDevice.deviceId,
+              width: { ideal: window.innerWidth },
+              height: { ideal: window.innerHeight },
+            },
+            audio: false,
+          }
+        : {
+            video: {
+              facingMode: "user",
+              width: { ideal: window.innerWidth },
+              height: { ideal: window.innerHeight },
+            },
+            audio: false,
+          };
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       if (videoRef.current) {
