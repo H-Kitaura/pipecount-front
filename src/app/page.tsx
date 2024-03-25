@@ -50,14 +50,14 @@ export default function Home() {
     if (!cameraCheck) return;
     const updateVideoResolution = () => {
       const isLandscape = window.screen.orientation.type.includes("landscape");
-      const constraints = {
-        audio: false,
-        video: {
-          deviceId: getDevice ? getDevice.deviceId : undefined,
-          width: { ideal: isLandscape ? 1280 : 720 },
-          height: { ideal: isLandscape ? 720 : 1280 },
-        },
-      };
+      // const constraints = {
+      //   audio: false,
+      //   video: {
+      //     deviceId: getDevice ? getDevice.deviceId : undefined,
+      //     width: { ideal: isLandscape ? 1280 : 720 },
+      //     height: { ideal: isLandscape ? 720 : 1280 },
+      //   },
+      // };
       getStream();
     };
 
@@ -95,8 +95,9 @@ export default function Home() {
       // デバイスの向きやサイズに基づいて適切なconstraintsを設定
       const constraints = {
         video: {
-          facingMode: "environment",
+          // facingMode: "environment",
           // 例: デバイスの向きに応じて解像度を調整
+          deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
           width: { ideal: window.innerWidth },
           height: { ideal: window.innerHeight },
         },
@@ -122,12 +123,12 @@ export default function Home() {
     }
   };
   console.log("ここでサイズが取得？", size);
-
   //デバイスのidが一致しているものを見つけて取得する
   const getDevice =
     devices &&
     selectedDevice &&
     devices.find((v: any) => v.deviceId === selectedDevice);
+  alert(selectedDevice);
 
   return (
     <main>
