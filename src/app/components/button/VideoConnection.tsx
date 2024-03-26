@@ -9,7 +9,6 @@ type Props = {
 const VideoConnection = ({ cameraCheck, setCameraCheck }: Props) => {
   //カメラ表示の時に使うハンドラー
   const handleConnectClick = () => {
-    // getPermission(constraints);
     setCameraCheck(true);
   };
 

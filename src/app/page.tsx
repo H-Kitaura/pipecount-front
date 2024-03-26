@@ -48,6 +48,7 @@ export default function Home() {
   console.log(devices);
 
   useEffect(() => {
+    if (!cameraCheck) return;
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const videoDevices = devices.filter(
         (device) => device.kind === "videoinput"
@@ -57,7 +58,7 @@ export default function Home() {
         setSelectedDevice(videoDevices[0].deviceId);
       }
     });
-  }, []);
+  }, [cameraCheck]);
 
   // useEffect(() => {
   //   if (selectedDevice && cameraCheck) {
@@ -76,9 +77,6 @@ export default function Home() {
           deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
           width: { ideal: isPortrait ? 1000 : 1000 },
           height: { ideal: isPortrait ? 1000 : 1000 },
-          // facingMode: {
-          //   exact: "environment",
-          // },
         },
         audio: false,
       };
