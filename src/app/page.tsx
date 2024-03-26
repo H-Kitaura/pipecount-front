@@ -76,6 +76,9 @@ export default function Home() {
           deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
           width: { ideal: isPortrait ? 1000 : 1000 },
           height: { ideal: isPortrait ? 1000 : 1000 },
+          facingMode: {
+            exact: "environment",
+          },
         },
         audio: false,
       };
