@@ -40,54 +40,23 @@ export default function Home() {
   //カメラデータの取得
   useEffect(() => {
     if (devices && devices.length > 0) {
-      setSelectedDevice(devices[0].deviceId);
+      setSelectedDevice(devices[1].deviceId);
       setMode("video");
     }
   }, [devices]);
 
   console.log(devices);
 
-  // useEffect(() => {
-  //   navigator.mediaDevices.enumerateDevices().then((devices) => {
-  //     const videoDevices = devices.filter(
-  //       (device) => device.kind === "videoinput"
-  //     );
-  //     setDevices(videoDevices);
-  //     if (videoDevices.length > 0) {
-  //       setSelectedDevice(videoDevices[0].deviceId);
-  //     }
-  //   });
-  // }, []);
   useEffect(() => {
-    const selectRearCamera = async () => {
-      try {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(
-          (device) => device.kind === "videoinput"
-        );
-
-        // 背面カメラを探す
-        let rearCamera = videoDevices.find(
-          (device) =>
-            device.label.toLowerCase().includes("back") ||
-            device.label.toLowerCase().includes("rear")
-        );
-
-        // 背面カメラが見つからない場合、最初のカメラデバイスを使用
-        if (!rearCamera && videoDevices.length > 0) {
-          rearCamera = videoDevices[0];
-        }
-
-        if (rearCamera) {
-          setSelectedDevice(rearCamera.deviceId);
-          setMode("video");
-        }
-      } catch (err) {
-        console.error("カメラデバイスの取得に失敗しました: ", err);
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      const videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      setDevices(videoDevices);
+      if (videoDevices.length > 0) {
+        setSelectedDevice(videoDevices[1].deviceId);
       }
-    };
-
-    selectRearCamera();
+    });
   }, []);
 
   // useEffect(() => {
