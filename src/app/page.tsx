@@ -47,13 +47,33 @@ export default function Home() {
 
   console.log(devices);
 
+  // useEffect(() => {
+  //   navigator.mediaDevices.enumerateDevices().then((devices) => {
+  //     const videoDevices = devices.filter(
+  //       (device) => device.kind === "videoinput"
+  //     );
+  //     setDevices(videoDevices);
+  //     if (videoDevices.length > 0) {
+  //       setSelectedDevice(videoDevices[0].deviceId);
+  //     }
+  //   });
+  // }, []);
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const videoDevices = devices.filter(
         (device) => device.kind === "videoinput"
       );
       setDevices(videoDevices);
-      if (videoDevices.length > 0) {
+
+      // 背面カメラを検索し、該当するものがあればそれをデフォルトとして選択
+      const backCamera = videoDevices.find(
+        (device) =>
+          device.label.toLowerCase().includes("back") ||
+          device.label.toLowerCase().includes("rear")
+      );
+      if (backCamera) {
+        setSelectedDevice(backCamera.deviceId);
+      } else if (videoDevices.length > 0) {
         setSelectedDevice(videoDevices[0].deviceId);
       }
     });
@@ -76,9 +96,9 @@ export default function Home() {
           deviceId: selectedDevice ? { exact: selectedDevice } : undefined,
           width: { ideal: isPortrait ? 1000 : 1000 },
           height: { ideal: isPortrait ? 1000 : 1000 },
-          facingMode: {
-            exact: "environment",
-          },
+          // facingMode: {
+          //   exact: "environment",
+          // },
         },
         audio: false,
       };
