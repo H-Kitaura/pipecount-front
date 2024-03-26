@@ -47,6 +47,26 @@ export default function Home() {
 
   console.log(devices);
 
+  // useEffect(() => {
+  //   if (!cameraCheck) return;
+  //   navigator.mediaDevices.enumerateDevices().then((devices) => {
+  //     const videoDevices = devices.filter(
+  //       (device) => device.kind === "videoinput"
+  //     );
+  //     setDevices(videoDevices);
+  //     if (videoDevices.length > 0) {
+  //       setSelectedDevice(videoDevices[0].deviceId);
+  //     }
+  //   });
+  // }, [cameraCheck]);
+
+  // useEffect(() => {
+  //   if (selectedDevice && cameraCheck) {
+  //     getStream();
+  //   }
+  // }, [selectedDevice, cameraCheck]);
+  // ^========================================変更しない
+
   useEffect(() => {
     if (!cameraCheck) return;
     navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -58,17 +78,7 @@ export default function Home() {
         setSelectedDevice(videoDevices[0].deviceId);
       }
     });
-  }, [cameraCheck]);
 
-  // useEffect(() => {
-  //   if (selectedDevice && cameraCheck) {
-  //     getStream();
-  //   }
-  // }, [selectedDevice, cameraCheck]);
-  // ^========================================変更しない
-
-  useEffect(() => {
-    if (!cameraCheck) return;
     const updateVideoResolution = async () => {
       // デバイスの向きに基づいて解像度の制約を設定
       const isPortrait = window.matchMedia("(orientation: portrait)").matches;
