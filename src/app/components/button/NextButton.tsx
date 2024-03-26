@@ -28,7 +28,7 @@ const NextButton = ({
       onClick={hanldleSubmit}
       className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
     >
-      <p className="text-center">次へ</p>
+      <p className="text-center">次の撮影</p>
     </button>
   );
 };

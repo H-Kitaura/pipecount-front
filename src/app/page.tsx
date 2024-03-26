@@ -148,6 +148,8 @@ export default function Home() {
   //   selectedDevice &&
   //   devices.find((v: any) => v.deviceId === selectedDevice);
 
+  console.log(annotation);
+
   return (
     <main>
       <Header cameraCheck={cameraCheck} setCameraCheck={setCameraCheck} />
