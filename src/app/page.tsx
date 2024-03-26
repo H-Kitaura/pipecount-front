@@ -47,32 +47,13 @@ export default function Home() {
 
   console.log(devices);
 
-  // useEffect(() => {
-  //   navigator.mediaDevices.enumerateDevices().then((devices) => {
-  //     const videoDevices = devices.filter(
-  //       (device) => device.kind === "videoinput"
-  //     );
-  //     setDevices(videoDevices);
-  //     if (videoDevices.length > 0) {
-  //       setSelectedDevice(videoDevices[0].deviceId);
-  //     }
-  //   });
-  // }, []);
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const videoDevices = devices.filter(
         (device) => device.kind === "videoinput"
       );
       setDevices(videoDevices);
-
-      // 背面カメラを優先的に選択
-      const rearCamera = videoDevices.find((device) =>
-        /back|rear/i.test(device.label)
-      );
-      if (rearCamera) {
-        setSelectedDevice(rearCamera.deviceId);
-      } else if (videoDevices.length > 0) {
-        // 背面カメラが見つからなければ、利用可能な最初のカメラを選択
+      if (videoDevices.length > 0) {
         setSelectedDevice(videoDevices[0].deviceId);
       }
     });
