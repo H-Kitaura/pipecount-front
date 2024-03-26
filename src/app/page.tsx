@@ -40,7 +40,7 @@ export default function Home() {
   //カメラデータの取得
   useEffect(() => {
     if (devices && devices.length > 0) {
-      setSelectedDevice(devices[1].deviceId);
+      setSelectedDevice(devices[0].deviceId);
       setMode("video");
     }
   }, [devices]);
@@ -54,7 +54,7 @@ export default function Home() {
       );
       setDevices(videoDevices);
       if (videoDevices.length > 0) {
-        setSelectedDevice(videoDevices[1].deviceId);
+        setSelectedDevice(videoDevices[0].deviceId);
       }
     });
   }, []);
