@@ -7,8 +7,6 @@ import { userDataAtom } from "../recoil/loginDataAtom";
 
 const useUserFirstLogin = () => {
   const router = useRouter();
-  // const userData = useRecoilValue(userDataAtom); // useRoilState is better
-  // const setUserData = useSetRecoilState(userDataAtom); // useRoilState is better
   const [userData, setUserData] = useRecoilState(userDataAtom);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -50,15 +48,18 @@ const useUserFirstLogin = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      if (userData.id === 0) {
+      if (userData.data === null) {
         const storedToken = localStorage.getItem("ut");
 
         if (storedToken) {
           const decodedToken: any = jwt(storedToken);
-          if (decodedToken && decodedToken.id) {
+
+          if (decodedToken) {
             const expired = checkExpired(decodedToken);
+
             if (!expired) {
               const apiData = await fetchData(decodedToken.id);
+
               setUserData({
                 id: decodedToken.id,
                 scopes: decodedToken.scopes,
@@ -67,6 +68,7 @@ const useUserFirstLogin = () => {
                 data: apiData,
                 loaded: true,
               });
+
               setIsLoading(false);
             }
           }

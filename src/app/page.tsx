@@ -15,6 +15,7 @@ import CameraSelect from "./components/CameraSelect";
 import { Annotation, Feedback } from "./schemas/type";
 import { ThreeCircles } from "react-loader-spinner";
 import Login from "./components/Login";
+import useUserFirstLogin from "./Hooks/useUserFirstLogin";
 
 export default function Home() {
   //hooks=======================================>
@@ -50,6 +51,8 @@ export default function Home() {
       imageFilename: null,
     },
   });
+  const { userData, setUserData, isLoading } = useUserFirstLogin();
+
   //<==================================hooks
 
   //カメラデータの取得
@@ -243,7 +246,7 @@ export default function Home() {
         feedBack={feedBack}
         setFeedBack={setFeedBack}
       />
-      <Login />
+      {isLoading && <Login />}
     </main>
   );
 }
