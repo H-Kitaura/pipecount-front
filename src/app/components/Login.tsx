@@ -7,6 +7,7 @@ import Alert from "./Alert";
 import useUserFirstLogin from "../Hooks/useUserFirstLogin";
 import { useRecoilState } from "recoil";
 import { userDataAtom } from "../recoil/loginDataAtom";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 const Login = () => {
   //Hooks================================>
@@ -23,12 +24,16 @@ const Login = () => {
   console.log("ユーザーデータ", userData);
 
   const [errors, setErrors] = useState<string[]>([]);
+  //パスワードとtextのtypeを変更する
+  const [showPassword, setShowPassword] = useState(false);
+  // <--- change input type for visibled password --->
+  const inputType = showPassword ? "text" : "password";
+
+  //<==================================Hooks
 
   const hasError = (key: string) => {
     return errors.indexOf(key) !== -1;
   };
-
-  //<==================================Hooks
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
@@ -116,16 +121,28 @@ const Login = () => {
                 err={hasError("username") ? true : false}
                 errMsg={""}
               />
-              <FloatingInput
-                title="Password"
-                name="password"
-                value={userInput.password}
-                onChange={handleChange}
-                type="password"
-                placeholder={"パスワードを入力してください"}
-                err={hasError("password") ? true : false}
-                errMsg={""}
-              />
+              <div className="relative">
+                <FloatingInput
+                  title="Password"
+                  name="password"
+                  value={userInput.password}
+                  onChange={handleChange}
+                  type={inputType}
+                  placeholder={"パスワードを入力してください"}
+                  err={hasError("password") ? true : false}
+                  errMsg={""}
+                />
+                <div
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-2 top-2.5 cursor-pointer rounded-full p-1.5 duration-200 active:scale-95"
+                >
+                  {showPassword ? (
+                    <LuEye className="h-5 w-5" />
+                  ) : (
+                    <LuEyeOff className="h-5 w-5" />
+                  )}
+                </div>
+              </div>
             </div>
             <form onSubmit={handleSubmit}>
               <button className="bg-blue-700 text-white rounded-lg shadow-md hover:bg-blue-600 mt-8 border w-full h-10">

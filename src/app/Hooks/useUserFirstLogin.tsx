@@ -9,7 +9,7 @@ const useUserFirstLogin = () => {
   const router = useRouter();
   const [userData, setUserData] = useRecoilState(userDataAtom);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async (id: number) => {
     try {
@@ -47,6 +47,8 @@ const useUserFirstLogin = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
+
     const checkAuth = async () => {
       if (userData.data === null) {
         const storedToken = localStorage.getItem("ut");
