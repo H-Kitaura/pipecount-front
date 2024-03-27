@@ -175,6 +175,7 @@ const CanvasView = ({
           id: annotation.points.length + 1,
           start: { x: startX, y: startY },
           end: { x: endX, y: endY },
+          labelId: 0,
           score: null,
         };
 
