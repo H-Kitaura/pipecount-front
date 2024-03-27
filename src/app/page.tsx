@@ -13,6 +13,7 @@ import CountResult from "./components/CountResult";
 import TotalCountResult from "./components/TotalCountResult";
 import CameraSelect from "./components/CameraSelect";
 import { Annotation } from "./schemas/type";
+import { ThreeCircles } from "react-loader-spinner";
 
 export default function Home() {
   //hooks=======================================>
@@ -35,6 +36,7 @@ export default function Home() {
     imageBase64: "",
     imageFilename: null,
   });
+  const [loading, setLoading] = useState(false);
   //<==================================hooks
 
   //カメラデータの取得
@@ -176,20 +178,30 @@ export default function Home() {
               setCordinatesDisplay={setCordinatesDisplay}
             />
           )}
-
-          <MainImageDisplay
-            videoRef={videoRef}
-            canvasRef={canvasRef}
-            mode={mode}
-            setMode={setMode}
-            size={size}
-            cordinatesDisplay={cordinatesDisplay}
-            setCordinatesDisplay={setCordinatesDisplay}
-            pointSize={pointSize}
-            cameraCheck={cameraCheck}
-            annotation={annotation}
-            setAnnotation={setAnnotation}
-          />
+          {!loading ? (
+            <div className="flex items-center justify-center h-[400px]">
+              <ThreeCircles
+                innerCircleColor="#47A8BD" // 内側の円の色
+                middleCircleColor="#005D6E" // 中間の円の色
+                outerCircleColor="#003B46" // 外側の円の色
+              />
+            </div>
+          ) : (
+            <MainImageDisplay
+              videoRef={videoRef}
+              canvasRef={canvasRef}
+              mode={mode}
+              setMode={setMode}
+              size={size}
+              cordinatesDisplay={cordinatesDisplay}
+              setCordinatesDisplay={setCordinatesDisplay}
+              pointSize={pointSize}
+              cameraCheck={cameraCheck}
+              annotation={annotation}
+              setAnnotation={setAnnotation}
+              setLoading={setLoading}
+            />
+          )}
 
           <div className="grid grid-cols-2 gap-2 px-4">
             <AICountContent annotation={annotation} />

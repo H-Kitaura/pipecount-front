@@ -16,6 +16,7 @@ type Props = {
   cameraCheck: boolean;
   annotation: Annotation;
   setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const MainImageDisplay = ({
@@ -30,6 +31,7 @@ const MainImageDisplay = ({
   cameraCheck,
   annotation,
   setAnnotation,
+  setLoading,
 }: Props) => {
   // useEffect(() => {
   //   if (videoRef.current) {
@@ -55,6 +57,7 @@ const MainImageDisplay = ({
           size={size}
           annotation={annotation}
           setAnnotation={setAnnotation}
+          setLoading={setLoading}
         />
       )}
       {mode === "canvas" && (

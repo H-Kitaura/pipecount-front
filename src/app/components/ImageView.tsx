@@ -9,9 +9,16 @@ type Props = {
   size: any;
   annotation: Annotation;
   setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ImageView = ({ setMode, size, annotation, setAnnotation }: Props) => {
+const ImageView = ({
+  setMode,
+  size,
+  annotation,
+  setAnnotation,
+  setLoading,
+}: Props) => {
   if (annotation.imageBase64 === null) return;
   return (
     <div className="h-full w-full flex items-center justify-center flex-col">
@@ -26,7 +33,12 @@ const ImageView = ({ setMode, size, annotation, setAnnotation }: Props) => {
       />
       <div className="flex items-center justify-center w-full space-x-4 my-4">
         <RetakephotoButton setMode={setMode} setAnnotation={setAnnotation} />
-        <SendButton setMode={setMode} />
+        <SendButton
+          setMode={setMode}
+          annotation={annotation}
+          setAnnotation={setAnnotation}
+          setLoading={setLoading}
+        />
       </div>
     </div>
   );
