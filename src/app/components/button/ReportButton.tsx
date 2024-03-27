@@ -66,11 +66,11 @@ const ReportButton = ({
     await fetchFeedBack(newFeedBack);
     onClose();
     setMode("video");
-    setTotalCounts((prev) => [...prev, annotation.points.length]);
-    await setAnnotation((prev) => ({
-      ...prev,
-      points: [],
-    }));
+    // setTotalCounts((prev) => [...prev, annotation.points.length]);
+    // await setAnnotation((prev) => ({
+    //   ...prev,
+    //   points: [],
+    // }));
   };
 
   return (
