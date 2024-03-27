@@ -16,3 +16,37 @@ export interface Feedback {
   before: Annotation;
   after: Annotation;
 }
+
+// export interface User {
+//   id?: number;
+//   username: string;
+//   first_name?: string;
+//   last_name?: string;
+//   organization?: string;
+//   description?: string;
+//   address?: string;
+//   mobile?: string;
+//   email?: string;
+//   // hashed_password?: string;
+//   postal?: string;
+//   pref?: string;
+//   city?: string;
+//   device?: number;
+//   window_size?: number;
+//   activated?: boolean;
+//   disabled?: boolean;
+//   last_accessed?: string;
+//   role?: string;
+//   password: string;
+// }
+
+export interface User {
+  username: string;
+  password: string;
+  scope: string;
+}
+
+export interface AlertMessage {
+  status: string;
+  message: string;
+}

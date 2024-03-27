@@ -14,6 +14,7 @@ import TotalCountResult from "./components/TotalCountResult";
 import CameraSelect from "./components/CameraSelect";
 import { Annotation, Feedback } from "./schemas/type";
 import { ThreeCircles } from "react-loader-spinner";
+import Login from "./components/Login";
 
 export default function Home() {
   //hooks=======================================>
@@ -242,6 +243,7 @@ export default function Home() {
         feedBack={feedBack}
         setFeedBack={setFeedBack}
       />
+      <Login />
     </main>
   );
 }
