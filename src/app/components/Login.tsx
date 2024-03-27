@@ -22,6 +22,12 @@ const Login = () => {
   const [userData, setUserData] = useRecoilState(userDataAtom);
   console.log("ユーザーデータ", userData);
 
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const hasError = (key: string) => {
+    return errors.indexOf(key) !== -1;
+  };
+
   //<==================================Hooks
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +47,16 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let errors = [];
+    if (userInput.username === "") {
+      errors.push("username");
+      setErrors(errors);
+    }
+    if (userInput.password.length < 5) {
+      errors.push("password");
+      setErrors(errors);
+    }
+
     if (!validateInput()) {
       return;
     }
@@ -79,16 +95,17 @@ const Login = () => {
           status: "bg-red-500",
           message: "ログインに失敗しました",
         });
+        setErrors(errors);
       });
   }
 
   return (
     <>
-      <div className="fixed inset-0 h-full w-full flex justify-center items-center bg-black opacity-70">
+      <div className="fixed inset-0 h-full w-full flex justify-center items-center bg-black opacity-70 z-50">
         <div className="flex items-center justify-center flex-col">
-          <div className="bg-slate-50 p-8 rounded-lg">
-            <p className="text-3xl font-bold text-center">アカウント認証</p>
-            <div className="grid gap-y-5 mt-8">
+          <div className="bg-slate-50 p-10 rounded-lg w-full min-w-[350px]">
+            <p className="text-2xl font-bold text-center">ユーザー認証</p>
+            <div className="grid gap-y-5 mt-6">
               <FloatingInput
                 title="User Name"
                 name="username"
@@ -96,9 +113,8 @@ const Login = () => {
                 onChange={handleChange}
                 type="text"
                 placeholder={"ユーザー名を入力してください"}
-                // err={hasError("username") ? true : false}
-                err={false}
-                errMsg={"間違ってるよ"}
+                err={hasError("username") ? true : false}
+                errMsg={""}
               />
               <FloatingInput
                 title="Password"
@@ -107,13 +123,12 @@ const Login = () => {
                 onChange={handleChange}
                 type="password"
                 placeholder={"パスワードを入力してください"}
-                // err={hasError("username") ? true : false}
-                err={false}
-                errMsg={"間違ってるよ"}
+                err={hasError("password") ? true : false}
+                errMsg={""}
               />
             </div>
             <form onSubmit={handleSubmit}>
-              <button className="bg-white rounded-lg shadow-md hover:bg-gray-100 mt-8 border w-full h-10">
+              <button className="bg-blue-700 text-white rounded-lg shadow-md hover:bg-blue-600 mt-8 border w-full h-10">
                 ログイン
               </button>
             </form>
