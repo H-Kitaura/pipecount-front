@@ -11,3 +11,17 @@
   width: auto; /* 幅はアスペクト比に応じて自動調整 */
   height: 100%; /* 全高 */
 }
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.loadingText {
+  animation: fadeInOut 2s infinite;
+}

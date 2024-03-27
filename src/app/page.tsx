@@ -180,11 +180,16 @@ export default function Home() {
           )}
           {!loading ? (
             <div className="flex items-center justify-center h-[400px]">
-              <ThreeCircles
-                innerCircleColor="#47A8BD" // 内側の円の色
-                middleCircleColor="#005D6E" // 中間の円の色
-                outerCircleColor="#003B46" // 外側の円の色
-              />
+              <div className="relative">
+                <ThreeCircles
+                  innerCircleColor="#47A8BD" // 内側の円の色
+                  middleCircleColor="#005D6E" // 中間の円の色
+                  outerCircleColor="#003B46" // 外側の円の色
+                />
+                <p className="absolute -bottom-10 left-0 right-0 loadingText">
+                  Loading...
+                </p>
+              </div>
             </div>
           ) : (
             <MainImageDisplay
