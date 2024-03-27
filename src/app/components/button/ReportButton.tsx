@@ -8,13 +8,16 @@ import {
   ModalOverlay,
 } from "../Modal";
 import useDisclosure from "@/app/Hooks/useDisclosure";
-import { Annotation } from "@/app/schemas/type";
+import { Annotation, Feedback } from "@/app/schemas/type";
+import axios from "axios";
 
 type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
   setTotalCounts: React.Dispatch<React.SetStateAction<number[]>>;
   annotation: Annotation;
   setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
+  feedBack: Feedback;
+  setFeedBack: React.Dispatch<React.SetStateAction<Feedback>>;
 };
 
 const ReportButton = ({
@@ -22,15 +25,49 @@ const ReportButton = ({
   setTotalCounts,
   annotation,
   setAnnotation,
+  feedBack,
+  setFeedBack,
 }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const countSubmit = () => {
+  console.log("アノテーション", annotation);
+
+  const fetchFeedBack = async (feedBack: Feedback) => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/pred/feedback`,
+        feedBack,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = response.data;
+      console.log("data", data);
+
+      return data; // This would be your fetched data
+    } catch (error) {
+      console.error("Error fetching point data:", error);
+      return null; // Handle error appropriately
+    } finally {
+    }
+  };
+
+  const countSubmit = async () => {
+    await setFeedBack((prev) => ({
+      ...prev,
+      after: annotation,
+    }));
+    const newFeedBack = {
+      ...feedBack,
+      after: annotation,
+    };
+    await fetchFeedBack(newFeedBack);
     onClose();
     setMode("video");
-    // setTotalCounts((prev) => [...prev, annotation.points.length]);
-    // setPoints([]);
-    setAnnotation((prev) => ({
+    setTotalCounts((prev) => [...prev, annotation.points.length]);
+    await setAnnotation((prev) => ({
       ...prev,
       points: [],
     }));

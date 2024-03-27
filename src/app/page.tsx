@@ -12,7 +12,7 @@ import PointSizeSlider from "./components/PointSizeSlider";
 import CountResult from "./components/CountResult";
 import TotalCountResult from "./components/TotalCountResult";
 import CameraSelect from "./components/CameraSelect";
-import { Annotation } from "./schemas/type";
+import { Annotation, Feedback } from "./schemas/type";
 import { ThreeCircles } from "react-loader-spinner";
 
 export default function Home() {
@@ -37,6 +37,18 @@ export default function Home() {
     imageFilename: null,
   });
   const [loading, setLoading] = useState(false);
+  const [feedBack, setFeedBack] = useState<Feedback>({
+    before: {
+      points: [],
+      imageBase64: "",
+      imageFilename: null,
+    },
+    after: {
+      points: [],
+      imageBase64: "",
+      imageFilename: null,
+    },
+  });
   //<==================================hooks
 
   //カメラデータの取得
@@ -113,7 +125,7 @@ export default function Home() {
       window.removeEventListener("orientationchange", updateVideoResolution);
       // window.removeEventListener("resize", updateVideoResolution);
     };
-  }, [selectedDevice, cameraCheck]);
+  }, [selectedDevice, cameraCheck, mode]);
 
   // const getStream = async () => {
   //   try {
@@ -153,7 +165,7 @@ export default function Home() {
   //   selectedDevice &&
   //   devices.find((v: any) => v.deviceId === selectedDevice);
 
-  console.log(annotation);
+  console.log(feedBack);
 
   return (
     <main>
@@ -207,6 +219,7 @@ export default function Home() {
               annotation={annotation}
               setAnnotation={setAnnotation}
               setLoading={setLoading}
+              setFeedBack={setFeedBack}
             />
           )}
 
@@ -226,6 +239,8 @@ export default function Home() {
         setTotalCounts={setTotalCounts}
         annotation={annotation}
         setAnnotation={setAnnotation}
+        feedBack={feedBack}
+        setFeedBack={setFeedBack}
       />
     </main>
   );

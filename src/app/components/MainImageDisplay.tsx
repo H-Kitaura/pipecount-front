@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ImageView from "./ImageView";
 import CanvasView from "./CanvasView";
 import VideoView from "./VideoView";
-import { Annotation } from "../schemas/type";
+import { Annotation, Feedback } from "../schemas/type";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -17,6 +17,7 @@ type Props = {
   annotation: Annotation;
   setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setFeedBack: React.Dispatch<React.SetStateAction<Feedback>>;
 };
 
 const MainImageDisplay = ({
@@ -32,6 +33,7 @@ const MainImageDisplay = ({
   annotation,
   setAnnotation,
   setLoading,
+  setFeedBack,
 }: Props) => {
   // useEffect(() => {
   //   if (videoRef.current) {
@@ -58,6 +60,7 @@ const MainImageDisplay = ({
           annotation={annotation}
           setAnnotation={setAnnotation}
           setLoading={setLoading}
+          setFeedBack={setFeedBack}
         />
       )}
       {mode === "canvas" && (

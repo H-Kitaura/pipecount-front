@@ -2,7 +2,7 @@ import React from "react";
 import PhotoButton from "./button/PhotoButton";
 import NextButton from "./button/NextButton";
 import ReportButton from "./button/ReportButton";
-import { Annotation } from "../schemas/type";
+import { Annotation, Feedback } from "../schemas/type";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -11,6 +11,8 @@ type Props = {
   setTotalCounts: React.Dispatch<React.SetStateAction<number[]>>;
   annotation: Annotation;
   setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
+  feedBack: Feedback;
+  setFeedBack: React.Dispatch<React.SetStateAction<Feedback>>;
 };
 
 const Footer = ({
@@ -20,6 +22,8 @@ const Footer = ({
   setTotalCounts,
   annotation,
   setAnnotation,
+  feedBack,
+  setFeedBack,
 }: Props) => {
   return (
     <div className="flex items-center justify-center w-full px-4 pb-12 space-x-4 pt-6">
@@ -42,6 +46,8 @@ const Footer = ({
             setTotalCounts={setTotalCounts}
             annotation={annotation}
             setAnnotation={setAnnotation}
+            feedBack={feedBack}
+            setFeedBack={setFeedBack}
           />
         </>
       )}

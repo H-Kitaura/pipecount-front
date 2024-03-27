@@ -2,7 +2,7 @@ import React from "react";
 import { style } from "../styles/style";
 import RetakephotoButton from "./button/RetakephotoButton";
 import SendButton from "./button/SendButton";
-import { Annotation } from "../schemas/type";
+import { Annotation, Feedback } from "../schemas/type";
 
 type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
@@ -10,6 +10,7 @@ type Props = {
   annotation: Annotation;
   setAnnotation: React.Dispatch<React.SetStateAction<Annotation>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setFeedBack: React.Dispatch<React.SetStateAction<Feedback>>;
 };
 
 const ImageView = ({
@@ -18,6 +19,7 @@ const ImageView = ({
   annotation,
   setAnnotation,
   setLoading,
+  setFeedBack,
 }: Props) => {
   if (annotation.imageBase64 === null) return;
   return (
@@ -38,6 +40,7 @@ const ImageView = ({
           annotation={annotation}
           setAnnotation={setAnnotation}
           setLoading={setLoading}
+          setFeedBack={setFeedBack}
         />
       </div>
     </div>

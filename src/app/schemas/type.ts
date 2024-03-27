@@ -11,3 +11,8 @@ export interface Annotation {
   imageBase64: string;
   imageFilename: string | null;
 }
+
+export interface Feedback {
+  before: Annotation;
+  after: Annotation;
+}
