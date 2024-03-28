@@ -15,17 +15,17 @@ const CordinatesButton = ({
   };
 
   return (
-    <div className="flex justify-end items-end w-full px-4">
+    <div className="flex justify-end items-end w-full px-4  mt-1">
       {cordinatesDisplay ? (
         <button
-          className={`${style.buttonLayout} ${style.slateGradation} mt-1`}
+          className={`${style.buttonLayout} ${style.slateGradation}`}
           onClick={handleCordinates}
         >
           <p className="px-2a py-1a">座標を非表示にする</p>
         </button>
       ) : (
         <button
-          className={`${style.buttonLayout} ${style.tealGradation} mt-1`}
+          className={`${style.buttonLayout} ${style.tealGradation}`}
           onClick={handleCordinates}
         >
           <p className="px-2a py-1a">座標を表示する</p>
