@@ -43,12 +43,13 @@ const ImageView = ({
         alt="image"
       />
       <div className="flex items-center justify-center w-full space-x-4 my-4">
-        <button
+        {/* <button
           onClick={handleReset}
           className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
         >
           <p className="text-center">再撮影</p>
-        </button>
+        </button> */}
+        <RetakephotoButton setMode={setMode} setAnnotation={setAnnotation} />
         <SendButton
           setMode={setMode}
           annotation={annotation}

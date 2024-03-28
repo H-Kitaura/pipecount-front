@@ -27,7 +27,7 @@ const VideoConnection = ({
       {cameraCheck ? (
         <>
           <button
-            className={`${style.buttonLayout} px-4 h-[30px]`}
+            className={`${style.buttonLayout} ${style.redGradation} px-4 py-2`}
             onClick={handleUnConnectClick}
           >
             カメラを切断
@@ -36,7 +36,7 @@ const VideoConnection = ({
       ) : (
         <>
           <button
-            className={`${style.buttonLayout} px-4 h-[30px]`}
+            className={`${style.buttonLayout}  ${style.greenGradation} px-4 py-2`}
             onClick={handleConnectClick}
           >
             カメラを接続

@@ -10,7 +10,7 @@ type Props = {
 const BigButton = ({ className, onClick, children }: Props) => {
   return (
     <button
-      className={`${style.bigButtonContainer} ${className}`}
+      className={`shadow border py-2 px-4 text-sm ${className}`}
       onClick={onClick}
     >
       {children}

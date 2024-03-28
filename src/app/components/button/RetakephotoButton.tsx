@@ -24,7 +24,10 @@ const RetakephotoButton = ({ setMode, setAnnotation }: Props) => {
     // >
     //   <p className="text-center">再撮影</p>
     // </button>
-    <BigButton className={`${style.orangeGradation}`} onClick={handleReset}>
+    <BigButton
+      className={`${style.orangeGradation} w-full`}
+      onClick={handleReset}
+    >
       再撮影
     </BigButton>
   );

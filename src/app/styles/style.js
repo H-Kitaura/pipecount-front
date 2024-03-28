@@ -1,5 +1,5 @@
 export const style = {
-  buttonLayout: "shadow border bg-white hover:bg-slate-200 text-sm",
+  buttonLayout: "shadow border text-sm py-2 px-4",
   bigButtonContainer:
     "md:px-5 px-3 py-2 md:py-3 font-medium text-sm md:text-lg leading-tight uppercase rounded-lg shadow-lg focus:outline-none focus:ring-0 transition duration-150 ease-in-out transform hover:-translate-y-1 hover:scale-105",
   blueGradation:
@@ -22,4 +22,6 @@ export const style = {
     "text-white bg-gradient-to-r from-teal-500 to-teal-600 hover:bg-gradient-to-r hover:from-teal-600 hover:to-teal-700",
   legasyssColor:
     "text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-pink-500 hover:to-pink-500",
+  slateGradation:
+    "text-white bg-gradient-to-r from-slate-500 to-slate-600 hover:bg-gradient-to-r hover:from-slate-600 hover:to-slate-700",
 };

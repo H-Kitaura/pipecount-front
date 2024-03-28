@@ -3,6 +3,7 @@ import PhotoButton from "./button/PhotoButton";
 import NextButton from "./button/NextButton";
 import ReportButton from "./button/ReportButton";
 import { Annotation, Feedback } from "../schemas/type";
+import RetakephotoButton from "./button/RetakephotoButton";
 
 type Props = {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -26,32 +27,34 @@ const Footer = ({
   setFeedBack,
 }: Props) => {
   return (
-    <div className="flex items-center justify-center w-full px-2 pb-12 gap-2 pt-6">
-      <PhotoButton
-        videoRef={videoRef}
-        mode={mode}
-        setMode={setMode}
-        setAnnotation={setAnnotation}
-      />
+    <>
       {mode === "canvas" && (
-        <>
-          <NextButton
-            annotation={annotation}
-            setAnnotation={setAnnotation}
-            setTotalCounts={setTotalCounts}
-            setMode={setMode}
-          />
-          <ReportButton
-            setMode={setMode}
-            setTotalCounts={setTotalCounts}
-            annotation={annotation}
-            setAnnotation={setAnnotation}
-            feedBack={feedBack}
-            setFeedBack={setFeedBack}
-          />
-        </>
+        <div className="w-full px-2 pb-12 pt-6">
+          <>
+            <div className="w-full flex items-center justify-center gap-4">
+              <RetakephotoButton
+                setMode={setMode}
+                setAnnotation={setAnnotation}
+              />
+              <NextButton
+                annotation={annotation}
+                setAnnotation={setAnnotation}
+                setTotalCounts={setTotalCounts}
+                setMode={setMode}
+              />
+            </div>
+            <ReportButton
+              setMode={setMode}
+              setTotalCounts={setTotalCounts}
+              annotation={annotation}
+              setAnnotation={setAnnotation}
+              feedBack={feedBack}
+              setFeedBack={setFeedBack}
+            />
+          </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -58,7 +58,7 @@ const SendButton = ({
   return (
     <button
       onClick={handleImage}
-      className={`${style.buttonLayout} py-2 px-4 w-1/2 `}
+      className={`${style.buttonLayout} ${style.legasyssColor} py-2 px-4 w-full `}
     >
       送信
     </button>

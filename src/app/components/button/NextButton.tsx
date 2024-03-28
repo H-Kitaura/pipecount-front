@@ -31,7 +31,10 @@ const NextButton = ({
     // >
     //   <p className="text-center">次の撮影</p>
     // </button>
-    <BigButton className={`${style.blueGradation}`} onClick={hanldleSubmit}>
+    <BigButton
+      className={`${style.blueGradation} w-full`}
+      onClick={hanldleSubmit}
+    >
       次の撮影
     </BigButton>
   );

@@ -82,7 +82,10 @@ const ReportButton = ({
       >
         <p className="text-center">フィードバック</p>
       </button> */}
-      <BigButton className={`${style.legasyssColor}`} onClick={onOpen}>
+      <BigButton
+        className={`${style.legasyssColor} w-full mt-4`}
+        onClick={onOpen}
+      >
         この画像をフィードバック
       </BigButton>
 
