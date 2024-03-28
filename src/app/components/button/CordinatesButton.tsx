@@ -16,14 +16,29 @@ const CordinatesButton = ({
 
   return (
     <div className="flex justify-end items-end w-full px-4">
-      <button
+      {cordinatesDisplay ? (
+        <button
+          className={`${style.buttonLayout} ${style.slateGradation} mt-1`}
+          onClick={handleCordinates}
+        >
+          <p className="px-2a py-1a">座標を非表示にする</p>
+        </button>
+      ) : (
+        <button
+          className={`${style.buttonLayout} ${style.tealGradation} mt-1`}
+          onClick={handleCordinates}
+        >
+          <p className="px-2a py-1a">座標を表示する</p>
+        </button>
+      )}
+      {/* <button
         className={`${style.buttonLayout} bg-white hover:bg-slate-200 mt-1`}
         onClick={handleCordinates}
       >
         <p className="px-2a py-1a">
           {cordinatesDisplay ? "座標を非表示する" : "座標を表示する"}
         </p>
-      </button>
+      </button> */}
     </div>
   );
 };

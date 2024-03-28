@@ -23,5 +23,5 @@ export const style = {
   legasyssColor:
     "text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:via-pink-500 hover:to-pink-500",
   slateGradation:
-    "text-white bg-gradient-to-r from-slate-500 to-slate-600 hover:bg-gradient-to-r hover:from-slate-600 hover:to-slate-700",
+    "text-white bg-gradient-to-r from-slate-500 to-slate-500 hover:bg-gradient-to-r hover:from-slate-500 hover:to-slate-500",
 };
