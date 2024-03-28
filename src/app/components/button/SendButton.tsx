@@ -2,6 +2,7 @@ import { Annotation, Feedback } from "@/app/schemas/type";
 import { style } from "@/app/styles/style";
 import axios from "axios";
 import React from "react";
+import BigButton from "./BigButton";
 
 type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
@@ -61,6 +62,9 @@ const SendButton = ({
     >
       送信
     </button>
+    // <BigButton className={`${style.blueGradation} `} onClick={handleImage}>
+    //   送信
+    // </BigButton>
   );
 };
 

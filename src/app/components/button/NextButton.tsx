@@ -1,6 +1,7 @@
 import React from "react";
 import { style } from "@/app/styles/style";
 import { Annotation } from "@/app/schemas/type";
+import BigButton from "./BigButton";
 
 type Props = {
   setTotalCounts: React.Dispatch<React.SetStateAction<number[]>>;
@@ -24,12 +25,15 @@ const NextButton = ({
     }));
   };
   return (
-    <button
-      onClick={hanldleSubmit}
-      className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
-    >
-      <p className="text-center">次の撮影</p>
-    </button>
+    // <button
+    //   onClick={hanldleSubmit}
+    //   className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
+    // >
+    //   <p className="text-center">次の撮影</p>
+    // </button>
+    <BigButton className={`${style.blueGradation}`} onClick={hanldleSubmit}>
+      次の撮影
+    </BigButton>
   );
 };
 

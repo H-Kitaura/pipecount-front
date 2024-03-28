@@ -21,6 +21,15 @@ const ImageView = ({
   setLoading,
   setFeedBack,
 }: Props) => {
+  const handleReset = () => {
+    setMode("video");
+    setAnnotation((prev) => ({
+      ...prev,
+      points: [],
+      imageBase64: "",
+    }));
+  };
+
   if (annotation.imageBase64 === null) return;
   return (
     <div className="h-full w-full flex items-center justify-center flex-col">
@@ -34,7 +43,12 @@ const ImageView = ({
         alt="image"
       />
       <div className="flex items-center justify-center w-full space-x-4 my-4">
-        <RetakephotoButton setMode={setMode} setAnnotation={setAnnotation} />
+        <button
+          onClick={handleReset}
+          className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
+        >
+          <p className="text-center">再撮影</p>
+        </button>
         <SendButton
           setMode={setMode}
           annotation={annotation}

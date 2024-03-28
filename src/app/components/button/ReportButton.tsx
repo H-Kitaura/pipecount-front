@@ -10,6 +10,7 @@ import {
 import useDisclosure from "@/app/Hooks/useDisclosure";
 import { Annotation, Feedback } from "@/app/schemas/type";
 import axios from "axios";
+import BigButton from "./BigButton";
 
 type Props = {
   setMode: React.Dispatch<React.SetStateAction<string>>;
@@ -75,12 +76,16 @@ const ReportButton = ({
 
   return (
     <>
-      <button
+      {/* <button
         onClick={onOpen}
         className={`${style.buttonLayout} w-1/2 flex items-center justify-center h-[40px]`}
       >
         <p className="text-center">フィードバック</p>
-      </button>
+      </button> */}
+      <BigButton className={`${style.legasyssColor}`} onClick={onOpen}>
+        この画像をフィードバック
+      </BigButton>
+
       <ModalOverlay isOpen={isOpen} onClose={onClose}>
         <ModalContainer
           className="bg-white p-2 mx-2 max-w-sm w-full"

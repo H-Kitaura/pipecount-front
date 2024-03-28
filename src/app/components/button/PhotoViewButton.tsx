@@ -23,8 +23,10 @@ const PhotoViewButton = ({
     const month = String(date.getMonth() + 1).padStart(2, "0"); // 月は0から始まるため、1を加える
     const day = String(date.getDate()).padStart(2, "0");
     const hour = String(date.getHours()).padStart(2, "0");
+    const minute = String(date.getMinutes()).padStart(2, "0");
+    const second = String(date.getSeconds()).padStart(2, "0");
 
-    return `${year}_${month}_${day}_${hour}`;
+    return `${year}_${month}_${day}_${hour}_${minute}_${second}`;
   }
   const handlePhotoShot = () => {
     const video = videoRef.current;

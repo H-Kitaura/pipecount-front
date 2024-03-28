@@ -194,7 +194,7 @@ export default function Home() {
               setCordinatesDisplay={setCordinatesDisplay}
             />
           )}
-          {loading ? (
+          {loading && (
             <div className="fixed top-0 left-0 h-screen w-full flex justify-center items-center modal-overlay z-50 opacity-70 bg-black">
               <div className="flex items-center justify-center h-[400px]">
                 <div className="relative">
@@ -209,23 +209,22 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          ) : (
-            <MainImageDisplay
-              videoRef={videoRef}
-              canvasRef={canvasRef}
-              mode={mode}
-              setMode={setMode}
-              size={size}
-              cordinatesDisplay={cordinatesDisplay}
-              setCordinatesDisplay={setCordinatesDisplay}
-              pointSize={pointSize}
-              cameraCheck={cameraCheck}
-              annotation={annotation}
-              setAnnotation={setAnnotation}
-              setLoading={setLoading}
-              setFeedBack={setFeedBack}
-            />
           )}
+          <MainImageDisplay
+            videoRef={videoRef}
+            canvasRef={canvasRef}
+            mode={mode}
+            setMode={setMode}
+            size={size}
+            cordinatesDisplay={cordinatesDisplay}
+            setCordinatesDisplay={setCordinatesDisplay}
+            pointSize={pointSize}
+            cameraCheck={cameraCheck}
+            annotation={annotation}
+            setAnnotation={setAnnotation}
+            setLoading={setLoading}
+            setFeedBack={setFeedBack}
+          />
 
           <div className="grid grid-cols-2 gap-2 px-4">
             <AICountContent annotation={annotation} />
