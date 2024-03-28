@@ -11,7 +11,7 @@ type Props = {
 const Header = ({ cameraCheck, setCameraCheck, setDevices }: Props) => {
   return (
     <div className="flex items-center justify-between py-2 px-4">
-      <p className="text-2xl">PIPE COUNT</p>
+      <p className="text-2xl font-bold text-gradient-ai">PIPE-COUNT</p>
       <VideoConnection
         cameraCheck={cameraCheck}
         setCameraCheck={setCameraCheck}

@@ -25,3 +25,16 @@
 .loadingText {
   animation: fadeInOut 2s infinite;
 }
+
+.text-gradient-ai {
+  background: linear-gradient(
+    to right,
+    #7c4dff,
+    /* Indigo */ #d500f9,
+    /* Purple */ #ff4081 /* Pink */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
