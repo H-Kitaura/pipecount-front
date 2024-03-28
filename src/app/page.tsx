@@ -169,11 +169,15 @@ export default function Home() {
   //   selectedDevice &&
   //   devices.find((v: any) => v.deviceId === selectedDevice);
 
-  console.log(feedBack);
+  console.log(devices);
 
   return (
     <main>
-      <Header cameraCheck={cameraCheck} setCameraCheck={setCameraCheck} />
+      <Header
+        cameraCheck={cameraCheck}
+        setCameraCheck={setCameraCheck}
+        setDevices={setDevices}
+      />
       <Container>
         <Wrapper>
           {cameraCheck && (
@@ -245,7 +249,7 @@ export default function Home() {
         feedBack={feedBack}
         setFeedBack={setFeedBack}
       />
-      {userData.data === null && <Login />}
+      {!userData.data === null && <Login />}
     </main>
   );
 }

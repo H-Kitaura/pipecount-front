@@ -4,9 +4,14 @@ import React, { useEffect } from "react";
 type Props = {
   cameraCheck: boolean;
   setCameraCheck: React.Dispatch<React.SetStateAction<boolean>>;
+  setDevices: React.Dispatch<React.SetStateAction<MediaDeviceInfo[]>>;
 };
 
-const VideoConnection = ({ cameraCheck, setCameraCheck }: Props) => {
+const VideoConnection = ({
+  cameraCheck,
+  setCameraCheck,
+  setDevices,
+}: Props) => {
   //カメラ表示の時に使うハンドラー
   const handleConnectClick = () => {
     setCameraCheck(true);
@@ -14,6 +19,7 @@ const VideoConnection = ({ cameraCheck, setCameraCheck }: Props) => {
 
   //カメラを切るときに使うハンドラー
   const handleUnConnectClick = () => {
+    setDevices([]);
     setCameraCheck(false);
   };
 
