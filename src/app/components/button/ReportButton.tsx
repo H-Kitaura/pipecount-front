@@ -114,13 +114,13 @@ const ReportButton = ({
                 onClick={countSubmit}
                 className=" text-white bg-blue-600 hover:bg-blue-500 min-w-[80px] h-[32px] mx-1"
               >
-                <p className={`text-sm mb-[2px]`}>送信</p>
+                <p className={`text-sm`}>送信</p>
               </button>
               <button
                 onClick={onClose}
-                className="border border-black bg-white hover:bg-gray-100 min-w-[80px] h-[32px] px-4 mx-1"
+                className=" border border-black bg-white hover:bg-gray-100 min-w-[80px] h-[32px] px-4 mx-1"
               >
-                <p className="mx-1 font-medium text-sm mb-[2px]">キャンセル</p>
+                <p className="mx-1 font-medium text-sm ">キャンセル</p>
               </button>
             </div>
           </ModalFooter>
