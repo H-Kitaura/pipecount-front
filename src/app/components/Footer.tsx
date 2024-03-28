@@ -29,7 +29,7 @@ const Footer = ({
   return (
     <>
       {mode === "canvas" && (
-        <div className="w-full px-2 pb-12 pt-6">
+        <div className="w-full px-4 pb-12 pt-6">
           <>
             <div className="w-full flex items-center justify-center gap-4">
               <RetakephotoButton

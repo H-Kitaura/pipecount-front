@@ -62,7 +62,9 @@ export default function Home() {
   function stopCamera() {
     if (stream) {
       const tracks = stream.getTracks();
-      tracks.forEach((track: any) => {
+      console.log(tracks);
+
+      tracks.forEach((track) => {
         track.stop();
       });
       console.log("カメラの使用が停止されました。");
