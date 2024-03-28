@@ -57,11 +57,12 @@ export default function Home() {
 
   //カメラデータの取得
   useEffect(() => {
+    if (!cameraCheck) return;
     if (devices && devices.length > 0) {
       setSelectedDevice(devices[0].deviceId);
       setMode("video");
     }
-  }, [devices]);
+  }, [devices, cameraCheck]);
 
   console.log(devices);
 
