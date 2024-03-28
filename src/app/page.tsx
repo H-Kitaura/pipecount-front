@@ -246,7 +246,7 @@ export default function Home() {
         feedBack={feedBack}
         setFeedBack={setFeedBack}
       />
-      {isLoading && <Login />}
+      {userData.data === null && <Login />}
     </main>
   );
 }
