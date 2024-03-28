@@ -52,13 +52,11 @@ export default function Home() {
     },
   });
   const { userData, setUserData, isLoading } = useUserFirstLogin();
+  //ストリーム情報を保持しておく
   const [stream, setStream] = useState<MediaStream | null>(null);
   console.log(stream);
 
   //<==================================hooks
-
-  // グローバルまたは適切なスコープにストリームの参照を保持
-  // let currentStream: any = null;
 
   // カメラを停止させる処理
   function stopCamera() {
