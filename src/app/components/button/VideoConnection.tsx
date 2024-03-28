@@ -19,23 +19,6 @@ const VideoConnection = ({
 
   //カメラを切るときに使うハンドラー
   const handleUnConnectClick = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then(function (stream) {
-        // Streamに含まれるすべてのトラックを取得
-        const tracks = stream.getTracks();
-
-        // それぞれのトラックを停止
-        tracks.forEach(function (track) {
-          track.stop();
-        });
-
-        // トラックが停止したことを確認
-        console.log("カメラの使用が停止されました。", tracks);
-      })
-      .catch(function (error) {
-        console.log("カメラの停止中にエラーが発生しました: ", error);
-      });
     setCameraCheck(false);
   };
 

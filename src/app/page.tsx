@@ -52,22 +52,42 @@ export default function Home() {
     },
   });
   const { userData, setUserData, isLoading } = useUserFirstLogin();
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  console.log(stream);
 
   //<==================================hooks
 
+  // グローバルまたは適切なスコープにストリームの参照を保持
+  // let currentStream: any = null;
+
+  // カメラを停止させる処理
+  function stopCamera() {
+    if (stream) {
+      const tracks = stream.getTracks();
+      tracks.forEach((track: any) => {
+        track.stop();
+      });
+      console.log("カメラの使用が停止されました。");
+      setStream(null);
+    }
+  }
+
   //カメラデータの取得
   useEffect(() => {
-    if (!cameraCheck) return;
+    if (!cameraCheck) {
+      setDevices([]);
+    }
     if (devices && devices.length > 0) {
       setSelectedDevice(devices[0].deviceId);
       setMode("video");
     }
-  }, [devices, cameraCheck]);
+  }, [cameraCheck]);
 
   console.log(devices);
 
   useEffect(() => {
     if (!cameraCheck) return;
+
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const videoDevices = devices.filter(
         (device) => device.kind === "videoinput"
@@ -87,7 +107,6 @@ export default function Home() {
   // ^========================================変更しない
 
   useEffect(() => {
-    if (!cameraCheck) return;
     const updateVideoResolution = async () => {
       // デバイスの向きに基づいて解像度の制約を設定
       const isPortrait = window.matchMedia("(orientation: portrait)").matches;
@@ -102,6 +121,7 @@ export default function Home() {
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        setStream(stream);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           videoRef.current.onloadedmetadata = () => {
@@ -118,13 +138,18 @@ export default function Home() {
       }
     };
 
+    if (!cameraCheck) {
+      stopCamera();
+    } else {
+      updateVideoResolution();
+    }
+
     // オリエンテーションやリサイズイベントに基づいて解像度を更新
     window.addEventListener("orientationchange", updateVideoResolution);
     // resizeイベントも考慮する場合は追加（iPhoneでの誤検知に注意）
     // window.addEventListener("resize", updateVideoResolution);
 
     // 初期ロードとイベント発火時に実行
-    updateVideoResolution();
 
     return () => {
       window.removeEventListener("orientationchange", updateVideoResolution);
