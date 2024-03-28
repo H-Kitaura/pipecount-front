@@ -26,7 +26,7 @@ const Footer = ({
   setFeedBack,
 }: Props) => {
   return (
-    <div className="flex items-center justify-center w-full px-4 pb-12 space-x-4 pt-6">
+    <div className="flex items-center justify-center w-full px-2 pb-12 gap-2 pt-6">
       <PhotoButton
         videoRef={videoRef}
         mode={mode}
