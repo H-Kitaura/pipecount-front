@@ -25,7 +25,7 @@ const VideoConnection = ({ cameraCheck, setCameraCheck }: Props) => {
             className={`${style.buttonLayout} px-4 h-[30px]`}
             onClick={handleUnConnectClick}
           >
-            カメラを非接続
+            カメラを切断
           </button>
         </>
       ) : (
